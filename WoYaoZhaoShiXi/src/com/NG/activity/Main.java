@@ -20,6 +20,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
+import cn.sharesdk.framework.ShareSDK;
+
 import com.NG.adapter.MessageAdapter;
 import com.NG.entity.MessageDetail;
 import com.example.drawer.R;
@@ -91,6 +93,9 @@ public class Main extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
+        // 初始化shareSDK，使用ShareSDK.xml配置分享平台必须调用
+        ShareSDK.initSDK(this);
 
         mTitle = mDrawerTitle = getTitle();
         mPlanetTitles = getResources().getStringArray(R.array.planets_array);
@@ -223,6 +228,13 @@ public class Main extends Activity {
         // Pass any configuration change to the drawer toggls
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
-
+    
+    @Override
+    protected void onDestroy() {
+    	super.onDestroy();
+    	
+    	// 停止shareSDK
+    	ShareSDK.stopSDK(this);
+    }
     
 }

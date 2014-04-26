@@ -101,9 +101,7 @@ public class MessageFragment extends Fragment implements IXListViewListener{
 				};
     	for(int i=0;i<10;i++){
         	MessageDetail m = new MessageDetail();
-        	m.setSource("北邮人论坛");
-        	
-        	
+        	m.setSource("北邮人论坛");   	 	
         	m.setTitle(a[i]);
         	m.setTime("2014-04-18");
         	items.add(m);

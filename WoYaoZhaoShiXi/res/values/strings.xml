@@ -15,8 +15,9 @@
   -->
 
 <resources>
-    <string name="app_name">实习助手</string>
+    <string name="app_name">我要找实习</string>
     <string name="detail">详情</string>
+    <string name="origin_post">原链接</string>
     <string-array name="planets_array">
         <item>找实习</item>
         <item>我的筛选</item>

@@ -4,9 +4,12 @@ import com.NG.entity.ItemDetail;
 import com.example.drawer.R;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.ClipData.Item;
 import android.os.Bundle;
 import android.text.Html;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.TextView;
 
 public class DetailActivity extends Activity{
@@ -42,6 +45,23 @@ public class DetailActivity extends Activity{
 		sourceView  = (TextView) findViewById(R.id.item_source);
 		contentView = (TextView) findViewById(R.id.item_content);
 		
+		titleView.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent();  
+                // 设置Intent的源地址和目标地址  
+                intent.setClass(DetailActivity.this, webActivity.class);  
+                //Intent可以通过Bundle进行数据的传递  
+                Bundle bundle = new Bundle();  
+                bundle.putString("item_url", "http://m.byr.cn/article/JobInfo/154848");  
+                intent.putExtras(bundle);  
+                // 调用startActivity方法发送意图给系统  
+                startActivity(intent);
+			}
+			
+		});
 	}
 	
 	private void loadData() {

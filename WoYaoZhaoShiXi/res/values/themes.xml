@@ -9,6 +9,6 @@
     <!-- ActionBar styles -->
     <style name="MyActionBar"
            parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
-        <item name="android:background">@drawable/actionbar_backgroud</item>
+        <item name="android:background">@drawable/title_1</item>
     </style>
 </resources>

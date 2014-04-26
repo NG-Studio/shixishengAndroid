@@ -1,4 +1,4 @@
-package com.example.drawer;
+package com.NG.activity;
 /*
  * Copyright 2013 The Android Open Source Project
  *
@@ -20,8 +20,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
-import com.example.entity.Message;
-import com.jy.adapter.MessageAdapter;
+import com.NG.adapter.MessageAdapter;
+import com.NG.entity.MessageDetail;
+import com.example.drawer.R;
 
 import android.app.Activity;
 import android.app.Fragment;

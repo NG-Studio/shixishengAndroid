@@ -1,10 +1,10 @@
-﻿package com.jy.adapter;
+﻿package com.NG.adapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.NG.entity.MessageDetail;
 import com.example.drawer.R;
-import com.example.entity.Message;
 
 import android.app.Activity;
 import android.content.Context;
@@ -29,9 +29,9 @@ public class MessageAdapter extends BaseAdapter {
 	}
 
 	private Context mContext;
-	private List<Message> aList;
+	private List<MessageDetail> aList;
 
-	public MessageAdapter(Context context, List<Message> seList) {
+	public MessageAdapter(Context context, List<MessageDetail> seList) {
 		this.mContext = context;
 		Log.d(TAG, "contruct");
 		aList = seList;
@@ -78,7 +78,7 @@ public class MessageAdapter extends BaseAdapter {
 		} else {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
-		final Message m = aList.get(position);
+		final MessageDetail m = aList.get(position);
 		
 		Log.d(TAG, m.getTitle()+m.getTime()+m.getSource());
 

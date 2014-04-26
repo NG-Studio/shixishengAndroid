@@ -1,4 +1,4 @@
-package com.example.drawer;
+package com.NG.activity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,8 +12,9 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 
-import com.example.entity.Message;
-import com.jy.adapter.MessageAdapter;
+import com.NG.adapter.MessageAdapter;
+import com.NG.entity.MessageDetail;
+import com.example.drawer.R;
 
 public class ItemFragment {
 	
@@ -43,9 +44,9 @@ public class ItemFragment {
 				"【实习】北京致远软件招聘项目助理实习生" 
 				};
 
-        List<Message> listItem = new ArrayList<Message>();
+        List<MessageDetail> listItem = new ArrayList<MessageDetail>();
         for(int i=0;i<10;i++){
-        	Message m = new Message();
+        	MessageDetail m = new MessageDetail();
         	m.setSource("北邮人论坛");
         	
         	

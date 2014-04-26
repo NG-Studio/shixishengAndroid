@@ -1,11 +1,11 @@
-package com.example.entity;
+package com.NG.entity;
 
 /**
  * @author Administrator
  * Item 类
  * 由于与Message有许多相似之处，所以设计为Message子类
  */
-public class Item extends Message{
+public class ItemDetail extends MessageDetail{
 	
 	
 	private String text;

@@ -1,10 +1,10 @@
-package com.example.entity;
+package com.NG.entity;
 
 /**
  * @author jiyuan
  * message类		
  */
-public class Message {
+public class MessageDetail {
 	//每个Message唯一的id
 	private int uid;
 	//Message的标题

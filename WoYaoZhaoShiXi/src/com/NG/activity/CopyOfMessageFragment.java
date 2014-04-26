@@ -1,4 +1,4 @@
-package com.example.drawer;
+package com.NG.activity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,16 +14,17 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 
-import com.example.entity.Message;
-import com.jy.adapter.MessageAdapter;
+import com.NG.adapter.MessageAdapter;
+import com.NG.entity.MessageDetail;
+import com.example.drawer.R;
 
 /**
  * Fragment that appears in the "content_frame", shows a planet
  */
-public class MessageFragment extends Fragment {
+public class CopyOfMessageFragment extends Fragment {
     public static final String ARG_PLANET_NUMBER = "planet_number";
 
-    public MessageFragment() {
+    public CopyOfMessageFragment() {
         // Empty constructor required for fragment subclasses
     }
     
@@ -77,9 +78,9 @@ public class MessageFragment extends Fragment {
 				"【实习】北京致远软件招聘项目助理实习生" 
 				};
 
-        List<Message> listItem = new ArrayList<Message>();
+        List<MessageDetail> listItem = new ArrayList<MessageDetail>();
         for(int i=0;i<10;i++){
-        	Message m = new Message();
+        	MessageDetail m = new MessageDetail();
         	m.setSource("北邮人论坛");
         	
         	

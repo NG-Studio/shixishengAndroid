@@ -74,7 +74,7 @@ public class MessageFragment extends Fragment implements IXListViewListener{
 		// ProgressDialog
 		proDialog = new ProgressDialog(this.getActivity());
 		proDialog.setTitle(R.string.loading);
-		proDialog.setMessage("请您耐心等待...");
+		proDialog.setMessage("璇疯�愬績绛夊緟...");
 
 		mMessageLoader = new MessageInfoLoader();
 
@@ -82,7 +82,6 @@ public class MessageFragment extends Fragment implements IXListViewListener{
 		proDialog.show();
 		
         final Activity MainActivity =this.getActivity();
-        //添加点击   
         mListView.setOnItemClickListener(new OnItemClickListener() {   
   
             @Override  
@@ -91,15 +90,12 @@ public class MessageFragment extends Fragment implements IXListViewListener{
             	
             	System.out.println("DIANJI");
             	Intent intent = new Intent();  
-                // 设置Intent的源地址和目标地址  
-                intent.setClass(MainActivity, DetailActivity.class);  
-                //Intent可以通过Bundle进行数据的传递  
+                intent.setClass(MainActivity, DetailActivity.class);   
                 Bundle bundle = new Bundle();  
                 bundle.putInt("item_id", mdList.get(arg2).getUid());  
                 intent.putExtras(bundle);  
-                // 调用startActivity方法发送意图给系统  
                 startActivity(intent);  
-                //关闭当前activity，添加了该语句后，用户通过点击返回键是无法返回该activity的  
+ 
             }   
         }); 
         
@@ -111,32 +107,11 @@ public class MessageFragment extends Fragment implements IXListViewListener{
         return rootView;
     }
     
-    private void geneItems() {
-    	String[] a = { "【百度校招暑期实习生】实习技术运营（北京）", 
-				"【百度校招暑期实习生】实习技术运营（北京）",
-				"【招聘】NBT Partners招校园运营实习生[不需要坐班]",
-				"招聘实习兼职生 平安银行 中小企业金融事业部", 
-				"【中科院软件所】招聘硬件研发实习生",
-				"石化盈科（中石化IT信息化公司）招聘计算机相关专业实习生", 
-				"【爱奇艺】服务端开发人员（可实习）",
-				"【爱奇艺】P2P客户端开发人员（可实习）", 
-				"【爱奇艺】Linux服务器高级工程师（可实习）",
-				"【实习】北京致远软件招聘项目助理实习生" 
-				};
-    	for(int i=0;i<10;i++){
-        	MessageDetail m = new MessageDetail();
-        	m.setSource("北邮人论坛");   	 	
-        	m.setTitle(a[i]);
-        	m.setTime("2014-04-18");
-        	mdList.add(m);
-        }
-
-	}
 
 	private void onLoad() {
 		mListView.stopRefresh();
 		mListView.stopLoadMore();
-		mListView.setRefreshTime("刚刚");
+		mListView.setRefreshTime("鍒氬垰");
 	}
 
 	@Override
@@ -164,11 +139,9 @@ public class MessageFragment extends Fragment implements IXListViewListener{
 				
 				mAdapter = new MessageAdapter(mContext, mdList);
 				mListView.setAdapter(mAdapter);
-				Log.d(TAG, "333"+mAdapter.getCount());
 				proDialog.dismiss();
 			} catch (Exception e) {
 				// TODO: handle exception
-				System.out.println("有些没有");
 			}
 		}
 	};

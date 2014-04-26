@@ -42,7 +42,7 @@
 
         <activity
             android:name="com.NG.activity.webActivity"
-            android:label="@string/origin_post" >
+            android:label="@string/origin_post" />
         
         <!-- 这是进行授权页面的注册 -->
         <activity

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#efefef"
+    android:orientation="vertical" >
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
+
+            <AbsoluteLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+				android:layout_margin="5dp"
+                android:background="#ffffff"
+                android:padding="10dp" >
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_x="0dp"
+                    android:layout_y="0dp"
+                    android:text="【百度社招/实习生】【百度HR直聘】贴吧PHP研发工程师 "
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_x="240dp"
+                    android:layout_y="40dp"
+                    android:gravity="right"
+                    android:text="北邮人论坛"
+                    android:textSize="12sp" />
+            </AbsoluteLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="#ffffff"
+                android:orientation="vertical"
+                android:padding="10dp" >
+
+                <TextView
+                    android:id="@+id/detail_content"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:textSize="16sp"
+                />
+            </LinearLayout>
+            
+            <LinearLayout 
+                android:layout_width="fill_parent"
+                android:layout_height="75dp"
+                android:orientation="horizontal"
+                android:layout_marginBottom="20dp"
+                >
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:background="#ffffff"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="3dp"
+                    android:text="收藏"
+                    android:layout_weight="1"
+                    />
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:background="#ffffff"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginRight="5dp"
+                    android:text="分享"
+                    android:layout_weight="1"
+                    />
+                
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

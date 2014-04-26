@@ -79,12 +79,6 @@ public class DetailActivity extends Activity implements PlatformActionListener, 
 		// 初始化shareSDK
 		ShareSDK.initSDK(this);
 		
-		// 初始化图片路径
-		new Thread() {
-			public void run() {
-				//initImagePath();
-			}
-		}.start();
 		
 		b_collect = (Button)findViewById(R.id.button_collect);
 		b_collect.setOnClickListener(new OnClickListener() {
@@ -110,9 +104,6 @@ public class DetailActivity extends Activity implements PlatformActionListener, 
 		
 		new Thread(new LoadData()).start();
 		proDialog.show();
-		
-		initView();
-		loadData();
 		
 		//contentView.setText(Html.fromHtml(html));
 	
@@ -346,7 +337,6 @@ public class DetailActivity extends Activity implements PlatformActionListener, 
 			} catch (Exception e) {
 				// TODO: handle exception
 				System.out.println("有些没有");
-				proDialog.dismiss();
 			}
 		}
 	};

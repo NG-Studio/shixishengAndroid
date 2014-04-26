@@ -35,6 +35,10 @@ public class MessageAdapter extends BaseAdapter {
 		this.mContext = context;
 		Log.d(TAG, "contruct");
 		aList = seList;
+		for(int i=0;i<seList.size();i++){
+			Log.d(TAG, seList.get(0).getTitle());
+		}
+		
 	}
 
 

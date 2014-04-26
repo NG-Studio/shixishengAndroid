@@ -26,7 +26,6 @@
                     android:id="@+id/item_title"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:text="【百度社招/实习生】【百度HR直聘】贴吧PHP研发工程师 "
                     android:textSize="18sp" />
 
                 <RelativeLayout

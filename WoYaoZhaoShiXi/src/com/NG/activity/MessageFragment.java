@@ -92,7 +92,7 @@ public class MessageFragment extends Fragment implements IXListViewListener{
             	Intent intent = new Intent();  
                 intent.setClass(MainActivity, DetailActivity.class);   
                 Bundle bundle = new Bundle();  
-                bundle.putInt("item_id", mdList.get(arg2).getUid());  
+                bundle.putInt("item_id", mdList.get(arg2-1).getUid());  
                 intent.putExtras(bundle);  
                 startActivity(intent);  
  

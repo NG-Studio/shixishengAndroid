@@ -1,6 +1,6 @@
 package com.NG.activity;
 
-import com.example.drawer.R;
+import com.ngstudio.zhaoshixi.R;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -20,8 +20,8 @@ public class webActivity extends Activity {
 		setContentView(R.layout.activity_webview);
 
 		webView = (WebView) findViewById(R.id.webView1);
-		webView.getSettings().setJavaScriptEnabled(true);// ÉèÖÃÊ¹ÓÃ¹»Ö´ÐÐJS½Å±¾
-		webView.getSettings().setBuiltInZoomControls(true);// ÉèÖÃÊ¹Ö§³ÖËõ·Å
+		webView.getSettings().setJavaScriptEnabled(true);// ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½Ã¹ï¿½Ö´ï¿½ï¿½JSï¿½Å±ï¿½
+		webView.getSettings().setBuiltInZoomControls(true);// ï¿½ï¿½ï¿½ï¿½Ê¹Ö§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		// webView.getSettings().setDefaultFontSize(5);
 		
 		Bundle bundle = getIntent().getExtras();
@@ -32,12 +32,12 @@ public class webActivity extends Activity {
 			@Override
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {
 				// TODO Auto-generated method stub
-				view.loadUrl(url);// Ê¹ÓÃµ±Ç°WebView´¦ÀíÌø×ª
-				return true;// true±íÊ¾´ËÊÂ¼þÔÚ´Ë´¦±»´¦Àí£¬²»ÐèÒªÔÙ¹ã²¥
+				view.loadUrl(url);// Ê¹ï¿½Ãµï¿½Ç°WebViewï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ª
+				return true;// trueï¿½ï¿½Ê¾ï¿½ï¿½ï¿½Â¼ï¿½ï¿½Ú´Ë´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?ï¿½ï¿½ï¿½ï¿½Òªï¿½Ù¹ã²¥
 			}
 
 			@Override
-			// ×ªÏò´íÎóÊ±µÄ´¦Àí
+			// ×ªï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½Ä´ï¿½ï¿½ï¿½
 			public void onReceivedError(WebView view, int errorCode,
 					String description, String failingUrl) {
 				// TODO Auto-generated method stub
@@ -48,7 +48,7 @@ public class webActivity extends Activity {
 	}
 
 	@Override
-	// Ä¬ÈÏµã»ØÍË¼ü£¬»áÍË³öActivity£¬Ðè¼àÌý°´¼ü²Ù×÷£¬Ê¹»ØÍËÔÚWebViewÄÚ·¢Éú
+	// Ä¬ï¿½Ïµï¿½ï¿½ï¿½Ë¼ï¿½ï¿½ï¿½Ë³ï¿½Activityï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½WebViewï¿½Ú·ï¿½ï¿½ï¿½
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		// TODO Auto-generated method stub
 		if ((keyCode == KeyEvent.KEYCODE_BACK) && webView.canGoBack()) {

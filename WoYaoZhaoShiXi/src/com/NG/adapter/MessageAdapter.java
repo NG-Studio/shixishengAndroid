@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.NG.entity.MessageDetail;
-import com.example.drawer.R;
+import com.ngstudio.zhaoshixi.R;
 
 import android.app.Activity;
 import android.content.Context;

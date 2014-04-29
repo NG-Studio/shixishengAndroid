@@ -28,7 +28,7 @@ import com.NG.activity.DetailActivity.LoadData;
 import com.NG.adapter.MessageAdapter;
 import com.NG.entity.MessageDetail;
 import com.NG.loader.MessageInfoLoader;
-import com.example.drawer.R;
+import com.ngstudio.zhaoshixi.R;
 
 /**
  * Fragment that appears in the "content_frame", shows a planet

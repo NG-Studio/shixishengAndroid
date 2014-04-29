@@ -20,7 +20,7 @@ import com.NG.entity.ItemDetail;
 import com.NG.entity.MessageDetail;
 import com.NG.loader.DetailInfoLoader;
 import com.NG.loader.MessageInfoLoader;
-import com.example.drawer.R;
+import com.ngstudio.zhaoshixi.R;
 
 import android.app.Activity;
 import android.app.ProgressDialog;

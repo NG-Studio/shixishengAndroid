@@ -16,7 +16,7 @@ import android.widget.AdapterView.OnItemClickListener;
 
 import com.NG.adapter.MessageAdapter;
 import com.NG.entity.MessageDetail;
-import com.example.drawer.R;
+import com.ngstudio.zhaoshixi.R;
 
 /**
  * Fragment that appears in the "content_frame", shows a planet
@@ -43,45 +43,45 @@ public class CopyOfMessageFragment extends Fragment {
         String planet = getResources().getStringArray(R.array.planets_array)[x];
         getActivity().setTitle(planet);
         
-        //°ó¶¨LayoutÀïÃæµÄListView   
+        //ï¿½ï¿½Layoutï¿½ï¿½ï¿½ï¿½ï¿½ListView   
         ListView list = (ListView) rootView.findViewById(R.id.ListView01);   
         /*
-        //Éú³É¶¯Ì¬Êý×é£¬¼ÓÈëÊý¾Ý   
+        //ï¿½ï¿½É¶ï¿½Ì¬ï¿½ï¿½ï¿½é£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½   
         ArrayList<HashMap<String, Object>> listItem = new ArrayList<HashMap<String, Object>>();   
         for(int i=0;i<10;i++)   
         {   
             HashMap<String, Object> map = new HashMap<String, Object>();   
-            map.put("ItemImage", R.drawable.ic_launcher);//Í¼Ïñ×ÊÔ´µÄID   
+            map.put("ItemImage", R.drawable.ic_launcher);//Í¼ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ID   
             map.put("ItemTitle", "Level "+i);   
             map.put("ItemText", "Finished in 1 Min 54 Secs, 70 Moves! ");   
             listItem.add(map);   
         }   
         
-		// Éú³ÉÊÊÅäÆ÷µÄItemºÍ¶¯Ì¬Êý×é¶ÔÓ¦µÄÔªËØ
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Itemï¿½Í¶ï¿½Ì¬ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½Ôªï¿½ï¿½
 		SimpleAdapter listItemAdapter = new SimpleAdapter(
-				this.getActivity(), listItem,// Êý¾ÝÔ´
-				R.layout.list_items,// ListItemµÄXMLÊµÏÖ
-				// ¶¯Ì¬Êý×éÓëImageItem¶ÔÓ¦µÄ×ÓÏî
+				this.getActivity(), listItem,// ï¿½ï¿½ï¿½Ô´
+				R.layout.list_items,// ListItemï¿½ï¿½XMLÊµï¿½ï¿½
+				// ï¿½ï¿½Ì¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ImageItemï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				new String[] { "ItemImage", "ItemTitle", "ItemText" },
-				// ImageItemµÄXMLÎÄ¼þÀïÃæµÄÒ»¸öImageView,Á½¸öTextView ID
+				// ImageItemï¿½ï¿½XMLï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ImageView,ï¿½ï¿½ï¿½ï¿½TextView ID
 				new int[] { R.id.ItemImage, R.id.ItemTitle, R.id.ItemText });*/
 
-		String[] a = { "¡¾°Ù¶ÈÐ£ÕÐÊîÆÚÊµÏ°Éú¡¿ÊµÏ°¼¼ÊõÔËÓª£¨±±¾©£©", 
-				"¡¾°Ù¶ÈÐ£ÕÐÊîÆÚÊµÏ°Éú¡¿ÊµÏ°¼¼ÊõÔËÓª£¨±±¾©£©",
-				"¡¾ÕÐÆ¸¡¿NBT PartnersÕÐÐ£Ô°ÔËÓªÊµÏ°Éú[²»ÐèÒª×ø°à]",
-				"ÕÐÆ¸ÊµÏ°¼æÖ°Éú Æ½°²ÒøÐÐ ÖÐÐ¡ÆóÒµ½ðÈÚÊÂÒµ²¿", 
-				"¡¾ÖÐ¿ÆÔºÈí¼þËù¡¿ÕÐÆ¸Ó²¼þÑÐ·¢ÊµÏ°Éú",
-				"Ê¯»¯Ó¯¿Æ£¨ÖÐÊ¯»¯ITÐÅÏ¢»¯¹«Ë¾£©ÕÐÆ¸¼ÆËã»úÏà¹Ø×¨ÒµÊµÏ°Éú", 
-				"¡¾°®ÆæÒÕ¡¿·þÎñ¶Ë¿ª·¢ÈËÔ±£¨¿ÉÊµÏ°£©",
-				"¡¾°®ÆæÒÕ¡¿P2P¿Í»§¶Ë¿ª·¢ÈËÔ±£¨¿ÉÊµÏ°£©", 
-				"¡¾°®ÆæÒÕ¡¿Linux·þÎñÆ÷¸ß¼¶¹¤³ÌÊ¦£¨¿ÉÊµÏ°£©",
-				"¡¾ÊµÏ°¡¿±±¾©ÖÂÔ¶Èí¼þÕÐÆ¸ÏîÄ¿ÖúÀíÊµÏ°Éú" 
+		String[] a = { "ï¿½ï¿½ï¿½Ù¶ï¿½Ð£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÊµÏ°ï¿½ï¿½ÊµÏ°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Óªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", 
+				"ï¿½ï¿½ï¿½Ù¶ï¿½Ð£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÊµÏ°ï¿½ï¿½ÊµÏ°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Óªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½",
+				"ï¿½ï¿½ï¿½ï¿½Æ¸ï¿½ï¿½NBT Partnersï¿½ï¿½Ð£Ô°ï¿½ï¿½ÓªÊµÏ°ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½]",
+				"ï¿½ï¿½Æ¸ÊµÏ°ï¿½ï¿½Ö°ï¿½ï¿½ Æ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ð¡ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òµï¿½ï¿½", 
+				"ï¿½ï¿½ï¿½Ð¿ï¿½Ôºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¸Ó²ï¿½ï¿½ï¿½Ð·ï¿½ÊµÏ°ï¿½ï¿½",
+				"Ê¯ï¿½ï¿½Ó¯ï¿½Æ£ï¿½ï¿½ï¿½Ê¯ï¿½ï¿½ITï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½Ë¾ï¿½ï¿½ï¿½ï¿½Æ¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¨ÒµÊµÏ°ï¿½ï¿½", 
+				"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¡ï¿½ï¿½ï¿½ï¿½ï¿½Ë¿ï¿½ï¿½ï¿½ï¿½ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ÊµÏ°ï¿½ï¿½",
+				"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¡ï¿½P2Pï¿½Í»ï¿½ï¿½Ë¿ï¿½ï¿½ï¿½ï¿½ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ÊµÏ°ï¿½ï¿½", 
+				"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¡ï¿½Linuxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¼ï¿½ï¿½ï¿½ï¿½ï¿½Ê¦ï¿½ï¿½ï¿½ï¿½ÊµÏ°ï¿½ï¿½",
+				"ï¿½ï¿½ÊµÏ°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½Æ¸ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ÊµÏ°ï¿½ï¿½" 
 				};
 
         List<MessageDetail> listItem = new ArrayList<MessageDetail>();
         for(int i=0;i<10;i++){
         	MessageDetail m = new MessageDetail();
-        	m.setSource("±±ÓÊÈËÂÛÌ³");
+        	m.setSource("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì³");
         	
         	
         	m.setTitle(a[i]);
@@ -92,10 +92,10 @@ public class CopyOfMessageFragment extends Fragment {
 		MessageAdapter listItemAdapter = new MessageAdapter(this
 				.getActivity().getApplicationContext(), listItem);
 
-        //Ìí¼Ó²¢ÇÒÏÔÊ¾   
+        //ï¿½ï¿½Ó²ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾   
         list.setAdapter(listItemAdapter);   
         final Activity MainActivity =this.getActivity();
-        //Ìí¼Óµã»÷   
+        //ï¿½ï¿½Óµï¿½ï¿½   
         list.setOnItemClickListener(new OnItemClickListener() {   
   
             @Override  
@@ -104,15 +104,15 @@ public class CopyOfMessageFragment extends Fragment {
             	
             	System.out.println("DIANJI");
             	Intent intent = new Intent();  
-                // ÉèÖÃIntentµÄÔ´µØÖ·ºÍÄ¿±êµØÖ·  
+                // ï¿½ï¿½ï¿½ï¿½Intentï¿½ï¿½Ô´ï¿½ï¿½Ö·ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½Ö·  
                 intent.setClass(MainActivity, DetailActivity.class);  
-                //Intent¿ÉÒÔÍ¨¹ýBundle½øÐÐÊý¾ÝµÄ´«µÝ  
+                //Intentï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½Bundleï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÝµÄ´ï¿½ï¿½ï¿½  
                 Bundle bundle = new Bundle();  
                 bundle.putString("item_id", "00000001");  
                 intent.putExtras(bundle);  
-                // µ÷ÓÃstartActivity·½·¨·¢ËÍÒâÍ¼¸øÏµÍ³  
+                // ï¿½ï¿½ï¿½ï¿½startActivityï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ÏµÍ³  
                 startActivity(intent);  
-                //¹Ø±Õµ±Ç°activity£¬Ìí¼ÓÁË¸ÃÓï¾äºó£¬ÓÃ»§Í¨¹ýµã»÷·µ»Ø¼üÊÇÎÞ·¨·µ»Ø¸ÃactivityµÄ  
+                //ï¿½Ø±Õµï¿½Ç°activityï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ï¿½ï¿½ï¿½Þ·ï¿½ï¿½ï¿½ï¿½Ø¸ï¿½activityï¿½ï¿½  
             }   
         });   
         

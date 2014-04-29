@@ -8,7 +8,7 @@
  */
 package me.maxwin.view;
 
-import com.example.drawer.R;
+import com.ngstudio.zhaoshixi.R;
 
 import android.content.Context;
 import android.util.AttributeSet;

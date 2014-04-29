@@ -2,7 +2,7 @@
 
 import java.util.ArrayList;
 
-import com.example.drawer.R;
+import com.ngstudio.zhaoshixi.R;
 
 import me.maxwin.view.XListView;
 import me.maxwin.view.XListView.IXListViewListener;

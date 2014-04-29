@@ -55,8 +55,8 @@
     <SinaWeibo
         Id="1"
         SortId="1"
-        AppKey="835551222"
-        AppSecret="5ac0247a44c72c0ffb206a9804118f1f"
+        AppKey="3665707006"
+        AppSecret="95ae6eb41d22903b7cbc9e2aa00646bf"
         RedirectUrl="http://www.51zhaoshixi.com"
         ShareByAppClient="true"
         Enable="true" />
@@ -101,6 +101,30 @@
         Id="6"
         SortId="6"
         AppId="wx4868b35061f87885"
+        Enable="true" />
+	
+	<QQ
+        Id="7"
+        SortId="7"
+        AppId="101076890"
+        AppKey="2c9d8eb6055a5f6b045d591eb482a61b"
+        Enable="true" />
+	
+	<TencentWeibo
+        Id="8" 
+        SortId="8"
+        AppKey="801502210"
+        AppSecret="3769d1fde33c2c003de9fe49059be63d"
+        RedirectUri="http://www.51zhaoshixi.com"
+        Enable="true" />
+
+    <!-- ShareByAppClient标识是否使用微博客户端分享，默认是false -->
+    <QZone
+        Id="9"
+        SortId="9"
+        AppId="101076890"
+        AppKey="2c9d8eb6055a5f6b045d591eb482a61b"
+        ShareByAppClient="true"
         Enable="true" />
 
 </DevInfor>

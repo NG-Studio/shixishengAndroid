@@ -2,17 +2,20 @@ package com.NG.entity;
 
 /**
  * @author jiyuan
- * message类		
+ * class : message 	
  */
 public class MessageDetail {
-	//每个Message唯一的id
+	//Message unique id
 	private int uid;
-	//Message的标题
+	//Message title
 	private String title;
-	//Message的来源，如北邮人论坛
+	//Message source like "byr"
 	private String source;
-	//Message的发布时间
+	//Message publish time
 	private String time;
+	//Message original url
+	private String source_url;
+	
 	
 	public int getUid() {
 		return uid;
@@ -37,6 +40,12 @@ public class MessageDetail {
 	}
 	public void setTime(String time) {
 		this.time = time;
+	}
+	public String getSource_url() {
+		return source_url;
+	}
+	public void setSource_url(String source_url) {
+		this.source_url = source_url;
 	}
 	
 }

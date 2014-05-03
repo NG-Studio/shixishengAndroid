@@ -39,7 +39,6 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:padding="3dp"
-                        android:text="2014-04-18"
                         android:textSize="12sp" />
 
                     <TextView
@@ -49,7 +48,6 @@
                         android:layout_alignParentRight="true"
                         android:padding="3dp"
                         android:background="#dddddd"
-                        android:text="北邮人论坛"
                         android:textSize="12sp" />
                 </RelativeLayout>
             </LinearLayout>

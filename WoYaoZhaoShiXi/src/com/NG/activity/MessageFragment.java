@@ -154,7 +154,7 @@ public class MessageFragment extends Fragment implements IXListViewListener{
 			Log.d(TAG, "run()");
 			try {
 				
-				String url = "http://51zhaoshixi.com:8008/info/get_message?cmd=%E5%AE%9E%E4%B9%A0%EF%BF%A5200";
+				String url = "http://51zhaoshixi.com:8008/info/get_message?cmd=%E5%AE%9E%E4%B9%A0%EF%BF%A50";
 				mdList = mMessageLoader.parserMovieJson(url);
 				handler.sendEmptyMessage(choice);
 

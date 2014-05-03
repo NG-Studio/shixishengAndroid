@@ -15,6 +15,7 @@ import org.json.JSONObject;
 import org.xml.sax.SAXException;
 
 import com.NG.entity.ItemDetail;
+import com.NG.util.TimeUtils;
 
 import android.util.Log;
 
@@ -34,7 +35,7 @@ public class DetailInfoLoader {
 		URL url = new URL(singleUrl);
 		Log.d(TAG, singleUrl);
 
-		// ªÒ»° ˝æ›¥Ê»ÎStringBuilder¿Ô√Ê
+		// 
 		StringBuilder stringBuilder = new StringBuilder();
 		BufferedReader bufferedReader = new BufferedReader(
 				new InputStreamReader(url.openStream()));
@@ -49,7 +50,7 @@ public class DetailInfoLoader {
 		JSONArray itemsJson = null;
 
 		try {
-			//String s = "{status: 1,msg: 'you got 23',data: [{i_title: '÷˜Ã‚:[[ µœ∞]]«Âª™¥Û—ßŒﬁœﬂ÷––ƒ’–∆∏ µœ∞—–æø…˙',i_url: 'http://m.byr.cn/article/parttimejob/362622',g_id: '84',i_content: '',i_id: '62'}]}";
+			
 			jsonObject = new JSONObject(stringBuilder.toString());
 			
 			itemsJson = jsonObject.getJSONArray("data");
@@ -71,8 +72,16 @@ public class DetailInfoLoader {
 		ItemDetail mItem = new ItemDetail();
 		try {
 			
-			mItem.setTitle(j.getString("i_title"));
-			mItem.setText(j.getString("i_content"));
+			mItem.setTitle(j.getString("item_title"));
+			mItem.setText(j.getString("item_content"));
+			mItem.setSource_url(j.getString("item_url"));
+			
+			String time;
+			long time_long = Long.parseLong(j.getString("publish_time"));
+			time = TimeUtils.stringToTime(time_long);
+			mItem.setTime(time);
+			
+			mItem.setSource("ÂåóÈÇÆ‰∫∫ËÆ∫Âùõ");
 			
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block

@@ -26,7 +26,6 @@ public class webActivity extends Activity {
 		
 		Bundle bundle = getIntent().getExtras();
 		String path = bundle.getString("item_url");
-
 		webView.loadUrl(path);
 		webView.setWebViewClient(new WebViewClient() {
 			@Override

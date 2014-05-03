@@ -18,6 +18,7 @@ import android.util.Log;
 
 import com.NG.entity.ItemDetail;
 import com.NG.entity.MessageDetail;
+import com.NG.util.TimeUtils;
 
 public class MessageInfoLoader {
 	private static final String TAG = "MessageInfoLoader";
@@ -34,7 +35,7 @@ public class MessageInfoLoader {
 		URL url = new URL(singleUrl);
 		Log.d(TAG, singleUrl);
 
-		// »ñÈ¡Êı¾İ´æÈëStringBuilderÀïÃæ
+		//
 		StringBuilder stringBuilder = new StringBuilder();
 		BufferedReader bufferedReader = new BufferedReader(
 				new InputStreamReader(url.openStream()));
@@ -49,7 +50,7 @@ public class MessageInfoLoader {
 		JSONArray messagesJson = null;
 
 		try {
-			//String s = "{status: 1,msg: 'you got 23',data: [{i_title: 'Ö÷Ìâ:[[ÊµÏ°]]Çå»ª´óÑ§ÎŞÏßÖĞĞÄÕĞÆ¸ÊµÏ°ÑĞ¾¿Éú',i_url: 'http://m.byr.cn/article/parttimejob/362622',g_id: '84',i_content: '',i_id: '62'}]}";
+			
 			jsonObject = new JSONObject(stringBuilder.toString());
 			
 			messagesJson = jsonObject.getJSONArray("data");
@@ -72,8 +73,15 @@ public class MessageInfoLoader {
 		MessageDetail message = new MessageDetail();
 		try {
 			
-			message.setTitle(j.getString("i_title"));
-			message.setUid(j.getInt("i_id"));
+			message.setTitle(j.getString("item_title"));
+			message.setUid(j.getInt("item_id"));
+			message.setSource("åŒ—é‚®äººè®ºå›");
+			message.setSource_url(j.getString("item_url"));
+			
+			String time;
+			long time_long = Long.parseLong(j.getString("publish_time"));
+			time = TimeUtils.stringToTime(time_long);
+			message.setTime(time);
 			
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block

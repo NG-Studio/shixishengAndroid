@@ -48,7 +48,7 @@
     -->
     
     <ShareSDK 
-        AppKey = "1a5bf0544190"/> <!-- 修改成你在sharesdk后台注册的应用的appkey"-->
+        AppKey = "1b0b52710eaa"/> <!-- 修改成你在sharesdk后台注册的应用的appkey"-->
     
     
     <!-- ShareByAppClient标识是否使用微博客户端分享，默认是false -->
@@ -86,21 +86,21 @@
     <Wechat
         Id="4"
         SortId="4"
-        AppId="wx4868b35061f87885"
+        AppId="wx4553ca8557d1b0c3"
         BypassApproval="false"
         Enable="true" />
     
     <WechatMoments
         Id="5"
         SortId="5"
-        AppId="wx4868b35061f87885"
+        AppId="wx4553ca8557d1b0c3"
         BypassApproval="false"
         Enable="true" />
         
 	<WechatFavorite
         Id="6"
         SortId="6"
-        AppId="wx4868b35061f87885"
+        AppId="wx4553ca8557d1b0c3"
         Enable="true" />
 	
 	<QQ

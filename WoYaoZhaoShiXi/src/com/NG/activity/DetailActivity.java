@@ -200,7 +200,7 @@ public class DetailActivity extends Activity implements PlatformActionListener, 
 		oks.setAddress("13811582143");
 		
 		//分享内容的标题
-		oks.setTitle("分享内容的标题");
+		oks.setTitle("我要找实习");
 		
 		//标题对应的网址，如果没有可以不设置
 		oks.setTitleUrl("http://www.51zhaoshixi.com");
@@ -215,7 +215,7 @@ public class DetailActivity extends Activity implements PlatformActionListener, 
 		//oks.setImageUrl("http://img.appgo.cn/imgs/sharesdk/content/2013/07/25/1374723172663.jpg");
 		
 		//微信和易信的分享的网络连接，如果没有可以不设置
-		oks.setUrl("http://sharesdk.cn");
+		oks.setUrl("http://51zhaoshixi.com");
 		
 		//人人平台特有的评论字段，如果没有可以不设置
 		oks.setComment("comment");

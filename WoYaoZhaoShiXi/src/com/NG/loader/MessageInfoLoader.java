@@ -80,7 +80,7 @@ public class MessageInfoLoader {
 			
 			String time;
 			long time_long = Long.parseLong(j.getString("publish_time"));
-			time = TimeUtils.stringToTime(time_long);
+			time = TimeUtils.stringToSecond(time_long);
 			message.setTime(time);
 			
 		} catch (JSONException e) {

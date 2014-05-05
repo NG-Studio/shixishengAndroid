@@ -78,7 +78,7 @@ public class DetailInfoLoader {
 			
 			String time;
 			long time_long = Long.parseLong(j.getString("publish_time"));
-			time = TimeUtils.stringToTime(time_long);
+			time = TimeUtils.stringToDay(time_long);
 			mItem.setTime(time);
 			
 			mItem.setSource("北邮人论坛");

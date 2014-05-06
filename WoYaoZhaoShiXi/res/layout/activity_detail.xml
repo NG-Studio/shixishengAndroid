@@ -55,7 +55,6 @@
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:layout_marginBottom="5dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:background="#ffffff"
@@ -67,6 +66,25 @@
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:textSize="16sp" />
+            </LinearLayout>
+            
+            <LinearLayout 
+                android:id="@+id/btn_source"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:orientation="vertical"
+                >
+                <TextView 
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#ffffff"
+                    android:textColor="#666666"
+                    android:padding="5dp"
+                    android:gravity="center"
+                    android:text="已自动优化阅读，点击查看原文"
+                    />
+                
             </LinearLayout>
 
             <LinearLayout

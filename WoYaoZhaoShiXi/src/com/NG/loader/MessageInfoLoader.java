@@ -75,7 +75,7 @@ public class MessageInfoLoader {
 			
 			message.setTitle(j.getString("item_title"));
 			message.setUid(j.getInt("item_id"));
-			message.setSource("北邮人论坛");
+			message.setSource(j.getString("item_source"));
 			message.setSource_url(j.getString("item_url"));
 			
 			String time;

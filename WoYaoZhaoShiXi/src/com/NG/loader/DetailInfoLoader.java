@@ -75,13 +75,14 @@ public class DetailInfoLoader {
 			mItem.setTitle(j.getString("item_title"));
 			mItem.setText(j.getString("item_content"));
 			mItem.setSource_url(j.getString("item_url"));
+			mItem.setSource(j.getString("item_source"));
 			
 			String time;
 			long time_long = Long.parseLong(j.getString("publish_time"));
 			time = TimeUtils.stringToDay(time_long);
 			mItem.setTime(time);
 			
-			mItem.setSource("北邮人论坛");
+			
 			
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block

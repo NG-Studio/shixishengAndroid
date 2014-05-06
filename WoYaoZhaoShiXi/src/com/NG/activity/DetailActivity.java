@@ -58,7 +58,7 @@ public class DetailActivity extends Activity implements PlatformActionListener, 
 	private TextView timeView;
 	private TextView sourceView;
 	private TextView contentView;
-	
+	private View sourceButton;
 
 	private Button b_collect;
 	//private Button b_share;
@@ -118,7 +118,9 @@ public class DetailActivity extends Activity implements PlatformActionListener, 
 		sourceView  = (TextView) findViewById(R.id.item_source);
 		contentView = (TextView) findViewById(R.id.item_content);
 		
-		titleView.setOnClickListener(new OnClickListener(){
+		sourceButton = (View)findViewById(R.id.btn_source);
+		
+		sourceButton.setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View arg0) {

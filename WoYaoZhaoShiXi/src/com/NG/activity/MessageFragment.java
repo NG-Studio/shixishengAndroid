@@ -1,6 +1,7 @@
 package com.NG.activity;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import me.maxwin.view.XListView;
@@ -23,6 +24,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Toast;
 
 import com.NG.activity.DetailActivity.LoadData;
 import com.NG.adapter.MessageAdapter;
@@ -153,8 +155,9 @@ public class MessageFragment extends Fragment implements IXListViewListener{
 			int choice = 0;
 			Log.d(TAG, "run()");
 			try {
-				
-				String url = "http://51zhaoshixi.com:8008/info/get_message?cmd=android%EF%BF%A50";
+				Date d = new Date();
+				long time_now = d.getTime()/1000;
+				String url = "http://51zhaoshixi.com:8008/info/get_message?startTime=0&endTime="+time_now+"&count=50";
 				mdList = mMessageLoader.parserMovieJson(url);
 				handler.sendEmptyMessage(choice);
 

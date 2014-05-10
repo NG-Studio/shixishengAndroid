@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.NG.entity.MessageDetail;
+import com.NG.util.TimeUtils;
 import com.ngstudio.zhaoshixi.R;
 
 import android.app.Activity;
@@ -87,7 +88,7 @@ public class MessageAdapter extends BaseAdapter {
 		Log.d(TAG, m.getTitle()+m.getTime()+m.getSource());
 
 		viewHolder.titleView.setText(m.getTitle());
-		viewHolder.timeView.setText(m.getTime());
+		viewHolder.timeView.setText(TimeUtils.stringToDay(m.getTime()));
 		viewHolder.sourceView.setText(m.getSource());
 
 		return convertView;

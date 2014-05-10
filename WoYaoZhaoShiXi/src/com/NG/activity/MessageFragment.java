@@ -1,8 +1,13 @@
 package com.NG.activity;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
 
 import me.maxwin.view.XListView;
 import me.maxwin.view.XListView.IXListViewListener;
@@ -39,6 +44,10 @@ public class MessageFragment extends Fragment implements IXListViewListener{
     public static final String ARG_PLANET_NUMBER = "planet_number";
     private static final String TAG = "MessageFragment";
     
+    private static long time_now = 0;
+    private static long update_time = 0;
+    private static long loadmore_time = 0;
+    
     private XListView mListView;
 	private MessageAdapter mAdapter;
 	private List<MessageDetail> mdList = new ArrayList<MessageDetail>();
@@ -67,7 +76,7 @@ public class MessageFragment extends Fragment implements IXListViewListener{
 		mListView = (XListView) rootView.findViewById(R.id.xListView);
 		mListView.setPullLoadEnable(true);
 		
-		mListView.setPullLoadEnable(false);
+//		mListView.setPullLoadEnable(false);
 //		mListView.setPullRefreshEnable(false);
 		mListView.setXListViewListener(this);
 		mHandler = new Handler();
@@ -122,6 +131,7 @@ public class MessageFragment extends Fragment implements IXListViewListener{
 		mHandler.postDelayed(new Runnable() {
 			@Override
 			public void run() {
+				
 
 				onLoad();
 			}
@@ -130,7 +140,10 @@ public class MessageFragment extends Fragment implements IXListViewListener{
 
 	@Override
 	public void onLoadMore() {
-		// TODO Auto-generated method stub
+		
+		new Thread(new LoadMoreData()).start();
+		onLoad();
+		
 		
 	}
 	
@@ -142,10 +155,15 @@ public class MessageFragment extends Fragment implements IXListViewListener{
 				mAdapter = new MessageAdapter(mContext, mdList);
 				mListView.setAdapter(mAdapter);
 				proDialog.dismiss();
+				
+				loadmore_time = mdList.get(mdList.size()-1).getTime()-1;
+				System.out.println("loadmore_time = "+loadmore_time);
+				
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
 		}
+		
 	};
 	
 	class LoadData implements Runnable {
@@ -156,10 +174,34 @@ public class MessageFragment extends Fragment implements IXListViewListener{
 			Log.d(TAG, "run()");
 			try {
 				Date d = new Date();
-				long time_now = d.getTime()/1000;
+				time_now = d.getTime()/1000;
 				String url = "http://51zhaoshixi.com:8008/info/get_message?startTime=0&endTime="+time_now+"&count=50";
 				mdList = mMessageLoader.parserMovieJson(url);
 				handler.sendEmptyMessage(choice);
+				 
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+	}
+	
+	class LoadMoreData implements Runnable {
+
+		@Override
+		public void run() {
+			int choice = 0;
+			Log.d(TAG, "run()");
+			try {
+				//Date d = new Date();
+				//time_now = d.getTime()/1000;
+				String url = "http://51zhaoshixi.com:8008/info/get_message?startTime=0&endTime="+loadmore_time+"&count=20";
+				List<MessageDetail> newmdList = mMessageLoader.parserMovieJson(url);
+				mdList.addAll(newmdList);
+				mAdapter.notifyDataSetChanged();
+				
+				//handler.sendEmptyMessage(choice);
 
 			} catch (Exception e) {
 				// TODO Auto-generated catch block

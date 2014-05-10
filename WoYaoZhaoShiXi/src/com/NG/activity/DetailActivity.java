@@ -20,6 +20,7 @@ import com.NG.entity.ItemDetail;
 import com.NG.entity.MessageDetail;
 import com.NG.loader.DetailInfoLoader;
 import com.NG.loader.MessageInfoLoader;
+import com.NG.util.TimeUtils;
 import com.ngstudio.zhaoshixi.R;
 
 import android.app.Activity;
@@ -317,7 +318,7 @@ public class DetailActivity extends Activity implements PlatformActionListener, 
 			try {
 				titleView.setText(mItem.getTitle());
 				contentView.setText(Html.fromHtml(mItem.getText()));
-				timeView.setText(mItem.getTime());
+				timeView.setText(TimeUtils.stringToDay(mItem.getTime()));
 				sourceView.setText(mItem.getSource());
 				proDialog.dismiss();
 			} catch (Exception e) {

@@ -12,7 +12,7 @@ public class MessageDetail {
 	//Message source like "byr"
 	private String source;
 	//Message publish time
-	private String time;
+	private long time;
 	//Message original url
 	private String source_url;
 	
@@ -35,10 +35,10 @@ public class MessageDetail {
 	public void setSource(String source) {
 		this.source = source;
 	}
-	public String getTime() {
+	public long getTime() {
 		return time;
 	}
-	public void setTime(String time) {
+	public void setTime(long time) {
 		this.time = time;
 	}
 	public String getSource_url() {

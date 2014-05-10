@@ -78,10 +78,10 @@ public class MessageInfoLoader {
 			message.setSource(j.getString("item_source"));
 			message.setSource_url(j.getString("item_url"));
 			
-			String time;
+			//String time;
 			long time_long = Long.parseLong(j.getString("publish_time"));
-			time = TimeUtils.stringToSecond(time_long);
-			message.setTime(time);
+			//time = TimeUtils.stringToSecond(time_long);
+			message.setTime(time_long);
 			
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block

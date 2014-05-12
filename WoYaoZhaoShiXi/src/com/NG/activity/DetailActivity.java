@@ -96,7 +96,7 @@ public class DetailActivity extends Activity implements PlatformActionListener, 
 
 		Bundle bundle = getIntent().getExtras();
 		int item_id = bundle.getInt("item_id");
-		url = "http://51zhaoshixi.com:8008/info/get_item?item_id=" + item_id;
+		url = "http://211.155.86.159/online/info/get_item?item_id=" + item_id;
 		initView();
 		
 		//loadData();

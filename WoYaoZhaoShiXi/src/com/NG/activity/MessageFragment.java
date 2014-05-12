@@ -51,6 +51,7 @@ public class MessageFragment extends Fragment implements IXListViewListener{
     private XListView mListView;
 	private MessageAdapter mAdapter;
 	private List<MessageDetail> mdList = new ArrayList<MessageDetail>();
+	List<MessageDetail> newmdList = new ArrayList<MessageDetail>();
 	private Handler mHandler;
 	private int start = 0;
 	private static int refreshCnt = 0;
@@ -69,7 +70,7 @@ public class MessageFragment extends Fragment implements IXListViewListener{
             Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.main, container, false);
 
-        getActivity().setTitle("ʵϰ");
+        getActivity().setTitle("全部实习");
         mContext = this.getActivity().getApplicationContext();
         
         //geneItems();
@@ -93,6 +94,7 @@ public class MessageFragment extends Fragment implements IXListViewListener{
 		proDialog.show();
 		
         final Activity MainActivity =this.getActivity();
+        mListView.setDividerHeight(0);
         mListView.setOnItemClickListener(new OnItemClickListener() {   
   
             @Override  
@@ -140,10 +142,14 @@ public class MessageFragment extends Fragment implements IXListViewListener{
 
 	@Override
 	public void onLoadMore() {
-		
-		new Thread(new LoadMoreData()).start();
-		onLoad();
-		
+
+		mHandler.postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				new Thread(new LoadMoreData()).start();
+				onLoad();
+			}
+		}, 2000);
 		
 	}
 	
@@ -175,7 +181,9 @@ public class MessageFragment extends Fragment implements IXListViewListener{
 			try {
 				Date d = new Date();
 				time_now = d.getTime()/1000;
-				String url = "http://51zhaoshixi.com:8008/info/get_message?startTime=0&endTime="+time_now+"&count=50";
+				String url = "http://211.155.86.159/online/info/get_message?startTime=0&endTime="+time_now+"&count=50";
+				//String url = "http://211.155.86.159:8008/info/get_message?startTime=0&endTime="+time_now+"&count=50";
+				
 				mdList = mMessageLoader.parserMovieJson(url);
 				handler.sendEmptyMessage(choice);
 				 
@@ -196,12 +204,13 @@ public class MessageFragment extends Fragment implements IXListViewListener{
 			try {
 				//Date d = new Date();
 				//time_now = d.getTime()/1000;
-				String url = "http://51zhaoshixi.com:8008/info/get_message?startTime=0&endTime="+loadmore_time+"&count=20";
-				List<MessageDetail> newmdList = mMessageLoader.parserMovieJson(url);
-				mdList.addAll(newmdList);
-				mAdapter.notifyDataSetChanged();
+				String url = "http://211.155.86.159/online/info/get_message?startTime=0&endTime="+loadmore_time+"&count=20";
+				//String url = "http://211.155.86.159:8008/info/get_message?startTime=0&endTime="+loadmore_time+"&count=20";
 				
-				//handler.sendEmptyMessage(choice);
+				newmdList = mMessageLoader.parserMovieJson(url);
+				
+				
+				handler1.sendEmptyMessage(choice);
 
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -210,4 +219,21 @@ public class MessageFragment extends Fragment implements IXListViewListener{
 		}
 
 	}
+	
+	private Handler handler1 = new Handler() {
+		@Override
+		public void handleMessage(Message message) {
+			try {
+				mdList.addAll(newmdList);
+				mAdapter.notifyDataSetChanged();
+				
+				loadmore_time = mdList.get(mdList.size()-1).getTime()-1;
+				System.out.println("loadmore_time = "+loadmore_time);
+				
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+		}
+		
+	};
 }

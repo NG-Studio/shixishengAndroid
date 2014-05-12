@@ -165,7 +165,8 @@ public class Main extends Activity {
         // Handle action buttons
         switch(item.getItemId()) {
         case R.id.action_websearch:
-            // create intent to perform web search for this planet
+            /*
+        	// create intent to perform web search for this planet
             Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
             intent.putExtra(SearchManager.QUERY, getActionBar().getTitle());
             // catch event that there's no activity to handle intent
@@ -174,6 +175,16 @@ public class Main extends Activity {
             } else {
                 Toast.makeText(this, R.string.app_not_available, Toast.LENGTH_LONG).show();
             }
+            */
+            
+            
+            Intent intent = new Intent();  
+            // 设置Intent的源地址和目标地址  
+            intent.setClass(Main.this, SearchActivity.class);  
+
+            // 调用startActivity方法发送意图给系统  
+            startActivity(intent);
+            
             return true;
         default:
             return super.onOptionsItemSelected(item);

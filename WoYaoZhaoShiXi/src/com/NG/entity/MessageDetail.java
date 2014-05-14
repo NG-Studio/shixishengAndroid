@@ -15,8 +15,7 @@ public class MessageDetail {
 	private long time;
 	//Message original url
 	private String source_url;
-	
-	
+
 	public int getUid() {
 		return uid;
 	}

@@ -83,6 +83,7 @@ public class MessageInfoLoader {
 			//time = TimeUtils.stringToSecond(time_long);
 			message.setTime(time_long);
 			
+			
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

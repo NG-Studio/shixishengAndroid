@@ -134,7 +134,7 @@ public class MessageFragment extends Fragment implements IXListViewListener{
 			@Override
 			public void run() {
 				
-
+				new Thread(new LoadData()).start();
 				onLoad();
 			}
 		}, 2000);

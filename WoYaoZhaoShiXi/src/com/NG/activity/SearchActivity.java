@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import m.framework.ui.widget.pulltorefresh.OnScrollListener;
+import m.framework.ui.widget.pulltorefresh.Scrollable;
 import me.maxwin.view.XListView;
 import me.maxwin.view.XListView.IXListViewListener;
 
@@ -78,7 +80,7 @@ public class SearchActivity extends Activity implements IXListViewListener {
 		mListView.setDividerHeight(0);
 
 		// mListView.setPullLoadEnable(false);
-		// mListView.setPullRefreshEnable(false);
+		mListView.setPullRefreshEnable(false);
 		mListView.setXListViewListener(this);
 		mHandler = new Handler();
 

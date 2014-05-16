@@ -28,6 +28,7 @@ import com.ngstudio.zhaoshixi.R;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -163,24 +164,11 @@ public class Main extends Activity {
         }
         // Handle action buttons
         switch(item.getItemId()) {
-        case R.id.action_websearch:
-            /*
-        	// create intent to perform web search for this planet
-            Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
-            intent.putExtra(SearchManager.QUERY, getActionBar().getTitle());
-            // catch event that there's no activity to handle intent
-            if (intent.resolveActivity(getPackageManager()) != null) {
-                startActivity(intent);
-            } else {
-                Toast.makeText(this, R.string.app_not_available, Toast.LENGTH_LONG).show();
-            }
-            */
-            
-            
+        case R.id.action_websearch:  
+        	
             Intent intent = new Intent();  
             // 设置Intent的源地址和目标地址  
             intent.setClass(Main.this, SearchActivity.class);  
-
             // 调用startActivity方法发送意图给系统  
             startActivity(intent);
             
@@ -198,16 +186,44 @@ public class Main extends Activity {
         }
     }
 
+    
+    //private MessageFragment f1;
+    
     private void selectItem(int position) {
         // update the main content by replacing fragments
-        Fragment fragment = new MessageFragment();
-        Bundle args = new Bundle();
-        args.putInt(MessageFragment.ARG_PLANET_NUMBER, position);
-        fragment.setArguments(args);
+        Fragment messageFg = new MessageFragment();
+        Fragment collectFg = new CollectFragment();
+        Fragment settingFg = new SettingFragment();
+//        Bundle args = new Bundle();
+//        args.putInt(MessageFragment.ARG_PLANET_NUMBER, position);
+//        fragment.setArguments(args);
 
         FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+        // fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+        fragmentManager.findFragmentById(R.id.content_frame);
+//        ft.replace(R.id.content_frame, f1);
+//        ft.commit();
+		switch (position) {
+		case 0:
 
+	        ft.replace(R.id.content_frame, messageFg);
+	        ft.commit();
+	        break;
+		case 1:
+
+	        ft.replace(R.id.content_frame, collectFg);
+	        ft.commit();
+	        break;
+		case 2:
+			ft.replace(R.id.content_frame, settingFg);
+			ft.commit();
+			break;
+	        
+		}
+        
+        
+        
         // update selected item and title, then close the drawer
         mDrawerList.setItemChecked(position, true);
         setTitle(mPlanetTitles[position]);

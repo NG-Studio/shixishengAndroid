@@ -16,6 +16,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 
+import com.NG.db.ShixiDatabaseManager;
 import com.NG.db.ShixiItem;
 import com.NG.loader.ShixiItemLoader;
 import com.NG.loader.ShixiMessageLoader;
@@ -34,6 +35,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler.Callback;
@@ -70,6 +72,9 @@ public class DetailActivity extends Activity implements PlatformActionListener, 
 	
 	private String url;
 	
+	private ShixiDatabaseManager dbManager;
+	private boolean isCollected = false;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -79,22 +84,47 @@ public class DetailActivity extends Activity implements PlatformActionListener, 
 		// 初始化shareSDK
 		ShareSDK.initSDK(this);
 		
+		dbManager = new ShixiDatabaseManager(this);
+		
+		
+		
 		
 		b_collect = (Button)findViewById(R.id.button_collect);
 		b_collect.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
 				Context context = getApplicationContext();
-				CharSequence text = "Hello Collect!";
-				int duration = Toast.LENGTH_SHORT;
-
-				Toast toast = Toast.makeText(context, text, duration);
-				toast.show();
+				CharSequence text ;
+				int duration = Toast.LENGTH_SHORT;				
+				
+				if(!isCollected){
+					text = "添加到我的收藏";
+					dbManager.addSingleItem(mItem);
+					b_collect.setTextColor(Color.BLUE);
+					b_collect.setText("已收藏");
+					isCollected = true;
+					Toast toast = Toast.makeText(context, text, duration);
+					toast.show();
+					
+				}
+				else{
+					text = "取消收藏";
+					Toast toast = Toast.makeText(context, text, duration);
+					toast.show();
+					dbManager.deleteItem(mItem.getItem_id());
+					b_collect.setTextColor(Color.BLACK);
+					b_collect.setText("收藏");
+					isCollected = false;
+				}
+				
+				
+				
 			}
 		});
 
 		Bundle bundle = getIntent().getExtras();
 		int item_id = bundle.getInt("item_id");
+		
 		url = "http://211.155.86.159/online/info/get_item?item_id=" + item_id;
 		initView();
 		
@@ -144,9 +174,10 @@ public class DetailActivity extends Activity implements PlatformActionListener, 
 		proDialog.setMessage("请您耐心等待...");
 	}
 	
-	private void loadData() {
-	
-		
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		dbManager.closeDB();
 	}
 
 	private static final int MSG_TOAST = 1;

@@ -16,20 +16,19 @@ import org.xml.sax.SAXException;
 
 import android.util.Log;
 
-import com.NG.entity.ItemDetail;
-import com.NG.entity.MessageDetail;
+import com.NG.db.ShixiMessage;
 import com.NG.util.TimeUtils;
 
-public class MessageInfoLoader {
+public class ShixiMessageLoader {
 	private static final String TAG = "MessageInfoLoader";
 	
-	private List<MessageDetail> messageList = new ArrayList<MessageDetail>();
+	private List<ShixiMessage> messageList = new ArrayList<ShixiMessage>();
 	
-	public MessageInfoLoader() {
+	public ShixiMessageLoader() {
 		Log.d(TAG, "constractor()  do thing");
 	}
 
-	public List<MessageDetail> parserMovieJson(String singleUrl) throws IOException,
+	public List<ShixiMessage> parserMovieJson(String singleUrl) throws IOException,
 			ParserConfigurationException, SAXException {
 
 		URL url = new URL(singleUrl);
@@ -69,19 +68,20 @@ public class MessageInfoLoader {
 
 	}
 	
-	public MessageDetail jsonObjectToAwardItem(JSONObject j){
-		MessageDetail message = new MessageDetail();
+	public ShixiMessage jsonObjectToAwardItem(JSONObject j){
+		ShixiMessage message = new ShixiMessage();
 		try {
 			
 			message.setTitle(j.getString("item_title"));
-			message.setUid(j.getInt("item_id"));
+			message.setMessage_id(j.getInt("item_id"));
 			message.setSource(j.getString("item_source"));
 			message.setSource_url(j.getString("item_url"));
+			message.setTime(j.getString("publish_time"));
 			
 			//String time;
-			long time_long = Long.parseLong(j.getString("publish_time"));
+			//long time_long = Long.parseLong(j.getString("publish_time"));
 			//time = TimeUtils.stringToSecond(time_long);
-			message.setTime(time_long);
+			//message.setTime(time_long);
 			
 			
 		} catch (JSONException e) {
@@ -90,15 +90,15 @@ public class MessageInfoLoader {
 		}
 		return message;
 	}
-	public List<MessageDetail> jsonObjectToMessageList(JSONArray ja){
+	public List<ShixiMessage> jsonObjectToMessageList(JSONArray ja){
 		
 		int length = ja.length();
 		System.out.println("Json Array's length is :" +length );
 		
-		List<MessageDetail> list = new ArrayList<MessageDetail>();
+		List<ShixiMessage> list = new ArrayList<ShixiMessage>();
 		for(int i=0;i<length;i++){
 			try {
-				MessageDetail md = new MessageDetail();
+				ShixiMessage md = new ShixiMessage();
 				
 				md = jsonObjectToAwardItem(ja.getJSONObject(i));
 				

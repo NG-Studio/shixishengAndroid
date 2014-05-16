@@ -33,93 +33,87 @@ import android.widget.Toast;
 
 import com.NG.activity.DetailActivity.LoadData;
 import com.NG.adapter.MessageAdapter;
-import com.NG.entity.MessageDetail;
-import com.NG.loader.MessageInfoLoader;
+import com.NG.db.ShixiMessage;
+import com.NG.loader.ShixiMessageLoader;
 import com.ngstudio.zhaoshixi.R;
 
 /**
  * Fragment that appears in the "content_frame", shows a planet
  */
-public class MessageFragment extends Fragment implements IXListViewListener{
-    public static final String ARG_PLANET_NUMBER = "planet_number";
-    private static final String TAG = "MessageFragment";
-    
-    private static long time_now = 0;
-    private static long update_time = 0;
-    private static long loadmore_time = 0;
-    
-    private XListView mListView;
+public class MessageFragment extends Fragment implements IXListViewListener {
+	public static final String ARG_PLANET_NUMBER = "planet_number";
+	private static final String TAG = "MessageFragment";
+
+	private static long time_now = 0;
+	private static long update_time = 0;
+	private static long loadmore_time = 0;
+
+	private XListView mListView;
 	private MessageAdapter mAdapter;
-	private List<MessageDetail> mdList = new ArrayList<MessageDetail>();
-	List<MessageDetail> newmdList = new ArrayList<MessageDetail>();
+	private List<ShixiMessage> mdList = new ArrayList<ShixiMessage>();
+	List<ShixiMessage> newmdList = new ArrayList<ShixiMessage>();
 	private Handler mHandler;
 	private int start = 0;
 	private static int refreshCnt = 0;
-	
-	private MessageInfoLoader mMessageLoader;
-	
+
+	private ShixiMessageLoader mMessageLoader;
+
 	private ProgressDialog proDialog;
 	private Context mContext;
 
-    public MessageFragment() {
-        // Empty constructor required for fragment subclasses
-    }
-    
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.main, container, false);
+	public MessageFragment() {
+		// Empty constructor required for fragment subclasses
+	}
 
-        getActivity().setTitle("全部实习");
-        mContext = this.getActivity().getApplicationContext();
-        
-        //geneItems();
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		View rootView = inflater.inflate(R.layout.fragment_message, container,
+				false);
+
+		getActivity().setTitle("全部实习");
+		mContext = this.getActivity().getApplicationContext();
+
+		// geneItems();
 		mListView = (XListView) rootView.findViewById(R.id.xListView);
 		mListView.setPullLoadEnable(true);
-		
-//		mListView.setPullLoadEnable(false);
-//		mListView.setPullRefreshEnable(false);
+
+		// mListView.setPullLoadEnable(false);
+		// mListView.setPullRefreshEnable(false);
 		mListView.setXListViewListener(this);
 		mHandler = new Handler();
-		
-		
+
 		// ProgressDialog
 		proDialog = new ProgressDialog(this.getActivity());
 		proDialog.setTitle(R.string.loading);
 		proDialog.setMessage("请耐心等待...");
 
-		mMessageLoader = new MessageInfoLoader();
+		mMessageLoader = new ShixiMessageLoader();
 
 		new Thread(new LoadData()).start();
 		proDialog.show();
-		
-        final Activity MainActivity =this.getActivity();
-        mListView.setDividerHeight(0);
-        mListView.setOnItemClickListener(new OnItemClickListener() {   
-  
-            @Override  
-            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,   
-                    long arg3) { 
-            	
-            	System.out.println("DIANJI");
-            	Intent intent = new Intent();  
-                intent.setClass(MainActivity, DetailActivity.class);   
-                Bundle bundle = new Bundle();  
-                bundle.putInt("item_id", mdList.get(arg2-1).getUid());  
-                intent.putExtras(bundle);  
-                startActivity(intent);  
- 
-            }   
-        }); 
-        
-        
-        
-        
-        
-        
-        return rootView;
-    }
-    
+
+		final Activity MainActivity = this.getActivity();
+		mListView.setDividerHeight(0);
+		mListView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+
+				System.out.println("DIANJI");
+				Intent intent = new Intent();
+				intent.setClass(MainActivity, DetailActivity.class);
+				Bundle bundle = new Bundle();
+				bundle.putInt("item_id", mdList.get(arg2 - 1).getMessage_id());
+				intent.putExtras(bundle);
+				startActivity(intent);
+
+			}
+		});
+
+		return rootView;
+	}
 
 	private void onLoad() {
 		mListView.stopRefresh();
@@ -133,7 +127,7 @@ public class MessageFragment extends Fragment implements IXListViewListener{
 		mHandler.postDelayed(new Runnable() {
 			@Override
 			public void run() {
-				
+
 				new Thread(new LoadData()).start();
 				onLoad();
 			}
@@ -150,28 +144,29 @@ public class MessageFragment extends Fragment implements IXListViewListener{
 				onLoad();
 			}
 		}, 2000);
-		
+
 	}
-	
+
 	private Handler handler = new Handler() {
 		@Override
 		public void handleMessage(Message message) {
 			try {
-				
+
 				mAdapter = new MessageAdapter(mContext, mdList);
 				mListView.setAdapter(mAdapter);
 				proDialog.dismiss();
-				
-				loadmore_time = mdList.get(mdList.size()-1).getTime()-1;
-				System.out.println("loadmore_time = "+loadmore_time);
-				
+
+				loadmore_time = Long.parseLong(mdList.get(mdList.size() - 1)
+						.getTime()) - 1;
+				System.out.println("loadmore_time = " + loadmore_time);
+
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
 		}
-		
+
 	};
-	
+
 	class LoadData implements Runnable {
 
 		@Override
@@ -180,13 +175,15 @@ public class MessageFragment extends Fragment implements IXListViewListener{
 			Log.d(TAG, "run()");
 			try {
 				Date d = new Date();
-				time_now = d.getTime()/1000;
-				String url = "http://211.155.86.159/online/info/get_message?startTime=0&endTime="+time_now+"&count=50";
-				//String url = "http://211.155.86.159:8008/info/get_message?startTime=0&endTime="+time_now+"&count=50";
-				
+				time_now = d.getTime() / 1000;
+				String url = "http://211.155.86.159/online/info/get_message?startTime=0&endTime="
+						+ time_now + "&count=50";
+				// String url =
+				// "http://211.155.86.159:8008/info/get_message?startTime=0&endTime="+time_now+"&count=50";
+
 				mdList = mMessageLoader.parserMovieJson(url);
 				handler.sendEmptyMessage(choice);
-				 
+
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -194,7 +191,7 @@ public class MessageFragment extends Fragment implements IXListViewListener{
 		}
 
 	}
-	
+
 	class LoadMoreData implements Runnable {
 
 		@Override
@@ -202,14 +199,15 @@ public class MessageFragment extends Fragment implements IXListViewListener{
 			int choice = 0;
 			Log.d(TAG, "run()");
 			try {
-				//Date d = new Date();
-				//time_now = d.getTime()/1000;
-				String url = "http://211.155.86.159/online/info/get_message?startTime=0&endTime="+loadmore_time+"&count=20";
-				//String url = "http://211.155.86.159:8008/info/get_message?startTime=0&endTime="+loadmore_time+"&count=20";
-				
+				// Date d = new Date();
+				// time_now = d.getTime()/1000;
+				String url = "http://211.155.86.159/online/info/get_message?startTime=0&endTime="
+						+ loadmore_time + "&count=20";
+				// String url =
+				// "http://211.155.86.159:8008/info/get_message?startTime=0&endTime="+loadmore_time+"&count=20";
+
 				newmdList = mMessageLoader.parserMovieJson(url);
-				
-				
+
 				handler1.sendEmptyMessage(choice);
 
 			} catch (Exception e) {
@@ -219,21 +217,22 @@ public class MessageFragment extends Fragment implements IXListViewListener{
 		}
 
 	}
-	
+
 	private Handler handler1 = new Handler() {
 		@Override
 		public void handleMessage(Message message) {
 			try {
 				mdList.addAll(newmdList);
 				mAdapter.notifyDataSetChanged();
-				
-				loadmore_time = mdList.get(mdList.size()-1).getTime()-1;
-				System.out.println("loadmore_time = "+loadmore_time);
-				
+
+				loadmore_time = Long.parseLong(mdList.get(mdList.size() - 1)
+						.getTime()) - 1;
+				System.out.println("loadmore_time = " + loadmore_time);
+
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
 		}
-		
+
 	};
 }

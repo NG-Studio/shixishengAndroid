@@ -14,23 +14,23 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.xml.sax.SAXException;
 
-import com.NG.entity.ItemDetail;
+import com.NG.db.ShixiItem;
 import com.NG.util.TimeUtils;
 
 import android.util.Log;
 
-public class DetailInfoLoader {
+public class ShixiItemLoader {
 	private static final String TAG = "DetailInfoLoader";
 
 	// private List<ShortComment> mlist = new ArrayList<ShortComment>();
-	public DetailInfoLoader() {
+	public ShixiItemLoader() {
 		Log.d(TAG, "constractor()  do thing");
 	}
 
-	public ItemDetail parserMovieJson(String singleUrl) throws IOException,
+	public ShixiItem parserMovieJson(String singleUrl) throws IOException,
 			ParserConfigurationException, SAXException {
 
-		ItemDetail item = new ItemDetail();
+		ShixiItem item = new ShixiItem();
 
 		URL url = new URL(singleUrl);
 		Log.d(TAG, singleUrl);
@@ -68,19 +68,20 @@ public class DetailInfoLoader {
 
 	}
 	
-	public ItemDetail jsonObjectToAwardItem(JSONObject j){
-		ItemDetail mItem = new ItemDetail();
+	public ShixiItem jsonObjectToAwardItem(JSONObject j){
+		ShixiItem mItem = new ShixiItem();
 		try {
 			
 			mItem.setTitle(j.getString("item_title"));
-			mItem.setText(j.getString("item_content"));
+			mItem.setText_body(j.getString("item_content"));
 			mItem.setSource_url(j.getString("item_url"));
 			mItem.setSource(j.getString("item_source"));
+			mItem.setTime(j.getString("publish_time"));
 			
-			String time;
-			long time_long = Long.parseLong(j.getString("publish_time"));
+			//String time;
+			//long time_long = Long.parseLong(j.getString("publish_time"));
 			//time = TimeUtils.stringToDay(time_long);
-			mItem.setTime(time_long);
+			
 			
 			
 			

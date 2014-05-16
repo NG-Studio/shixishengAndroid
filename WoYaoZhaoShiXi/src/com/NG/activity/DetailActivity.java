@@ -16,10 +16,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 
-import com.NG.entity.ItemDetail;
-import com.NG.entity.MessageDetail;
-import com.NG.loader.DetailInfoLoader;
-import com.NG.loader.MessageInfoLoader;
+import com.NG.db.ShixiItem;
+import com.NG.loader.ShixiItemLoader;
+import com.NG.loader.ShixiMessageLoader;
 import com.NG.util.TimeUtils;
 import com.ngstudio.zhaoshixi.R;
 
@@ -66,8 +65,8 @@ public class DetailActivity extends Activity implements PlatformActionListener, 
 	
 	private ProgressDialog proDialog;
 	
-	private ItemDetail mItem;
-	private DetailInfoLoader mItemLoader;
+	private ShixiItem mItem;
+	private ShixiItemLoader mItemLoader;
 	
 	private String url;
 	
@@ -101,7 +100,7 @@ public class DetailActivity extends Activity implements PlatformActionListener, 
 		
 		//loadData();
 		
-		mItemLoader = new DetailInfoLoader();
+		mItemLoader = new ShixiItemLoader();
 		
 		new Thread(new LoadData()).start();
 		proDialog.show();
@@ -317,7 +316,7 @@ public class DetailActivity extends Activity implements PlatformActionListener, 
 		public void handleMessage(Message message) {
 			try {
 				titleView.setText(mItem.getTitle());
-				contentView.setText(Html.fromHtml(mItem.getText()));
+				contentView.setText(Html.fromHtml(mItem.getText_body()));
 				timeView.setText(TimeUtils.stringToDay(mItem.getTime()));
 				sourceView.setText(mItem.getSource());
 				proDialog.dismiss();

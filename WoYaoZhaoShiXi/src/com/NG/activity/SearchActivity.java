@@ -12,8 +12,8 @@ import me.maxwin.view.XListView;
 import me.maxwin.view.XListView.IXListViewListener;
 
 import com.NG.adapter.MessageAdapter;
-import com.NG.entity.MessageDetail;
-import com.NG.loader.MessageInfoLoader;
+import com.NG.db.ShixiMessage;
+import com.NG.loader.ShixiMessageLoader;
 import com.ngstudio.zhaoshixi.R;
 
 import android.app.Activity;
@@ -45,13 +45,13 @@ public class SearchActivity extends Activity implements IXListViewListener {
 
 	private XListView mListView;
 	private MessageAdapter mAdapter;
-	private List<MessageDetail> mdList = new ArrayList<MessageDetail>();
-	private List<MessageDetail> newmdList = new ArrayList<MessageDetail>();
+	private List<ShixiMessage> mdList = new ArrayList<ShixiMessage>();
+	private List<ShixiMessage> newmdList = new ArrayList<ShixiMessage>();
 	private Handler mHandler;
 	private int start = 0;
 	private static int refreshCnt = 0;
 
-	private MessageInfoLoader mMessageLoader;
+	private ShixiMessageLoader mMessageLoader;
 
 	private ProgressDialog proDialog;
 	private Context mContext;
@@ -103,7 +103,7 @@ public class SearchActivity extends Activity implements IXListViewListener {
 		proDialog.setTitle(R.string.loading);
 		proDialog.setMessage("请耐心等待...");
 
-		mMessageLoader = new MessageInfoLoader();
+		mMessageLoader = new ShixiMessageLoader();
 
 		// new Thread(new LoadData()).start();
 		// proDialog.show();
@@ -118,7 +118,7 @@ public class SearchActivity extends Activity implements IXListViewListener {
 				Intent intent = new Intent();
 				intent.setClass(SearchActivity.this, DetailActivity.class);
 				Bundle bundle = new Bundle();
-				bundle.putInt("item_id", mdList.get(arg2 - 1).getUid());
+				bundle.putInt("item_id", mdList.get(arg2 - 1).getMessage_id());
 				intent.putExtras(bundle);
 				startActivity(intent);
 
@@ -189,7 +189,8 @@ public class SearchActivity extends Activity implements IXListViewListener {
 				mListView.setAdapter(mAdapter);
 				proDialog.dismiss();
 
-				loadmore_time = mdList.get(mdList.size() - 1).getTime() - 1;
+				loadmore_time = Long.parseLong(mdList.get(mdList.size() - 1)
+						.getTime()) - 1;
 				System.out.println("loadmore_time = " + loadmore_time);
 
 			} catch (Exception e) {
@@ -254,10 +255,10 @@ public class SearchActivity extends Activity implements IXListViewListener {
 			try {
 				mdList.addAll(newmdList);
 				mAdapter.notifyDataSetChanged();
-				
 
-				loadmore_time = mdList.get(mdList.size()-1).getTime()-1;
-				System.out.println("loadmore_time = "+loadmore_time);
+				loadmore_time = Long.parseLong(mdList.get(mdList.size() - 1)
+						.getTime()) - 1;
+				System.out.println("loadmore_time = " + loadmore_time);
 
 			} catch (Exception e) {
 				// TODO: handle exception

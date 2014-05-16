@@ -23,7 +23,6 @@ import java.util.Locale;
 import cn.sharesdk.framework.ShareSDK;
 
 import com.NG.adapter.MessageAdapter;
-import com.NG.entity.MessageDetail;
 import com.ngstudio.zhaoshixi.R;
 
 import android.app.Activity;

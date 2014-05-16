@@ -3,7 +3,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-import com.NG.entity.MessageDetail;
+import com.NG.db.ShixiMessage;
 import com.NG.util.TimeUtils;
 import com.ngstudio.zhaoshixi.R;
 
@@ -30,9 +30,9 @@ public class MessageAdapter extends BaseAdapter {
 	}
 
 	private Context mContext;
-	private List<MessageDetail> aList;
+	private List<ShixiMessage> aList;
 
-	public MessageAdapter(Context context, List<MessageDetail> seList) {
+	public MessageAdapter(Context context, List<ShixiMessage> seList) {
 		this.mContext = context;
 		Log.d(TAG, "contruct");
 		aList = seList;
@@ -70,7 +70,7 @@ public class MessageAdapter extends BaseAdapter {
 		ViewHolder viewHolder = null;
 		if (convertView == null) {
 			convertView = LayoutInflater.from(mContext).inflate(
-					R.layout.message_main_item, null);
+					R.layout.fragment_message_item, null);
 			viewHolder = new ViewHolder();
 			viewHolder.titleView = (TextView) convertView
 					.findViewById(R.id.all_title);
@@ -83,7 +83,7 @@ public class MessageAdapter extends BaseAdapter {
 		} else {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
-		final MessageDetail m = aList.get(position);
+		final ShixiMessage m = aList.get(position);
 		
 		Log.d(TAG, m.getTitle()+m.getTime()+m.getSource());
 

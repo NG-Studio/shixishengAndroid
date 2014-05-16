@@ -10,8 +10,7 @@ import me.maxwin.view.XListView;
 import com.NG.activity.DetailActivity;
 import com.NG.activity.SearchActivity;
 import com.NG.adapter.MessageAdapter;
-import com.NG.entity.MessageDetail;
-import com.NG.loader.MessageInfoLoader;
+import com.NG.loader.ShixiMessageLoader;
 import com.ngstudio.zhaoshixi.R;
 
 import android.app.Activity;
@@ -31,8 +30,8 @@ import android.widget.Toast;
 public class MessageOfSql extends Activity {
 
 	private MessageAdapter mAdapter;
-	private List<MessageDetail> mdList = new ArrayList<MessageDetail>();
-	private MessageInfoLoader mMessageLoader;
+	private List<ShixiMessage> mdList = new ArrayList<ShixiMessage>();
+	private ShixiMessageLoader mMessageLoader;
 	private ProgressDialog proDialog;
 	private Context mContext;
 	private ListView mListView;
@@ -56,7 +55,7 @@ public class MessageOfSql extends Activity {
 		proDialog.setTitle(R.string.loading);
 		proDialog.setMessage("请耐心等待...");
 		
-		mMessageLoader = new MessageInfoLoader();
+		mMessageLoader = new ShixiMessageLoader();
 
 		new Thread(new LoadData()).start();
 		proDialog.show();
@@ -133,7 +132,7 @@ public class MessageOfSql extends Activity {
 		Toast.makeText(getApplicationContext(), "add",Toast.LENGTH_SHORT).show();
 		ShixiMessage m = new ShixiMessage();
 		try {
-			m.setMessage_id(mdList.get(0).getUid());
+			m.setMessage_id(mdList.get(0).getMessage_id());
 			m.setSource(mdList.get(0).getSource());
 			m.setSource_url(mdList.get(0).getSource_url());
 			m.setTime(mdList.get(0).getTime()+"");
@@ -180,22 +179,22 @@ public class MessageOfSql extends Activity {
 		Toast.makeText(getApplicationContext(), "queryMany",Toast.LENGTH_SHORT).show();
 		
 		List<ShixiMessage> messages = dbManager.queryMultipleMessages();
-		MessageDetail md = new MessageDetail();
-		List<MessageDetail> list = new ArrayList<MessageDetail>();
-		
-		for(int i=0;i<messages.size();i++){
-			ShixiMessage sm = messages.get(i);
-			md.setUid(sm.getMessage_id());
-			md.setTime(time_now);
-			md.setTitle(sm.getTitle());
-			md.setSource_url(sm.getSource_url());
-			md.setSource(sm.getSource());
-			
-			list.add(md);
-		}
-		MessageAdapter adapter = new MessageAdapter(mContext, list);
-		
-		mListView.setAdapter(adapter);
+//		MessageDetail md = new MessageDetail();
+//		List<MessageDetail> list = new ArrayList<MessageDetail>();
+//		
+//		for(int i=0;i<messages.size();i++){
+//			ShixiMessage sm = messages.get(i);
+//			md.setUid(sm.getMessage_id());
+//			md.setTime(time_now);
+//			md.setTitle(sm.getTitle());
+//			md.setSource_url(sm.getSource_url());
+//			md.setSource(sm.getSource());
+//			
+//			list.add(md);
+//		}
+//		MessageAdapter adapter = new MessageAdapter(mContext, list);
+//		
+//		mListView.setAdapter(adapter);
 	}
 
 }

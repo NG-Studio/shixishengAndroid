@@ -33,6 +33,8 @@ import android.widget.Toast;
 
 import com.NG.activity.DetailActivity.LoadData;
 import com.NG.adapter.MessageAdapter;
+import com.NG.db.ShixiDatabaseManager;
+import com.NG.db.ShixiItemOnline;
 import com.NG.db.ShixiMessage;
 import com.NG.loader.ShixiMessageLoader;
 import com.ngstudio.zhaoshixi.R;
@@ -60,6 +62,8 @@ public class MessageFragment extends Fragment implements IXListViewListener {
 
 	private ProgressDialog proDialog;
 	private Context mContext;
+	
+	private static ShixiDatabaseManager dbManager;
 
 	public MessageFragment() {
 		// Empty constructor required for fragment subclasses
@@ -73,6 +77,8 @@ public class MessageFragment extends Fragment implements IXListViewListener {
 
 		getActivity().setTitle("全部实习");
 		mContext = this.getActivity().getApplicationContext();
+		
+		dbManager = new ShixiDatabaseManager(mContext);
 
 		// geneItems();
 		mListView = (XListView) rootView.findViewById(R.id.xListView);
@@ -155,7 +161,22 @@ public class MessageFragment extends Fragment implements IXListViewListener {
 				mAdapter = new MessageAdapter(mContext, mdList);
 				mListView.setAdapter(mAdapter);
 				proDialog.dismiss();
-
+				
+				ArrayList<ShixiItemOnline> onlineList = new ArrayList<ShixiItemOnline>();
+				/*
+				for(ShixiMessage m:mdList){
+					ShixiItemOnline item = new ShixiItemOnline();
+					item.setItem_id(m.getMessage_id());
+					item.setTitle(m.getTitle());
+					item.setTime(m.getTime());
+					item.setSource(m.getSource());
+					item.setSource_url(m.getSource_url());
+					item.setIs_clicked(0);
+					item.setIs_collected(0);
+					onlineList.add(item);
+				}		
+				dbManager.addMultipleItemsOnline(onlineList);*/
+				
 				loadmore_time = Long.parseLong(mdList.get(mdList.size() - 1)
 						.getTime()) - 1;
 				System.out.println("loadmore_time = " + loadmore_time);

@@ -214,9 +214,10 @@ public class ShixiDatabaseManager {
 		Cursor c = db.rawQuery("select * from items", null);
 		while (c.moveToNext()) {
 			ShixiItem item = new ShixiItem();
-			
-			System.out.println("item_id = "+c.getString(c.getColumnIndex("item_id")));
-			
+
+			System.out.println("item_id = "
+					+ c.getString(c.getColumnIndex("item_id")));
+
 			item.setItem_id(c.getInt(c.getColumnIndex("item_id")));
 			item.setTitle(c.getString(c.getColumnIndex("title")));
 			item.setSource(c.getString(c.getColumnIndex("source")));
@@ -231,14 +232,128 @@ public class ShixiDatabaseManager {
 
 		return items;
 	}
+
 	
+	// Deal with ItemsOnline
+	/**
+	 * 添加单条实习item
+	 * 
+	 * @param item
+	 */
+	public void addSingleItemOnline(ShixiItemOnline item) {
+		db.execSQL(
+				"insert into items_online values(null, ?, ?, ?, ?, ?, ?, ?, ?)",
+				new Object[] { item.getItem_id(),item.getTitle(),item.getSource(),item.getTime(),
+						item.getSource_url(),item.getText_body(),item.getIs_clicked(),item.getIs_collected()
+				
+				});
+	}
+
+	/**
+	 * 在一个数据库事物中添加多条item信息
+	 * 
+	 * @param items
+	 */
+	public void addMultipleItemsOnline(List<ShixiItemOnline> items) {
+		db.beginTransaction();
+		try {
+			for (ShixiItemOnline i : items) {
+				addSingleItemOnline(i);
+			}
+			db.setTransactionSuccessful();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			db.endTransaction();
+		}
+	}
+
+	/**
+	 * 更新数据库中的一条item
+	 * 
+	 * @param item
+	 */
+	public void updateItemOnline(ShixiItemOnline item) {
+		db.execSQL(
+				"update items_online set title=?,source=?,time=?,source_url=?,text_body=? ,is_clicked=? ,is_collected=? ,where item_id = ?",
+				new Object[] { item.getTitle(), item.getSource(),
+						item.getTime(), item.getSource_url(),
+						item.getText_body(), item.getItem_id(),
+						item.getIs_clicked(), item.getIs_collected() });
+	}
+
+	/**
+	 * 删除数据库中的一条item
+	 * 
+	 * @param item_id
+	 */
+	public void deleteItemOnline(int item_id) {
+		db.execSQL("delete from items_online where item_id=?",
+				new Object[] { item_id });
+	}
+
+	/**
+	 * 查询数据库中的一条item
+	 * 
+	 * @param item
+	 * @return
+	 */
+	public ShixiItemOnline querySingleItemOnline(int item_id) {
+		ShixiItemOnline item = new ShixiItemOnline();
+		Cursor c = db.rawQuery("select * from items where item_id=?",
+				new String[] { item_id + "" });
+		while (c.moveToNext()) {
+			item.setTitle(c.getString(c.getColumnIndex("title")));
+			item.setSource(c.getString(c.getColumnIndex("source")));
+			item.setTime(c.getString(c.getColumnIndex("time")));
+			item.setSource_url(c.getString(c.getColumnIndex("source_url")));
+			item.setText_body(c.getString(c.getColumnIndex("text_body")));
+			item.setIs_clicked(c.getInt(c.getColumnIndex("is_clicked")));
+			item.setIs_collected(c.getInt(c.getColumnIndex("is_collected")));
+			
+		}
+		c.close();
+
+		return item;
+	}
+
+	/**
+	 * 查询数据库中得多条item
+	 * 
+	 * @return
+	 */
+	public List<ShixiItemOnline> queryMultipleItemsOnline() {
+		ArrayList<ShixiItemOnline> items = new ArrayList<ShixiItemOnline>();
+		Cursor c = db.rawQuery("select * from items_online", null);
+		while (c.moveToNext()) {
+			ShixiItemOnline item = new ShixiItemOnline();
+
+			System.out.println("item_id = "
+					+ c.getString(c.getColumnIndex("item_id")));
+
+			item.setItem_id(c.getInt(c.getColumnIndex("item_id")));
+			item.setTitle(c.getString(c.getColumnIndex("title")));
+			item.setSource(c.getString(c.getColumnIndex("source")));
+			item.setTime(c.getString(c.getColumnIndex("time")));
+			item.setSource_url(c.getString(c.getColumnIndex("source_url")));
+			item.setText_body(c.getString(c.getColumnIndex("text_body")));
+			item.setIs_clicked(c.getInt(c.getColumnIndex("is_clicked")));
+			item.setIs_collected(c.getInt(c.getColumnIndex("is_collected")));
+
+			items.add(item);
+		}
+		c.close();
+
+		return items;
+	}
+
 	/**
 	 * 删除items表中所有数据
 	 * */
-	public void resetItems(){
+	public void resetItems() {
 
-        db.execSQL("delete from items;select * from sqlite_sequence;update sqlite_sequence set seq=0 where name=items; ");
-        
+		db.execSQL("delete from items;select * from sqlite_sequence;update sqlite_sequence set seq=0 where name=items; ");
+
 	}
 
 	/**

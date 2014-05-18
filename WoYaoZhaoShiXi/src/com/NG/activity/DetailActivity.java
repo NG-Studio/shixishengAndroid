@@ -1,54 +1,40 @@
 package com.NG.activity;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.util.HashMap;
 
+import android.app.ActionBar;
+import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Handler.Callback;
+import android.os.Message;
+import android.text.Html;
+import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.framework.utils.UIHandler;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.List;
-
 import com.NG.db.ShixiDatabaseManager;
 import com.NG.db.ShixiItem;
+import com.NG.db.ShixiItemOnline;
 import com.NG.loader.ShixiItemLoader;
-import com.NG.loader.ShixiMessageLoader;
 import com.NG.util.TimeUtils;
 import com.ngstudio.zhaoshixi.R;
-
-import android.app.Activity;
-import android.app.ProgressDialog;
-import android.content.Intent;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.ClipData.Item;
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Bitmap.CompressFormat;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.os.Bundle;
-import android.os.Environment;
-import android.os.Handler.Callback;
-import android.os.Handler;
-
-import android.os.Message;
-import android.text.Html;
-import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
 
 public class DetailActivity extends Activity implements PlatformActionListener, Callback{
@@ -86,41 +72,6 @@ public class DetailActivity extends Activity implements PlatformActionListener, 
 		
 		dbManager = new ShixiDatabaseManager(this);
 		
-		
-		
-		
-		b_collect = (Button)findViewById(R.id.button_collect);
-		b_collect.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View arg0) {
-				Context context = getApplicationContext();
-				CharSequence text ;
-				int duration = Toast.LENGTH_SHORT;				
-				
-				if(!isCollected){
-					text = "添加到我的收藏";
-					dbManager.addSingleItem(mItem);
-					b_collect.setTextColor(Color.BLUE);
-					b_collect.setText("已收藏");
-					isCollected = true;
-					Toast toast = Toast.makeText(context, text, duration);
-					toast.show();
-					
-				}
-				else{
-					text = "取消收藏";
-					Toast toast = Toast.makeText(context, text, duration);
-					toast.show();
-					dbManager.deleteItem(mItem.getItem_id());
-					b_collect.setTextColor(Color.BLACK);
-					b_collect.setText("收藏");
-					isCollected = false;
-				}
-				
-				
-				
-			}
-		});
 
 		Bundle bundle = getIntent().getExtras();
 		int item_id = bundle.getInt("item_id");
@@ -142,6 +93,10 @@ public class DetailActivity extends Activity implements PlatformActionListener, 
 	
 
 	public void initView(){
+		
+		/* 显示App icon左侧的back键 */
+		ActionBar actionBar = getActionBar();
+		actionBar.setDisplayHomeAsUpEnabled(true);
 		
 		titleView = (TextView) findViewById(R.id.item_title);
 		timeView = (TextView) findViewById(R.id.item_time);
@@ -172,7 +127,65 @@ public class DetailActivity extends Activity implements PlatformActionListener, 
 		proDialog = new ProgressDialog(this);
 		proDialog.setTitle(R.string.loading);
 		proDialog.setMessage("请您耐心等待...");
+		
+		
+		b_collect = (Button)findViewById(R.id.button_collect);
+		b_collect.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				Context context = getApplicationContext();
+				CharSequence text ;
+				int duration = Toast.LENGTH_SHORT;				
+				
+				if(!isCollected){
+					text = "添加到我的收藏";
+					
+					/*
+					ShixiItemOnline item = new ShixiItemOnline();
+					item.setItem_id(mItem.getItem_id());
+					item.setTitle(mItem.getTitle());
+					item.setTime(mItem.getTime());
+					item.setSource(mItem.getSource());
+					item.setSource_url(mItem.getSource_url());
+					item.setIs_clicked(1);
+					item.setIs_collected(1);
+					item.setText_body(mItem.getText_body());*/
+					
+					dbManager.addSingleItem(mItem);			
+					b_collect.setTextColor(Color.BLUE);
+					b_collect.setText("已收藏");
+					isCollected = true;
+					Toast toast = Toast.makeText(context, text, duration);
+					toast.show();
+					
+				}
+				else{
+					text = "取消收藏";
+					Toast toast = Toast.makeText(context, text, duration);
+					toast.show();
+					dbManager.deleteItem(mItem.getItem_id());
+					b_collect.setTextColor(Color.BLACK);
+					b_collect.setText("收藏");
+					isCollected = false;
+				}
+				
+				
+				
+			}
+		});
 	}
+	
+	@Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        // TODO Auto-generated method stub
+        if(item.getItemId() == android.R.id.home)
+        {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 	
 	@Override
 	protected void onDestroy() {

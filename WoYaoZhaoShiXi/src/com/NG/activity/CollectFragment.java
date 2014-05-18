@@ -5,27 +5,25 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.NG.adapter.MessageAdapter;
-import com.NG.db.ShixiDatabaseManager;
-import com.NG.db.ShixiItem;
-import com.NG.db.ShixiMessage;
-import com.NG.loader.ShixiMessageLoader;
-import com.ngstudio.zhaoshixi.R;
-
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.AdapterView.OnItemClickListener;
+
+import com.NG.adapter.MessageAdapter;
+import com.NG.db.ShixiDatabaseManager;
+import com.NG.db.ShixiItem;
+import com.NG.db.ShixiItemOnline;
+import com.NG.db.ShixiMessage;
+import com.ngstudio.zhaoshixi.R;
 
 public class CollectFragment extends Fragment {
 
@@ -56,7 +54,7 @@ public class CollectFragment extends Fragment {
 		
 
 		items = dbManager.queryMultipleItems();
-
+		
 		for (int i = 0; i < items.size(); i++) {
 			ShixiItem it = items.get(i);
 			ShixiMessage sm = new ShixiMessage();

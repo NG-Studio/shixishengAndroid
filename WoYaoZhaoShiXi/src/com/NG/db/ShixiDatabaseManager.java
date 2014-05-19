@@ -119,7 +119,7 @@ public class ShixiDatabaseManager {
 	 */
 	public List<ShixiItemInSqlite> queryMultipleItemsOnline() {
 		ArrayList<ShixiItemInSqlite> items = new ArrayList<ShixiItemInSqlite>();
-		Cursor c = db.rawQuery("select * from hello_item", null);
+		Cursor c = db.rawQuery("select * from hello_item order by time DESC", null);
 		while (c.moveToNext()) {
 			ShixiItemInSqlite item = new ShixiItemInSqlite();
 

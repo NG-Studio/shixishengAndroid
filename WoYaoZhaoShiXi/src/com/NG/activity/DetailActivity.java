@@ -33,6 +33,7 @@ import com.NG.db.ShixiDatabaseManager;
 import com.NG.db.ShixiItem;
 import com.NG.db.ShixiItemInSqlite;
 import com.NG.loader.ShixiItemLoader;
+import com.NG.util.MyUtils;
 import com.NG.util.TimeUtils;
 import com.ngstudio.zhaoshixi.R;
 
@@ -76,15 +77,36 @@ public class DetailActivity extends Activity implements PlatformActionListener, 
 		Bundle bundle = getIntent().getExtras();
 		int item_id = bundle.getInt("item_id");
 		
+		ShixiItemInSqlite item = dbManager.querySingleItemOnline(item_id);
+		
+		
 		url = "http://211.155.86.159/online/info/get_item?item_id=" + item_id;
 		initView();
 		
-		//loadData();
-		
+		// loadData();
+
 		mItemLoader = new ShixiItemLoader();
+		Log.d(TAG, "getIs_collected = "+item.getIs_collected());
 		
-		new Thread(new LoadData()).start();
-		proDialog.show();
+		if(item.getIs_collected()==1){
+			
+			isCollected = true;
+			b_collect.setTextColor(Color.BLUE);
+			b_collect.setText("已收藏");
+			mItem = MyUtils.ItemInSql2Item(item);
+			titleView.setText(mItem.getTitle());
+			contentView.setText(Html.fromHtml(mItem.getText_body()));
+			timeView.setText(TimeUtils.stringToDay(mItem.getTime()));
+			sourceView.setText(mItem.getSource());
+		}
+		else{
+			isCollected = false;
+			new Thread(new LoadData()).start();
+			proDialog.show();
+			
+		}
+		
+		
 		
 		//contentView.setText(Html.fromHtml(html));
 	
@@ -164,7 +186,20 @@ public class DetailActivity extends Activity implements PlatformActionListener, 
 					text = "取消收藏";
 					Toast toast = Toast.makeText(context, text, duration);
 					toast.show();
-					//dbManager.deleteItem(mItem.getItem_id());
+
+					ShixiItemInSqlite item = new ShixiItemInSqlite();
+
+					item.setItem_id(mItem.getItem_id());
+					item.setTitle(mItem.getTitle());
+					item.setTime(mItem.getTime());
+					item.setSource(mItem.getSource());
+					item.setSource_url(mItem.getSource_url());
+					item.setIs_clicked(1);
+					item.setIs_collected(0);
+					item.setText_body(mItem.getText_body());
+
+					dbManager.updateItemOnline(item);
+
 					b_collect.setTextColor(Color.BLACK);
 					b_collect.setText("收藏");
 					isCollected = false;

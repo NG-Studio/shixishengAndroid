@@ -3,6 +3,7 @@ package com.NG.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.NG.db.ShixiItem;
 import com.NG.db.ShixiItemInSqlite;
 import com.NG.db.ShixiMessage;
 
@@ -77,6 +78,29 @@ public class MyUtils {
 		return isqlList;
 	}
 	
+	
+	/**
+	 * 从数据库中读出的item 转成显示的 shixiItem
+	 * 
+	 * */
+	public static ShixiItem ItemInSql2Item(ShixiItemInSqlite item) {
+
+		ShixiItem si = new ShixiItem();
+		si.setItem_id(item.getItem_id());
+		si.setSource(item.getSource());
+		si.setSource_url(item.getSource_url());
+		si.setTime(item.getTime());
+		si.setTitle(item.getTitle());
+		si.setText_body(item.getText_body());
+		if(item.getIs_collected()==0){
+			si.setIs_collected(false);
+		}
+		else{
+			si.setIs_collected(true);
+		}
+
+		return si;
+	}
 	
 	
 	

@@ -7,21 +7,24 @@ public class ShixiItem {
 	private String source;
 	private String time;
 	private String source_url;
-	private String author;
 	private String text_body;
+	private boolean is_clicked;
+	private boolean is_collected;
 	
 	public ShixiItem() {
 		
 	}
 	
-	public ShixiItem(int item_id, String title, String source, String time, String source_url, String author, String text_body) {
+	public ShixiItem(int item_id, String title, String source, String time,
+			String source_url, String text_body ,boolean is_clicked,boolean is_collected) {
 		this.item_id = item_id;
 		this.title = title;
 		this.source = source;
 		this.time = time;
 		this.source_url = source_url;
-		this.author = author;
 		this.text_body = text_body;
+		this.is_clicked = is_clicked;
+		this.is_collected = is_collected;
 	}
 
 	/**
@@ -95,20 +98,6 @@ public class ShixiItem {
 	}
 
 	/**
-	 * @return the author
-	 */
-	public String getAuthor() {
-		return author;
-	}
-
-	/**
-	 * @param author the author to set
-	 */
-	public void setAuthor(String author) {
-		this.author = author;
-	}
-
-	/**
 	 * @return the text_body
 	 */
 	public String getText_body() {
@@ -120,6 +109,22 @@ public class ShixiItem {
 	 */
 	public void setText_body(String text_body) {
 		this.text_body = text_body;
+	}
+
+	public boolean isIs_clicked() {
+		return is_clicked;
+	}
+
+	public void setIs_clicked(boolean is_clicked) {
+		this.is_clicked = is_clicked;
+	}
+
+	public boolean isIs_collected() {
+		return is_collected;
+	}
+
+	public void setIs_collected(boolean is_collected) {
+		this.is_collected = is_collected;
 	}
 	
 	

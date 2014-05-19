@@ -31,7 +31,7 @@ import cn.sharesdk.onekeyshare.OnekeyShare;
 
 import com.NG.db.ShixiDatabaseManager;
 import com.NG.db.ShixiItem;
-import com.NG.db.ShixiItemOnline;
+import com.NG.db.ShixiItemInSqlite;
 import com.NG.loader.ShixiItemLoader;
 import com.NG.util.TimeUtils;
 import com.ngstudio.zhaoshixi.R;
@@ -139,9 +139,8 @@ public class DetailActivity extends Activity implements PlatformActionListener, 
 				
 				if(!isCollected){
 					text = "添加到我的收藏";
+					ShixiItemInSqlite item = new ShixiItemInSqlite();
 					
-					/*
-					ShixiItemOnline item = new ShixiItemOnline();
 					item.setItem_id(mItem.getItem_id());
 					item.setTitle(mItem.getTitle());
 					item.setTime(mItem.getTime());
@@ -149,9 +148,11 @@ public class DetailActivity extends Activity implements PlatformActionListener, 
 					item.setSource_url(mItem.getSource_url());
 					item.setIs_clicked(1);
 					item.setIs_collected(1);
-					item.setText_body(mItem.getText_body());*/
+					item.setText_body(mItem.getText_body());
 					
-					dbManager.addSingleItem(mItem);			
+					dbManager.updateItemOnline(item);
+					
+					//dbManager.addSingleItem(mItem);			
 					b_collect.setTextColor(Color.BLUE);
 					b_collect.setText("已收藏");
 					isCollected = true;
@@ -163,7 +164,7 @@ public class DetailActivity extends Activity implements PlatformActionListener, 
 					text = "取消收藏";
 					Toast toast = Toast.makeText(context, text, duration);
 					toast.show();
-					dbManager.deleteItem(mItem.getItem_id());
+					//dbManager.deleteItem(mItem.getItem_id());
 					b_collect.setTextColor(Color.BLACK);
 					b_collect.setText("收藏");
 					isCollected = false;

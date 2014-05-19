@@ -40,28 +40,28 @@ public class TestSQLiteActivity extends Activity {
 	
 	public void add(View view){
 		ShixiMessage message = new ShixiMessage(Integer.parseInt(ed1.getText().toString().trim()), ed2.getText().toString().trim(), ed3.getText().toString().trim(), "test", "test", "test");
-		dbManager.addSingleMessage(message);
+		//dbManager.addSingleMessage(message);
 	}
 	
 	public void delete(View view){
-		dbManager.deleteMessage(Integer.parseInt(ed1.getText().toString().trim()));
+		//dbManager.deleteMessage(Integer.parseInt(ed1.getText().toString().trim()));
 	}
 	
 	public void update(View view){
 		ShixiMessage message = new ShixiMessage(Integer.parseInt(ed1.getText().toString().trim()), ed2.getText().toString().trim(), ed3.getText().toString().trim(), "test", "test", "test");
-		dbManager.updateMessage(message);
+		//dbManager.updateMessage(message);
 	}
 	
 	public void queryOne(View view){
-		ShixiMessage message = dbManager.querySingleMessage(Integer.parseInt(ed1.getText().toString().trim()));
+		//ShixiMessage message = dbManager.querySingleMessage(Integer.parseInt(ed1.getText().toString().trim()));
 		List<ShixiMessage> messages = new ArrayList<ShixiMessage>();
-		messages.add(message);
+		//messages.add(message);
 		setListView(messages);
 	}
 	
 	public void queryMany(View view){
-		List<ShixiMessage> messages = dbManager.queryMultipleMessages();
-		setListView(messages);
+		//List<ShixiMessage> messages = dbManager.queryMultipleMessages();
+		//setListView(messages);
 	}
 	
 	public void setListView(List<ShixiMessage> messages){

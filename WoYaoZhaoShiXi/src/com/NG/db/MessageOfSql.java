@@ -136,7 +136,7 @@ public class MessageOfSql extends Activity {
 			m.setTitle(mdList.get(0).getTitle());
 			m.setIs_clicked("0");
 
-			dbManager.addSingleMessage(m);
+			//dbManager.addSingleMessage(m);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -160,7 +160,7 @@ public class MessageOfSql extends Activity {
 				.show();
 		ShixiMessage message = new ShixiMessage(0, "test", "test", "test",
 				"test", "test");
-		dbManager.updateMessage(message);
+		//dbManager.updateMessage(message);
 
 	}
 
@@ -181,7 +181,7 @@ public class MessageOfSql extends Activity {
 		Toast.makeText(getApplicationContext(), "queryMany", Toast.LENGTH_SHORT)
 				.show();
 
-		List<ShixiMessage> messages = dbManager.queryMultipleMessages();
+		//List<ShixiMessage> messages = dbManager.queryMultipleMessages();
 		// MessageDetail md = new MessageDetail();
 		// List<MessageDetail> list = new ArrayList<MessageDetail>();
 		//

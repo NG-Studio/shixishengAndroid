@@ -26,34 +26,38 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Toast;
 
-import com.NG.activity.DetailActivity.LoadData;
 import com.NG.adapter.MessageAdapter;
 import com.NG.db.ShixiDatabaseManager;
-import com.NG.db.ShixiItemOnline;
+import com.NG.db.ShixiItemInSqlite;
 import com.NG.db.ShixiMessage;
 import com.NG.loader.ShixiMessageLoader;
+import com.NG.util.MyUtils;
+import com.NG.util.TimeUtils;
 import com.ngstudio.zhaoshixi.R;
 
 /**
  * Fragment that appears in the "content_frame", shows a planet
  */
 public class MessageFragment extends Fragment implements IXListViewListener {
-	public static final String ARG_PLANET_NUMBER = "planet_number";
 	private static final String TAG = "MessageFragment";
 
+	// endtime
 	private static long time_now = 0;
+	private static long start_time = 0;
 	private static long update_time = 0;
 	private static long loadmore_time = 0;
 
 	private XListView mListView;
 	private MessageAdapter mAdapter;
-	private List<ShixiMessage> mdList = new ArrayList<ShixiMessage>();
-	List<ShixiMessage> newmdList = new ArrayList<ShixiMessage>();
+	// 用于显示的List
+	private List<ShixiMessage> showList = new ArrayList<ShixiMessage>();
+	// 用于装载下拉刷新的List
+	private List<ShixiMessage> updateList = new ArrayList<ShixiMessage>();
+	// 装载loadmore数据的List
+	private List<ShixiMessage> loadmoreList = new ArrayList<ShixiMessage>();
+
 	private Handler mHandler;
 	private int start = 0;
 	private static int refreshCnt = 0;
@@ -62,7 +66,7 @@ public class MessageFragment extends Fragment implements IXListViewListener {
 
 	private ProgressDialog proDialog;
 	private Context mContext;
-	
+
 	private static ShixiDatabaseManager dbManager;
 
 	public MessageFragment() {
@@ -77,9 +81,10 @@ public class MessageFragment extends Fragment implements IXListViewListener {
 
 		getActivity().setTitle("全部实习");
 		mContext = this.getActivity().getApplicationContext();
-		
-		dbManager = new ShixiDatabaseManager(mContext);
 
+		dbManager = new ShixiDatabaseManager(mContext);
+		final Activity MainActivity = this.getActivity();
+		
 		// geneItems();
 		mListView = (XListView) rootView.findViewById(R.id.xListView);
 		mListView.setPullLoadEnable(true);
@@ -96,10 +101,11 @@ public class MessageFragment extends Fragment implements IXListViewListener {
 
 		mMessageLoader = new ShixiMessageLoader();
 
-		new Thread(new LoadData()).start();
-		proDialog.show();
+		// new Thread(new LoadData()).start();
+		// proDialog.show();
+		loadDataInSql();
 
-		final Activity MainActivity = this.getActivity();
+		
 		mListView.setDividerHeight(0);
 		mListView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -111,7 +117,7 @@ public class MessageFragment extends Fragment implements IXListViewListener {
 				Intent intent = new Intent();
 				intent.setClass(MainActivity, DetailActivity.class);
 				Bundle bundle = new Bundle();
-				bundle.putInt("item_id", mdList.get(arg2 - 1).getMessage_id());
+				bundle.putInt("item_id", showList.get(arg2 - 1).getMessage_id());
 				intent.putExtras(bundle);
 				startActivity(intent);
 
@@ -119,6 +125,25 @@ public class MessageFragment extends Fragment implements IXListViewListener {
 		});
 
 		return rootView;
+	}
+
+	private void loadDataInSql() {
+		// TODO Auto-generated method stub
+		showList = MyUtils.ItemListInSql2MessageList(dbManager
+				.queryMultipleItemsOnline());
+		mAdapter = new MessageAdapter(mContext, showList);
+		mListView.setAdapter(mAdapter);
+		try {
+
+			start_time = Long.parseLong(showList.get(0).getTime());
+			mListView.setRefreshTime(TimeUtils.longToMinute(start_time));
+			//start_time = 1400483739;
+
+		} catch (Exception e) {
+			start_time = 0;
+			e.printStackTrace();
+		}
+
 	}
 
 	private void onLoad() {
@@ -134,7 +159,7 @@ public class MessageFragment extends Fragment implements IXListViewListener {
 			@Override
 			public void run() {
 
-				new Thread(new LoadData()).start();
+				new Thread(new LoadUpdateData()).start();
 				onLoad();
 			}
 		}, 2000);
@@ -153,33 +178,23 @@ public class MessageFragment extends Fragment implements IXListViewListener {
 
 	}
 
-	private Handler handler = new Handler() {
+	private Handler updateHandler = new Handler() {
 		@Override
 		public void handleMessage(Message message) {
 			try {
+				//将下拉刷新得到的list存入数据库
+				dbManager.addMultipleItemsOnline(MyUtils
+						.MessageList2ItemInSqlList(updateList));
+				//从数据库中查找全部数据 得到应该显示的list
+				showList = MyUtils.ItemListInSql2MessageList(dbManager
+						.queryMultipleItemsOnline());
 
-				mAdapter = new MessageAdapter(mContext, mdList);
+				mAdapter = new MessageAdapter(mContext, showList);
 				mListView.setAdapter(mAdapter);
-				proDialog.dismiss();
 				
-				ArrayList<ShixiItemOnline> onlineList = new ArrayList<ShixiItemOnline>();
-				/*
-				for(ShixiMessage m:mdList){
-					ShixiItemOnline item = new ShixiItemOnline();
-					item.setItem_id(m.getMessage_id());
-					item.setTitle(m.getTitle());
-					item.setTime(m.getTime());
-					item.setSource(m.getSource());
-					item.setSource_url(m.getSource_url());
-					item.setIs_clicked(0);
-					item.setIs_collected(0);
-					onlineList.add(item);
-				}		
-				dbManager.addMultipleItemsOnline(onlineList);*/
-				
-				loadmore_time = Long.parseLong(mdList.get(mdList.size() - 1)
-						.getTime()) - 1;
-				System.out.println("loadmore_time = " + loadmore_time);
+				start_time = Long.parseLong(showList.get(0).getTime());
+				loadmore_time = Long.parseLong(showList
+						.get(showList.size() - 1).getTime()) - 1;
 
 			} catch (Exception e) {
 				// TODO: handle exception
@@ -188,7 +203,7 @@ public class MessageFragment extends Fragment implements IXListViewListener {
 
 	};
 
-	class LoadData implements Runnable {
+	class LoadUpdateData implements Runnable {
 
 		@Override
 		public void run() {
@@ -197,13 +212,13 @@ public class MessageFragment extends Fragment implements IXListViewListener {
 			try {
 				Date d = new Date();
 				time_now = d.getTime() / 1000;
-				String url = "http://211.155.86.159/online/info/get_message?startTime=0&endTime="
-						+ time_now + "&count=50";
+				String url = "http://211.155.86.159/online/info/get_message?startTime="
+						+ start_time + "&endTime=" + time_now + "&count=5";
 				// String url =
 				// "http://211.155.86.159:8008/info/get_message?startTime=0&endTime="+time_now+"&count=50";
 
-				mdList = mMessageLoader.parserMovieJson(url);
-				handler.sendEmptyMessage(choice);
+				updateList = mMessageLoader.parserMovieJson(url);
+				updateHandler.sendEmptyMessage(choice);
 
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -212,6 +227,24 @@ public class MessageFragment extends Fragment implements IXListViewListener {
 		}
 
 	}
+
+	private Handler loadmoreHandler = new Handler() {
+		@Override
+		public void handleMessage(Message message) {
+			try {
+				showList.addAll(loadmoreList);
+				mAdapter.notifyDataSetChanged();
+
+				loadmore_time = Long.parseLong(showList
+						.get(showList.size() - 1).getTime()) - 1;
+				System.out.println("loadmore_time = " + loadmore_time);
+
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+		}
+
+	};
 
 	class LoadMoreData implements Runnable {
 
@@ -223,13 +256,15 @@ public class MessageFragment extends Fragment implements IXListViewListener {
 				// Date d = new Date();
 				// time_now = d.getTime()/1000;
 				String url = "http://211.155.86.159/online/info/get_message?startTime=0&endTime="
-						+ loadmore_time + "&count=20";
+						+ loadmore_time + "&count=2";
 				// String url =
 				// "http://211.155.86.159:8008/info/get_message?startTime=0&endTime="+loadmore_time+"&count=20";
 
-				newmdList = mMessageLoader.parserMovieJson(url);
+				loadmoreList = mMessageLoader.parserMovieJson(url);
+				loadmoreHandler.sendEmptyMessage(choice);
 
-				handler1.sendEmptyMessage(choice);
+				dbManager.addMultipleItemsOnline(MyUtils
+						.MessageList2ItemInSqlList(loadmoreList));
 
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -239,21 +274,4 @@ public class MessageFragment extends Fragment implements IXListViewListener {
 
 	}
 
-	private Handler handler1 = new Handler() {
-		@Override
-		public void handleMessage(Message message) {
-			try {
-				mdList.addAll(newmdList);
-				mAdapter.notifyDataSetChanged();
-
-				loadmore_time = Long.parseLong(mdList.get(mdList.size() - 1)
-						.getTime()) - 1;
-				System.out.println("loadmore_time = " + loadmore_time);
-
-			} catch (Exception e) {
-				// TODO: handle exception
-			}
-		}
-
-	};
 }

@@ -1,6 +1,6 @@
 package com.NG.db;
 
-public class ShixiItemOnline {
+public class ShixiItemInSqlite {
 	private int item_id;
 	private String title;
 	private String source;

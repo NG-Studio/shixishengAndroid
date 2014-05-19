@@ -21,16 +21,17 @@ import android.widget.SimpleAdapter;
 import com.NG.adapter.MessageAdapter;
 import com.NG.db.ShixiDatabaseManager;
 import com.NG.db.ShixiItem;
-import com.NG.db.ShixiItemOnline;
+import com.NG.db.ShixiItemInSqlite;
 import com.NG.db.ShixiMessage;
+import com.NG.util.MyUtils;
 import com.ngstudio.zhaoshixi.R;
 
 public class CollectFragment extends Fragment {
 
 	private ListView listView;
 	private MessageAdapter mAdapter;
-	private List<ShixiMessage> mdList = new ArrayList<ShixiMessage>();
-	List<ShixiItem> items = new ArrayList<ShixiItem>();
+	private List<ShixiMessage> smList = new ArrayList<ShixiMessage>();
+	List<ShixiItemInSqlite> items = new ArrayList<ShixiItemInSqlite>();
 
 	private Context mContext;
 	private ShixiDatabaseManager dbManager;
@@ -53,20 +54,16 @@ public class CollectFragment extends Fragment {
 		listView.setDividerHeight(0);
 		
 
-		items = dbManager.queryMultipleItems();
-		
-		for (int i = 0; i < items.size(); i++) {
-			ShixiItem it = items.get(i);
-			ShixiMessage sm = new ShixiMessage();
-			sm.setMessage_id(it.getItem_id());
-			sm.setTitle(it.getTitle());
-			sm.setSource(it.getSource());
-			sm.setTime(it.getTime());
-
-			mdList.add(sm);
+		items = dbManager.queryMultipleItemsOnline();
+		List<ShixiItemInSqlite> collectedList = new ArrayList<ShixiItemInSqlite>();
+		for(ShixiItemInSqlite it:items){
+			if(it.getIs_collected()==1)
+				collectedList.add(it);
 		}
+		smList = MyUtils.ItemListInSql2MessageList(collectedList);
 		
-		mAdapter = new MessageAdapter(mContext, mdList);
+
+		mAdapter = new MessageAdapter(mContext, smList);
 		listView.setAdapter(mAdapter);
 		
 		listView.setOnItemClickListener(new OnItemClickListener() {

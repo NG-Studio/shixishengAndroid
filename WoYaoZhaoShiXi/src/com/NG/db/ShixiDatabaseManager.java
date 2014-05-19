@@ -3,9 +3,6 @@ package com.NG.db;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.NG.db.ShixiDatabaseHelper.Items;
-import com.NG.db.ShixiDatabaseHelper.Messages;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -22,217 +19,7 @@ public class ShixiDatabaseManager {
 
 	// Within the database helper instance, we can write all the CRUD methods
 	// here
-	// Deal with Message
-	/**
-	 * 添加单条实习message
-	 * 
-	 * @param message
-	 */
-	public void addSingleMessage(ShixiMessage message) {
-		db.execSQL(
-				"insert into messages values(null, ?, ?, ?, ?, ?, ?)",
-				new Object[] { message.getMessage_id(), message.getTitle(),
-						message.getSource(), message.getTime(),
-						message.getSource_url(), message.getIs_clicked() });
-	}
-
-	/**
-	 * 在一个数据库事物中添加多条message信息
-	 * 
-	 * @param messages
-	 */
-	public void addMultipleMessages(List<ShixiMessage> messages) {
-		db.beginTransaction();
-		try {
-			for (ShixiMessage m : messages) {
-				addSingleMessage(m);
-			}
-			db.setTransactionSuccessful();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			db.endTransaction();
-		}
-	}
-
-	/**
-	 * 更新数据库中的一条message
-	 * 
-	 * @param message
-	 */
-	public void updateMessage(ShixiMessage message) {
-		db.execSQL(
-				"update messages set title=?,source=?,time=?,source_url=?,is_clicked=? where message_id = ?",
-				new Object[] { message.getTitle(), message.getSource(),
-						message.getTime(), message.getSource_url(),
-						message.getIs_clicked(), message.getMessage_id(), });
-	}
-
-	/**
-	 * 删除数据库中的一条message
-	 * 
-	 * @param message_id
-	 */
-	public void deleteMessage(int message_id) {
-		db.execSQL("delete from messages where message_id=?",
-				new Object[] { message_id });
-	}
-
-	/**
-	 * 查询数据库中的一条message
-	 * 
-	 * @param message_id
-	 * @return
-	 */
-	public ShixiMessage querySingleMessage(int message_id) {
-		ShixiMessage message = new ShixiMessage();
-		Cursor c = db.rawQuery("select * from messages where message_id=?",
-				new String[] { message_id + "" });
-		while (c.moveToNext()) {
-			message.setTitle(c.getString(c.getColumnIndex("title")));
-			message.setSource(c.getString(c.getColumnIndex("source")));
-			message.setTime(c.getString(c.getColumnIndex("time")));
-			message.setSource_url(c.getString(c.getColumnIndex("source_url")));
-			message.setIs_clicked(c.getString(c.getColumnIndex("is_clicked")));
-		}
-		c.close();
-
-		return message;
-	}
-
-	/**
-	 * 查询数据库中得多条message
-	 * 
-	 * @return
-	 */
-	public List<ShixiMessage> queryMultipleMessages() {
-		ArrayList<ShixiMessage> messages = new ArrayList<ShixiMessage>();
-		Cursor c = db.rawQuery("select * from messages", null);
-		while (c.moveToNext()) {
-			ShixiMessage message = new ShixiMessage();
-
-			message.setMessage_id(c.getInt(c.getColumnIndex("message_id")));
-			message.setTitle(c.getString(c.getColumnIndex("title")));
-			message.setSource(c.getString(c.getColumnIndex("source")));
-			message.setTime(c.getString(c.getColumnIndex("time")));
-			message.setSource_url(c.getString(c.getColumnIndex("source_url")));
-			message.setIs_clicked(c.getString(c.getColumnIndex("is_clicked")));
-
-			messages.add(message);
-		}
-		c.close();
-
-		return messages;
-	}
-
-	// Deal with Item
-	/**
-	 * 添加单条实习item
-	 * 
-	 * @param item
-	 */
-	public void addSingleItem(ShixiItem item) {
-		db.execSQL(
-				"insert into items values(null, ?, ?, ?, ?, ?, ?, ?)",
-				new Object[] { item.getItem_id(), item.getTitle(),
-						item.getSource(), item.getTime(), item.getSource_url(),
-						item.getAuthor(), item.getText_body() });
-	}
-
-	/**
-	 * 在一个数据库事物中添加多条item信息
-	 * 
-	 * @param items
-	 */
-	public void addMultipleItems(List<ShixiItem> items) {
-		db.beginTransaction();
-		try {
-			for (ShixiItem i : items) {
-				addSingleItem(i);
-			}
-			db.setTransactionSuccessful();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			db.endTransaction();
-		}
-	}
-
-	/**
-	 * 更新数据库中的一条item
-	 * 
-	 * @param item
-	 */
-	public void updateItem(ShixiItem item) {
-		db.execSQL(
-				"update items set title=?,source=?,time=?,source_url=?,author=?,text_body=? where item_id = ?",
-				new Object[] { item.getTitle(), item.getSource(),
-						item.getTime(), item.getSource_url(), item.getAuthor(),
-						item.getText_body(), item.getItem_id(), });
-	}
-
-	/**
-	 * 删除数据库中的一条item
-	 * 
-	 * @param item_id
-	 */
-	public void deleteItem(int item_id) {
-		db.execSQL("delete from items where item_id=?",
-				new Object[] { item_id });
-	}
-
-	/**
-	 * 查询数据库中的一条item
-	 * 
-	 * @param item
-	 * @return
-	 */
-	public ShixiItem querySingleItem(int item_id) {
-		ShixiItem item = new ShixiItem();
-		Cursor c = db.rawQuery("select * from items where item_id=?",
-				new String[] { item_id + "" });
-		while (c.moveToNext()) {
-			item.setTitle(c.getString(c.getColumnIndex("title")));
-			item.setSource(c.getString(c.getColumnIndex("source")));
-			item.setTime(c.getString(c.getColumnIndex("time")));
-			item.setSource_url(c.getString(c.getColumnIndex("source_url")));
-			item.setAuthor(c.getString(c.getColumnIndex("author")));
-			item.setText_body(c.getString(c.getColumnIndex("text_body")));
-		}
-		c.close();
-
-		return item;
-	}
-
-	/**
-	 * 查询数据库中得多条item
-	 * 
-	 * @return
-	 */
-	public List<ShixiItem> queryMultipleItems() {
-		ArrayList<ShixiItem> items = new ArrayList<ShixiItem>();
-		Cursor c = db.rawQuery("select * from items", null);
-		while (c.moveToNext()) {
-			ShixiItem item = new ShixiItem();
-
-			System.out.println("item_id = "
-					+ c.getString(c.getColumnIndex("item_id")));
-
-			item.setItem_id(c.getInt(c.getColumnIndex("item_id")));
-			item.setTitle(c.getString(c.getColumnIndex("title")));
-			item.setSource(c.getString(c.getColumnIndex("source")));
-			item.setTime(c.getString(c.getColumnIndex("time")));
-			item.setSource_url(c.getString(c.getColumnIndex("source_url")));
-			item.setAuthor(c.getString(c.getColumnIndex("author")));
-			item.setText_body(c.getString(c.getColumnIndex("text_body")));
-
-			items.add(item);
-		}
-		c.close();
-
-		return items;
-	}
-
+	
 	
 	// Deal with ItemsOnline
 	/**
@@ -240,12 +27,13 @@ public class ShixiDatabaseManager {
 	 * 
 	 * @param item
 	 */
-	public void addSingleItemOnline(ShixiItemOnline item) {
+	public void addSingleItemOnline(ShixiItemInSqlite item) {
 		db.execSQL(
-				"insert into items_online values(null, ?, ?, ?, ?, ?, ?, ?, ?)",
-				new Object[] { item.getItem_id(),item.getTitle(),item.getSource(),item.getTime(),
-						item.getSource_url(),item.getText_body(),item.getIs_clicked(),item.getIs_collected()
-				
+				"insert into hello_item values(null, ?, ?, ?, ?, ?, ?, ?, ?)",
+				new Object[] { item.getItem_id(), item.getTitle(),
+						item.getSource(), item.getTime(), item.getSource_url(),
+						item.getText_body(), item.getIs_clicked(),item.getIs_collected()
+
 				});
 	}
 
@@ -254,10 +42,10 @@ public class ShixiDatabaseManager {
 	 * 
 	 * @param items
 	 */
-	public void addMultipleItemsOnline(List<ShixiItemOnline> items) {
+	public void addMultipleItemsOnline(List<ShixiItemInSqlite> items) {
 		db.beginTransaction();
 		try {
-			for (ShixiItemOnline i : items) {
+			for (ShixiItemInSqlite i : items) {
 				addSingleItemOnline(i);
 			}
 			db.setTransactionSuccessful();
@@ -273,13 +61,19 @@ public class ShixiDatabaseManager {
 	 * 
 	 * @param item
 	 */
-	public void updateItemOnline(ShixiItemOnline item) {
+	public void updateItemOnline(ShixiItemInSqlite item) {
 		db.execSQL(
-				"update items_online set title=?,source=?,time=?,source_url=?,text_body=? ,is_clicked=? ,is_collected=? ,where item_id = ?",
-				new Object[] { item.getTitle(), item.getSource(),
-						item.getTime(), item.getSource_url(),
-						item.getText_body(), item.getItem_id(),
-						item.getIs_clicked(), item.getIs_collected() });
+				"update hello_item set title=?,source=?,time=?,source_url=?,text_body=? " +
+				",clicked=? ,collected=? where item_id =?",
+				new Object[] { item.getTitle(), 
+						item.getSource(),
+						item.getTime(), 
+						item.getSource_url(),
+						item.getText_body(), 
+						item.getIs_clicked(), 
+						item.getIs_collected(), 
+						item.getItem_id(),
+						 });
 	}
 
 	/**
@@ -288,7 +82,7 @@ public class ShixiDatabaseManager {
 	 * @param item_id
 	 */
 	public void deleteItemOnline(int item_id) {
-		db.execSQL("delete from items_online where item_id=?",
+		db.execSQL("delete from hello_item where item_id=?",
 				new Object[] { item_id });
 	}
 
@@ -298,18 +92,19 @@ public class ShixiDatabaseManager {
 	 * @param item
 	 * @return
 	 */
-	public ShixiItemOnline querySingleItemOnline(int item_id) {
-		ShixiItemOnline item = new ShixiItemOnline();
-		Cursor c = db.rawQuery("select * from items where item_id=?",
+	public ShixiItemInSqlite querySingleItemOnline(int item_id) {
+		ShixiItemInSqlite item = new ShixiItemInSqlite();
+		Cursor c = db.rawQuery("select * from hello_item where item_id=?",
 				new String[] { item_id + "" });
 		while (c.moveToNext()) {
+			item.setItem_id(c.getInt(c.getColumnIndex("item_id")));
 			item.setTitle(c.getString(c.getColumnIndex("title")));
 			item.setSource(c.getString(c.getColumnIndex("source")));
 			item.setTime(c.getString(c.getColumnIndex("time")));
 			item.setSource_url(c.getString(c.getColumnIndex("source_url")));
 			item.setText_body(c.getString(c.getColumnIndex("text_body")));
-			item.setIs_clicked(c.getInt(c.getColumnIndex("is_clicked")));
-			item.setIs_collected(c.getInt(c.getColumnIndex("is_collected")));
+			item.setIs_clicked(c.getInt(c.getColumnIndex("clicked")));
+			item.setIs_collected(c.getInt(c.getColumnIndex("collected")));
 			
 		}
 		c.close();
@@ -322,11 +117,11 @@ public class ShixiDatabaseManager {
 	 * 
 	 * @return
 	 */
-	public List<ShixiItemOnline> queryMultipleItemsOnline() {
-		ArrayList<ShixiItemOnline> items = new ArrayList<ShixiItemOnline>();
-		Cursor c = db.rawQuery("select * from items_online", null);
+	public List<ShixiItemInSqlite> queryMultipleItemsOnline() {
+		ArrayList<ShixiItemInSqlite> items = new ArrayList<ShixiItemInSqlite>();
+		Cursor c = db.rawQuery("select * from hello_item", null);
 		while (c.moveToNext()) {
-			ShixiItemOnline item = new ShixiItemOnline();
+			ShixiItemInSqlite item = new ShixiItemInSqlite();
 
 			System.out.println("item_id = "
 					+ c.getString(c.getColumnIndex("item_id")));
@@ -337,8 +132,8 @@ public class ShixiDatabaseManager {
 			item.setTime(c.getString(c.getColumnIndex("time")));
 			item.setSource_url(c.getString(c.getColumnIndex("source_url")));
 			item.setText_body(c.getString(c.getColumnIndex("text_body")));
-			item.setIs_clicked(c.getInt(c.getColumnIndex("is_clicked")));
-			item.setIs_collected(c.getInt(c.getColumnIndex("is_collected")));
+			item.setIs_clicked(c.getInt(c.getColumnIndex("clicked")));
+			item.setIs_collected(c.getInt(c.getColumnIndex("collected")));
 
 			items.add(item);
 		}
@@ -352,7 +147,9 @@ public class ShixiDatabaseManager {
 	 * */
 	public void resetItems() {
 
-		db.execSQL("delete from items;select * from sqlite_sequence;update sqlite_sequence set seq=0 where name=items; ");
+		db.execSQL("delete from hello_item;" + 
+				"select * from sqlite_sequence;" + 
+				"update sqlite_sequence set seq=0 where name=hello_item; ");
 
 	}
 

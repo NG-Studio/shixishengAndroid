@@ -77,6 +77,7 @@ public class ShixiItemLoader {
 			mItem.setSource_url(j.getString("item_url"));
 			mItem.setSource(j.getString("item_source"));
 			mItem.setTime(j.getString("publish_time"));
+			mItem.setItem_id(j.getInt("item_id"));
 			
 			//String time;
 			//long time_long = Long.parseLong(j.getString("publish_time"));

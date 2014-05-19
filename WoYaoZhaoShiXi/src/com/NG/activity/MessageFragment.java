@@ -213,7 +213,7 @@ public class MessageFragment extends Fragment implements IXListViewListener {
 				Date d = new Date();
 				time_now = d.getTime() / 1000;
 				String url = "http://211.155.86.159/online/info/get_message?startTime="
-						+ start_time + "&endTime=" + time_now + "&count=5";
+						+ start_time + "&endTime=" + time_now + "&count=20";
 				// String url =
 				// "http://211.155.86.159:8008/info/get_message?startTime=0&endTime="+time_now+"&count=50";
 
@@ -256,7 +256,7 @@ public class MessageFragment extends Fragment implements IXListViewListener {
 				// Date d = new Date();
 				// time_now = d.getTime()/1000;
 				String url = "http://211.155.86.159/online/info/get_message?startTime=0&endTime="
-						+ loadmore_time + "&count=2";
+						+ loadmore_time + "&count=5";
 				// String url =
 				// "http://211.155.86.159:8008/info/get_message?startTime=0&endTime="+loadmore_time+"&count=20";
 

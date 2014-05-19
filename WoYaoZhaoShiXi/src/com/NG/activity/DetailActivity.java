@@ -282,14 +282,15 @@ public class DetailActivity extends Activity implements PlatformActionListener, 
 		oks.setAddress("13811582143");
 		
 		//分享内容的标题
-		oks.setTitle("我要找实习");
+		oks.setTitle(mItem.getTitle());
 		
 		//标题对应的网址，如果没有可以不设置
 		oks.setTitleUrl("http://www.51zhaoshixi.com");
 		
-		//设置分享的文本内容
-		oks.setText("51zhaoshixi - NG Studio");
-		
+		// 设置分享的文本内容
+		oks.setText(mItem.getTitle() + "\n" + mItem.getSource_url() + "\n"
+				+ "以上数据来自哇!实习" + "\n" + "by NG-Stido");
+
 		//设置分享照片的本地路径，如果没有可以不设置
 		//oks.setImagePath(DetailActivity.TEST_IMAGE);
 		

@@ -25,6 +25,7 @@ import com.NG.db.ShixiItem;
 import com.NG.db.ShixiItemInSqlite;
 import com.NG.loader.ShixiItemLoader;
 import com.NG.util.MyUtils;
+import com.NG.util.ShareContentCustomizeInterface;
 import com.NG.util.TimeUtils;
 import com.ngstudio.zhaoshixi.R;
 
@@ -287,9 +288,9 @@ public class DetailActivity extends Activity{
 		// oks.setCallback(new OneKeyShareCallback());
 		
 		// 通过OneKeyShareCallback来修改不同平台分享的内容
-		// oks.setShareContentCustomizeCallback(
+		oks.setShareContentCustomizeCallback(
 		
-		// new ShareContentCustomizeDemo());
+		new ShareContentCustomizeInterface());
 		
 		oks.show(DetailActivity.this);
 	}

@@ -32,6 +32,7 @@ import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -39,6 +40,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 import cn.sharesdk.framework.ShareSDK;
 
 import com.ngstudio.zhaoshixi.R;
@@ -78,6 +80,8 @@ public class Main extends Activity {
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
     private String[] mPlanetTitles;
+    
+    private static boolean isExit = false; // 用于管理是否退出应用
     
     // shareSDK
  	private static final String IMAGE_FILE_NAME = "washixi.jpg";
@@ -300,4 +304,24 @@ public class Main extends Activity {
     	ShareSDK.stopSDK(this);
     }
     
+    
+    
+    @Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			if (isExit == false) {
+				isExit = true;
+				Toast.makeText(this, "再按一次后退键退出应用程序", Toast.LENGTH_SHORT)
+						.show();
+
+			} else {
+				finish();
+				System.exit(0);
+			}
+		}
+
+		return false;
+	}
+
 }

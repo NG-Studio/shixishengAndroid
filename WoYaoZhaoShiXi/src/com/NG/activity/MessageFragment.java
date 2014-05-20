@@ -11,6 +11,7 @@ import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -35,6 +36,9 @@ import com.ngstudio.zhaoshixi.R;
 public class MessageFragment extends Fragment implements IXListViewListener {
 	private static final String TAG = "MessageFragment";
 
+	SharedPreferences settings;
+	SharedPreferences.Editor editor;
+	
 	// endtime
 	private static long time_now = 0;
 	private static long start_time = 0;
@@ -75,7 +79,9 @@ public class MessageFragment extends Fragment implements IXListViewListener {
 		mContext = this.getActivity().getApplicationContext();
 
 		dbManager = new ShixiDatabaseManager(mContext);
-		final Activity MainActivity = this.getActivity();
+		
+		final Activity MainActivity = this.getActivity();	
+		
 		
 		// geneItems();
 		mListView = (XListView) rootView.findViewById(R.id.xListView);
@@ -115,6 +121,21 @@ public class MessageFragment extends Fragment implements IXListViewListener {
 
 			}
 		});
+
+		// 若为第一次使用，则自动执行一次刷新操作
+		settings = mContext.getSharedPreferences("setting",
+				Activity.MODE_PRIVATE);
+		editor = settings.edit();
+		Boolean isFisrtUpdate = settings.getBoolean("isFisrtUpdate", true);
+		if (isFisrtUpdate) {
+			System.out.println("首次使用");
+			new Thread(new LoadUpdateData()).start();
+			onLoad();
+		} else {
+			System.out.println("不是首次使用");
+			editor.putBoolean("isFisrtUpdate", false);
+			editor.commit();
+		}
 
 		return rootView;
 	}

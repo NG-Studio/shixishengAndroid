@@ -51,6 +51,7 @@ public class CollectFragment extends Fragment {
 		listView = (ListView) rootView.findViewById(R.id.collect_list);
 		
 		final Activity MainActivity = this.getActivity();
+		MainActivity.setTitle("我的收藏");
 		listView.setDividerHeight(0);
 		
 
@@ -76,7 +77,7 @@ public class CollectFragment extends Fragment {
 				Intent intent = new Intent();
 				intent.setClass(MainActivity, DetailActivity.class);
 				Bundle bundle = new Bundle();
-				bundle.putInt("item_id", items.get(arg2).getItem_id());
+				bundle.putInt("item_id", smList.get(arg2).getMessage_id());
 				intent.putExtras(bundle);
 				startActivity(intent);
 

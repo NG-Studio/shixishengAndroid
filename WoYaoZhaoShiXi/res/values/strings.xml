@@ -21,6 +21,7 @@
     <string-array name="planets_array">
         <item>找实习</item>
         <item>我的收藏</item>
+        <item>反馈</item>
         <item>设置</item>
     </string-array>
     <string name="drawer_open">Open navigation drawer</string>

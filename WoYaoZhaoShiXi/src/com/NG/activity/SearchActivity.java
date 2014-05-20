@@ -1,21 +1,12 @@
 package com.NG.activity;
 
-import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import m.framework.ui.widget.pulltorefresh.OnScrollListener;
-import m.framework.ui.widget.pulltorefresh.Scrollable;
 import me.maxwin.view.XListView;
 import me.maxwin.view.XListView.IXListViewListener;
-
-import com.NG.adapter.MessageAdapter;
-import com.NG.db.ShixiMessage;
-import com.NG.loader.ShixiMessageLoader;
-import com.ngstudio.zhaoshixi.R;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -27,20 +18,22 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.AdapterView.OnItemClickListener;
+
+import com.NG.adapter.MessageAdapter;
+import com.NG.db.ShixiMessage;
+import com.NG.loader.ShixiMessageLoader;
+import com.ngstudio.zhaoshixi.R;
 
 public class SearchActivity extends Activity implements IXListViewListener {
 	private static final String TAG = "SearchActivity";
 
 	private static long time_now = 0;
-	private static long update_time = 0;
 	private static long loadmore_time = 0;
 
 	private XListView mListView;
@@ -48,8 +41,6 @@ public class SearchActivity extends Activity implements IXListViewListener {
 	private List<ShixiMessage> mdList = new ArrayList<ShixiMessage>();
 	private List<ShixiMessage> newmdList = new ArrayList<ShixiMessage>();
 	private Handler mHandler;
-	private int start = 0;
-	private static int refreshCnt = 0;
 
 	private ShixiMessageLoader mMessageLoader;
 

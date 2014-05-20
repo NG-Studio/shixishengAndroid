@@ -5,14 +5,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.ngstudio.zhaoshixi.R;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+
+import com.ngstudio.zhaoshixi.R;
 
 public class TestSQLiteActivity extends Activity {
 	private EditText ed1;

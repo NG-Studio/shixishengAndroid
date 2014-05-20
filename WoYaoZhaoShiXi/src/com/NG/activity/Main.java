@@ -15,43 +15,26 @@ package com.NG.activity;
  * limitations under the License.
  */
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-
-import cn.sharesdk.framework.ShareSDK;
-
-import com.NG.adapter.MessageAdapter;
-import com.ngstudio.zhaoshixi.R;
-
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.app.SearchManager;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.view.ContextMenu;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ContextMenu.ContextMenuInfo;
-import android.view.View.OnCreateContextMenuListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
-import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
+import cn.sharesdk.framework.ShareSDK;
+
+import com.ngstudio.zhaoshixi.R;
 
 /**
  * This example illustrates a common usage of the DrawerLayout widget
@@ -193,6 +176,7 @@ public class Main extends Activity {
         // update the main content by replacing fragments
         Fragment messageFg = new MessageFragment();
         Fragment collectFg = new CollectFragment();
+        Fragment feedbackFg = new FeedbackFragment();
         Fragment settingFg = new SettingFragment();
 //        Bundle args = new Bundle();
 //        args.putInt(MessageFragment.ARG_PLANET_NUMBER, position);
@@ -216,6 +200,10 @@ public class Main extends Activity {
 	        ft.commit();
 	        break;
 		case 2:
+			ft.replace(R.id.content_frame, feedbackFg);
+			ft.commit();
+			break;
+		case 3:
 			ft.replace(R.id.content_frame, settingFg);
 			ft.commit();
 			break;

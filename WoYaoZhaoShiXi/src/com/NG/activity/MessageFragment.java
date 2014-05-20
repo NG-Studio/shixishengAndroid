@@ -1,17 +1,11 @@
 package com.NG.activity;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.xml.sax.SAXException;
-
 import me.maxwin.view.XListView;
 import me.maxwin.view.XListView.IXListViewListener;
-
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.ProgressDialog;
@@ -20,7 +14,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,7 +23,6 @@ import android.widget.AdapterView.OnItemClickListener;
 
 import com.NG.adapter.MessageAdapter;
 import com.NG.db.ShixiDatabaseManager;
-import com.NG.db.ShixiItemInSqlite;
 import com.NG.db.ShixiMessage;
 import com.NG.loader.ShixiMessageLoader;
 import com.NG.util.MyUtils;

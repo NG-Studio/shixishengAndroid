@@ -15,6 +15,8 @@ import cn.sharesdk.onekeyshare.ShareContentCustomizeCallback;
 import cn.sharesdk.sina.weibo.SinaWeibo;
 import cn.sharesdk.system.email.Email;
 import cn.sharesdk.system.text.ShortMessage;
+import cn.sharesdk.tencent.qzone.QZone;
+import cn.sharesdk.tencent.weibo.TencentWeibo;
 
 
 /**
@@ -63,6 +65,31 @@ public class ShareContentCustomizeInterface implements ShareContentCustomizeCall
 			
 			paramsToShare.setText(oldText + "-" + oldUrl);
 		}
+		
+		else if ((TencentWeibo.NAME).equals(platform.getName())) {
+			Log.i("shareSDK", "Sharing ShortMessage...");
+			
+			String oldText = paramsToShare.getText();
+			String oldUrl = paramsToShare.getUrl();
+			
+			Log.i("shareSDK", "oldText:" + oldText);
+			Log.i("shareSDK", "oldUrl:" + oldUrl);
+			
+			paramsToShare.setText(oldText + "-" + oldUrl);
+		}
+		
+		else if ((QZone.NAME).equals(platform.getName())) {
+			Log.i("shareSDK", "Sharing ShortMessage...");
+			
+			String oldText = paramsToShare.getText();
+			String oldUrl = paramsToShare.getUrl();
+			
+			Log.i("shareSDK", "oldText:" + oldText);
+			Log.i("shareSDK", "oldUrl:" + oldUrl);
+			
+			paramsToShare.setText(oldText + "-" + oldUrl);
+		}
+		
 		else {
 			
 		}

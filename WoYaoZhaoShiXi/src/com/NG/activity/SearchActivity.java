@@ -28,6 +28,7 @@ import android.widget.ImageView;
 import com.NG.adapter.MessageAdapter;
 import com.NG.db.ShixiMessage;
 import com.NG.loader.ShixiMessageLoader;
+import com.NG.util.MyUtils;
 import com.ngstudio.zhaoshixi.R;
 
 public class SearchActivity extends Activity implements IXListViewListener {
@@ -46,6 +47,8 @@ public class SearchActivity extends Activity implements IXListViewListener {
 
 	private ProgressDialog proDialog;
 	private Context mContext;
+	
+	private static String user_mac;
 
 	private String name;
 	private ImageView search_button;// 搜索按钮
@@ -64,6 +67,7 @@ public class SearchActivity extends Activity implements IXListViewListener {
 		// getActionBar().setTitle("实习搜索");
 
 		mContext = this;
+		user_mac = MyUtils.getLocalMacAddress(this);
 
 		// geneItems();
 		mListView = (XListView) findViewById(R.id.xListView);
@@ -202,7 +206,11 @@ public class SearchActivity extends Activity implements IXListViewListener {
 				time_now = d.getTime() / 1000;
 				String ch = URLEncoder.encode(name, "utf-8");
 				String url = "http://211.155.86.159/online/info/search?startTime=0&endTime="
-						+ time_now + "&count=50&query=" + ch;
+						+ time_now
+						+ "&count=50&query="
+						+ ch
+						+ "&mac="
+						+ user_mac;
 				System.out.println(url);
 
 				mdList = mMessageLoader.parserMovieJson(url);
@@ -227,7 +235,11 @@ public class SearchActivity extends Activity implements IXListViewListener {
 				// time_now = d.getTime()/1000;
 				String ch = URLEncoder.encode(name, "utf-8");
 				String url = "http://211.155.86.159/online/info/get_message?startTime=0&endTime="
-						+ loadmore_time + "&count=20&query=" + ch;
+						+ loadmore_time
+						+ "&count=20&query="
+						+ ch
+						+ "&mac="
+						+ user_mac;
 				newmdList = mMessageLoader.parserMovieJson(url);
 
 				handler1.sendEmptyMessage(choice);

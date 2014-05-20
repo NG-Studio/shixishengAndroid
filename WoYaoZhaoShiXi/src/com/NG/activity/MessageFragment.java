@@ -12,6 +12,8 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -44,6 +46,8 @@ public class MessageFragment extends Fragment implements IXListViewListener {
 	private static long start_time = 0;
 	private static long update_time = 0;
 	private static long loadmore_time = 0;
+	
+	private static String user_mac = "";
 
 	private XListView mListView;
 	private MessageAdapter mAdapter;
@@ -77,7 +81,7 @@ public class MessageFragment extends Fragment implements IXListViewListener {
 
 		getActivity().setTitle("全部实习");
 		mContext = this.getActivity().getApplicationContext();
-
+		user_mac = MyUtils.getLocalMacAddress(mContext);
 		dbManager = new ShixiDatabaseManager(mContext);
 		
 		final Activity MainActivity = this.getActivity();	
@@ -128,13 +132,17 @@ public class MessageFragment extends Fragment implements IXListViewListener {
 		editor = settings.edit();
 		Boolean isFisrtUpdate = settings.getBoolean("isFisrtUpdate", true);
 		if (isFisrtUpdate) {
+			
 			System.out.println("首次使用");
-			new Thread(new LoadUpdateData()).start();
-			onLoad();
-		} else {
-			System.out.println("不是首次使用");
 			editor.putBoolean("isFisrtUpdate", false);
 			editor.commit();
+			new Thread(new LoadUpdateData()).start();
+			onLoad();
+			proDialog.show();
+			
+		} else {
+			System.out.println("不是首次使用");
+			
 		}
 
 		return rootView;
@@ -226,12 +234,14 @@ public class MessageFragment extends Fragment implements IXListViewListener {
 				Date d = new Date();
 				time_now = d.getTime() / 1000;
 				String url = "http://211.155.86.159/online/info/get_message?startTime="
-						+ start_time + "&endTime=" + time_now + "&count=20";
+						+ start_time + "&endTime=" + time_now + "&count=20"+"&mac="+user_mac;
 				// String url =
 				// "http://211.155.86.159:8008/info/get_message?startTime=0&endTime="+time_now+"&count=50";
 
 				updateList = mMessageLoader.parserMovieJson(url);
 				updateHandler.sendEmptyMessage(choice);
+				
+				proDialog.dismiss();
 
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -269,7 +279,7 @@ public class MessageFragment extends Fragment implements IXListViewListener {
 				// Date d = new Date();
 				// time_now = d.getTime()/1000;
 				String url = "http://211.155.86.159/online/info/get_message?startTime=0&endTime="
-						+ loadmore_time + "&count=5";
+						+ loadmore_time + "&count=5"+"&mac="+user_mac;
 				// String url =
 				// "http://211.155.86.159:8008/info/get_message?startTime=0&endTime="+loadmore_time+"&count=20";
 
@@ -286,5 +296,9 @@ public class MessageFragment extends Fragment implements IXListViewListener {
 		}
 
 	}
+	
+	
+	
+	
 
 }

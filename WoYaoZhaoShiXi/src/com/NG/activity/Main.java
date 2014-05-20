@@ -80,6 +80,7 @@ public class Main extends Activity {
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
     private String[] mPlanetTitles;
+    private int currentFragmentID;
     
     private static boolean isExit = false; // 用于管理是否退出应用
     
@@ -152,6 +153,7 @@ public class Main extends Activity {
 
         if (savedInstanceState == null) {
             selectItem(0);
+            currentFragmentID = 0;
         }
         
         // 初始化shareSDK，使用ShareSDK.xml配置分享平台必须调用
@@ -210,6 +212,7 @@ public class Main extends Activity {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             selectItem(position);
+			currentFragmentID = position;
         }
     }
 
@@ -222,7 +225,7 @@ public class Main extends Activity {
         Fragment collectFg = new CollectFragment();
         Fragment feedbackFg = new FeedbackFragment();
         Fragment aboutusFg = new AboutusFragment();
-        Fragment settingFg = new SettingFragment();
+        //Fragment settingFg = new SettingFragment();
         
 //        Bundle args = new Bundle();
 //        args.putInt(MessageFragment.ARG_PLANET_NUMBER, position);
@@ -304,21 +307,31 @@ public class Main extends Activity {
     	ShareSDK.stopSDK(this);
     }
     
-    
+	public void switchContent(Fragment fragment) {
+		getFragmentManager().beginTransaction()
+				.replace(R.id.content_frame, fragment).commit();
+	}
     
     @Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			if (isExit == false) {
-				isExit = true;
-				Toast.makeText(this, "再按一次后退键退出应用程序", Toast.LENGTH_SHORT)
-						.show();
+			if(currentFragmentID==0){
+				if (isExit == false) {
+					isExit = true;
+					Toast.makeText(this, "再按一次后退键退出应用程序", Toast.LENGTH_SHORT)
+							.show();
 
-			} else {
-				finish();
-				System.exit(0);
+				} else {
+					finish();
+					System.exit(0);
+				}
 			}
+			else{
+				selectItem(0);
+				currentFragmentID = 0;
+			}
+			
 		}
 
 		return false;

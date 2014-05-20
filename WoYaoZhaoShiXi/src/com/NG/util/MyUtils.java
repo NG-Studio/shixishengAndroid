@@ -3,12 +3,27 @@ package com.NG.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Context;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
+
 import com.NG.db.ShixiItem;
 import com.NG.db.ShixiItemInSqlite;
 import com.NG.db.ShixiMessage;
 
 public class MyUtils {
 	
+	/** 
+     * 获取mac地址 
+     * @param context 
+     * @return 
+     */  
+    public static String getLocalMacAddress(Context context) {  
+        WifiManager wifi = (WifiManager) context.getSystemService(  
+                Context.WIFI_SERVICE);  
+        WifiInfo info = wifi.getConnectionInfo();  
+        return info.getMacAddress();  
+    }
 	
 	/**
 	 * 从数据库中读出的item 转成显示的 message

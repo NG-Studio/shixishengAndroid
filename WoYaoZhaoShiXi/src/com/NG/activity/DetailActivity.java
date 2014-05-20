@@ -50,6 +50,7 @@ public class DetailActivity extends Activity{
 	private ShixiItemLoader mItemLoader;
 	
 	private String url;
+	private static String user_mac;
 	
 	private ShixiDatabaseManager dbManager;
 	private boolean isCollected = false;
@@ -64,7 +65,7 @@ public class DetailActivity extends Activity{
 		ShareSDK.initSDK(this);
 		
 		dbManager = new ShixiDatabaseManager(this);
-		
+		user_mac = MyUtils.getLocalMacAddress(this);
 
 		Bundle bundle = getIntent().getExtras();
 		int item_id = bundle.getInt("item_id");
@@ -72,7 +73,8 @@ public class DetailActivity extends Activity{
 		ShixiItemInSqlite item = dbManager.querySingleItemOnline(item_id);
 		
 		
-		url = "http://211.155.86.159/online/info/get_item?item_id=" + item_id;
+		url = "http://211.155.86.159/online/info/get_item?item_id=" + item_id
+				+ "&mac=" + user_mac;
 		initView();
 		
 		// loadData();

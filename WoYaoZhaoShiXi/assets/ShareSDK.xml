@@ -58,7 +58,7 @@
         AppKey="3665707006"
         AppSecret="95ae6eb41d22903b7cbc9e2aa00646bf"
         RedirectUrl="http://www.51zhaoshixi.com"
-        ShareByAppClient="true"
+        ShareByAppClient="false"
         Enable="true" />
     
     <Email
@@ -118,13 +118,12 @@
         RedirectUri="http://www.51zhaoshixi.com"
         Enable="true" />
 
-    <!-- ShareByAppClient标识是否使用微博客户端分享，默认是false -->
     <QZone
         Id="9"
         SortId="9"
         AppId="101076890"
         AppKey="2c9d8eb6055a5f6b045d591eb482a61b"
-        ShareByAppClient="true"
+        ShareByAppClient="false"
         Enable="true" />
 
 </DevInfor>

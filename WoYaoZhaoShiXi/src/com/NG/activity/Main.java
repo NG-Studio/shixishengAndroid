@@ -15,43 +15,32 @@ package com.NG.activity;
  * limitations under the License.
  */
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-
-import cn.sharesdk.framework.ShareSDK;
-
-import com.NG.adapter.MessageAdapter;
-import com.ngstudio.zhaoshixi.R;
+import java.io.File;
+import java.io.FileOutputStream;
 
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.app.SearchManager;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.view.ContextMenu;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ContextMenu.ContextMenuInfo;
-import android.view.View.OnCreateContextMenuListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
-import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
+import cn.sharesdk.framework.ShareSDK;
+
+import com.ngstudio.zhaoshixi.R;
 
 /**
  * This example illustrates a common usage of the DrawerLayout widget
@@ -88,15 +77,37 @@ public class Main extends Activity {
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
     private String[] mPlanetTitles;
+    
+    // shareSDK
+ 	private static final String IMAGE_FILE_NAME = "washixi.jpg";
+ 	public static String SHARE_IMAGE;
+ 	public static String SHARE_IMAGE_URL;
+ 	
+ 	private void initImagePath() {
+		try {
+			String cachePath = cn.sharesdk.framework.utils.R.getCachePath(this, null);
+			SHARE_IMAGE = cachePath + IMAGE_FILE_NAME;
+			File file = new File(SHARE_IMAGE);
+			if (!file.exists()) {
+				file.createNewFile();
+				Bitmap pic = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
+				FileOutputStream fos = new FileOutputStream(file);
+				pic.compress(CompressFormat.PNG, 100, fos);
+				fos.flush();
+				fos.close();
+			}
+		} catch(Throwable t) {
+			t.printStackTrace();
+			SHARE_IMAGE = null;
+		}
+	}
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
-        // 初始化shareSDK，使用ShareSDK.xml配置分享平台必须调用
-        ShareSDK.initSDK(this);
-
         mTitle = mDrawerTitle = getTitle();
         mPlanetTitles = getResources().getStringArray(R.array.planets_array);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -137,6 +148,17 @@ public class Main extends Activity {
         if (savedInstanceState == null) {
             selectItem(0);
         }
+        
+        // 初始化shareSDK，使用ShareSDK.xml配置分享平台必须调用
+        ShareSDK.initSDK(this);
+        
+        new Thread() {
+			public void run() {
+				SHARE_IMAGE_URL = "http://f1.sharesdk.cn/imgs/2014/02/26/owWpLZo_638x960.jpg";
+				initImagePath();
+			}
+		}.start();
+
     }
 
     @Override

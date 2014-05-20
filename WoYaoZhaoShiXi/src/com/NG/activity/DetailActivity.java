@@ -1,19 +1,13 @@
 package com.NG.activity;
 
-import java.util.HashMap;
-
 import android.app.ActionBar;
 import android.app.Activity;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Handler.Callback;
 import android.os.Message;
 import android.text.Html;
 import android.util.Log;
@@ -23,10 +17,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-import cn.sharesdk.framework.Platform;
-import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
-import cn.sharesdk.framework.utils.UIHandler;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 
 import com.NG.db.ShixiDatabaseManager;
@@ -38,7 +29,7 @@ import com.NG.util.TimeUtils;
 import com.ngstudio.zhaoshixi.R;
 
 
-public class DetailActivity extends Activity implements PlatformActionListener, Callback{
+public class DetailActivity extends Activity{
 
 	final static String TAG = "DetailActivity";
 	
@@ -229,168 +220,81 @@ public class DetailActivity extends Activity implements PlatformActionListener, 
 		dbManager.closeDB();
 	}
 
-	private static final int MSG_TOAST = 1;
-	private static final int MSG_ACTION_CCALLBACK = 2;
-	private static final int MSG_CANCEL_NOTIFY = 3;
-	
-	// sdcard中的图片名称，分享图片需要
-	//private static final String FILE_NAME = "/zhaoshixi.png";
-	//public static String TEST_IMAGE;
-
-	@Override
-	public boolean handleMessage(Message msg) {
-		// TODO Auto-generated method stub
-		switch (msg.what) {
-		case MSG_TOAST: {
-			String text = String.valueOf(msg.obj);
-			Toast.makeText(DetailActivity.this, text, Toast.LENGTH_SHORT).show();
-		}
-			break;
-		case MSG_ACTION_CCALLBACK: {
-			switch (msg.arg1) {
-			case 1: // 成功后发送Notification
-				showNotification(2000, "分享完成");
-				break;
-			case 2: // 失败后发送Notification
-				showNotification(2000, "分享失败");
-				break;
-			case 3: // 取消
-				showNotification(2000, "取消分享");
-				break;
-			}
-		}
-			break;
-		case MSG_CANCEL_NOTIFY:
-			NotificationManager nm = (NotificationManager) msg.obj;
-			if (nm != null) {
-				nm.cancel(msg.arg1);
-			}
-			break;
-		}
-		return false;
-	}
-
 	// 一键分享的点击事件
 	public void oneClickShare(View v) {
 		//实例化一个OnekeyShare对象
 		OnekeyShare oks = new OnekeyShare();
 		
-		//设置Notification的显示图标和显示文字
-		oks.setNotification(R.drawable.ic_launcher, "51zhaoshixi");
-		
-		//设置短信地址或者是邮箱地址，如果没有可以不设置
-		oks.setAddress("13811582143");
-		
-		//分享内容的标题
-		oks.setTitle("我要找实习");
-		
-		//标题对应的网址，如果没有可以不设置
-		oks.setTitleUrl("http://www.51zhaoshixi.com");
-		
-		//设置分享的文本内容
-		oks.setText("51zhaoshixi - NG Studio");
-		
-		//设置分享照片的本地路径，如果没有可以不设置
-		//oks.setImagePath(DetailActivity.TEST_IMAGE);
-		
-		//设置分享照片的url地址，如果没有可以不设置
-		//oks.setImageUrl("http://img.appgo.cn/imgs/sharesdk/content/2013/07/25/1374723172663.jpg");
-		
-		//微信和易信的分享的网络连接，如果没有可以不设置
-		oks.setUrl("http://51zhaoshixi.com");
-		
-		//人人平台特有的评论字段，如果没有可以不设置
-		oks.setComment("comment");
-		
-		//程序的名称或者是站点名称
-		oks.setSite("51zhaoshixi");
-		
-		//程序的名称或者是站点名称的链接地址
-		oks.setSiteUrl("http://www.51zhaoshixi.com");
-		
-		//设置纬度
-		oks.setLatitude(23.122619f);
-		//设置精度
-		oks.setLongitude(113.372338f);
-		
-		//设置是否是直接分享
-		oks.setSilent(false);
-		
-		//显示
-		oks.show(DetailActivity.this);
+		// 分享时Notification的图标和文字
+        oks.setNotification(R.drawable.ic_launcher, "51zhaoshixi");
+        
+        // address是接收人地址，仅在信息和邮件使用
+        // 这里本质是需要用回调来把短信和邮件发送分开，可以让用户设置手机号码和邮箱地址
+        //oks.setAddress("13811582143");
+        
+        // title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间使用
+        oks.setTitle("哇！实习");
+        
+        // titleUrl是标题的网络链接，仅在人人网和QQ空间使用
+        //oks.setTitleUrl("http://www.51zhaoshixi.com");
+        oks.setTitleUrl(mItem.getSource_url());
+        
+        // text是分享文本，所有平台都需要这个字段
+        // QQ的分享的时候以空格作为截断，因此把title中间的空格用下划线替代
+        oks.setText(mItem.getTitle().replaceAll("\\s", "_"));
+        
+        // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
+        oks.setImagePath(Main.SHARE_IMAGE);
+        
+        // imageUrl是图片的网络路径，新浪微博、人人网、QQ空间、
+        // 微信的两个平台、Linked-In支持此字段
+        //oks.setImageUrl("http://img.appgo.cn/imgs/sharesdk/content/2013/07/25/1374723172663.jpg");
+        
+        // url仅在微信（包括好友和朋友圈）中使用
+        //oks.setUrl("http://www.51zhaoshixi.com");
+        oks.setUrl(mItem.getSource_url());
+        
+        // appPath是待分享应用程序的本地路劲，仅在微信中使用
+        //oks.setAppPath(DetailActivity.TEST_IMAGE);
+        
+        // comment是我对这条分享的评论，仅在人人网和QQ空间使用
+        //oks.setComment(getContext().getString(R.string.share));
+        
+        // site是分享此内容的网站名称，仅在QQ空间使用
+        oks.setSite("哇！实习");
+        
+        // siteUrl是分享此内容的网站地址，仅在QQ空间使用
+        //oks.setSiteUrl("http://www.51zhaoshixi.cn");
+        oks.setSiteUrl(mItem.getSource_url());
+       
+        // venueName是分享社区名称，仅在Foursquare使用
+        //oks.setVenueName("Southeast in China");
+        
+        // venueDescription是分享社区描述，仅在Foursquare使用
+        //oks.setVenueDescription("This is a beautiful place!");
+       
+        // latitude是维度数据，仅在新浪微博、腾讯微博和Foursquare使用
+        //oks.setLatitude(23.122619f);
+        
+        // longitude是经度数据，仅在新浪微博、腾讯微博和Foursquare使用
+        //oks.setLongitude(113.372338f);
+        
+        // 是否直接分享（true则直接分享）
+        oks.setSilent(false);
+        
+        // 指定分享平台，和slient一起使用可以直接分享到指定的平台
+        //if (platform != null) {
+        //        oks.setPlatform(platform);
+        //}
+        // 去除注释可通过OneKeyShareCallback来捕获快捷分享的处理结果
+        // oks.setCallback(new OneKeyShareCallback());
+        //通过OneKeyShareCallback来修改不同平台分享的内容
+        //oks.setShareContentCustomizeCallback(
+        //new ShareContentCustomizeDemo());
+        
+        oks.show(DetailActivity.this);
 	}
-
 		
-	@Override
-	public void onCancel(Platform platform, int action) {
-		// TODO Auto-generated method stub
-		Message msg = new Message();
-		msg.what = MSG_ACTION_CCALLBACK;
-		msg.arg1 = 3;
-		msg.arg2 = action;
-		msg.obj = platform;
-		UIHandler.sendMessage(msg, this);
-
-	}
-
-
-
-	@Override
-	public void onComplete(Platform platform, int action, HashMap<String, Object> arg2) {
-		// TODO Auto-generated method stub
-		Message msg = new Message();
-		msg.what = MSG_ACTION_CCALLBACK;
-		msg.arg1 = 1;
-		msg.arg2 = action;
-		msg.obj = platform;
-		UIHandler.sendMessage(msg, this);
-
-	}
-
-
-
-	@Override
-	public void onError(Platform arg0, int action, Throwable t) {
-		// TODO Auto-generated method stub
-		t.printStackTrace();
-		Message msg = new Message();
-		msg.what = MSG_ACTION_CCALLBACK;
-		msg.arg1 = 2;
-		msg.arg2 = action;
-		msg.obj = t;
-		UIHandler.sendMessage(msg, this);
-	}
-	
-	// 根据传入的参数显示一个Notification
-	@SuppressWarnings("deprecation")
-	private void showNotification(long cancelTime, String text) {
-		try {
-			Context app = getApplicationContext();
-			NotificationManager nm = (NotificationManager) app
-					.getSystemService(Context.NOTIFICATION_SERVICE);
-			final int id = Integer.MAX_VALUE / 13 + 1;
-			nm.cancel(id);
-			long when = System.currentTimeMillis();
-			Notification notification = new Notification(
-					R.drawable.ic_launcher, text, when);
-			PendingIntent pi = PendingIntent.getActivity(app, 0, new Intent(),
-					0);
-			notification.setLatestEventInfo(app, "sharesdk test", text, pi);
-			notification.flags = Notification.FLAG_AUTO_CANCEL;
-			nm.notify(id, notification);
-
-			if (cancelTime > 0) {
-				Message msg = new Message();
-				msg.what = MSG_CANCEL_NOTIFY;
-				msg.obj = nm;
-				msg.arg1 = id;
-				UIHandler.sendMessageDelayed(msg, cancelTime, this);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
 	private Handler mHandler = new Handler() {
 		@Override
 		public void handleMessage(Message message) {

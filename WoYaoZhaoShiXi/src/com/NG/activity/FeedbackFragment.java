@@ -46,7 +46,7 @@ public class FeedbackFragment extends Fragment{
 				false);
 		mContext = this.getActivity().getApplicationContext();
 		
-		this.getActivity().setTitle("吐槽我们");
+		this.getActivity().setTitle("吐槽一下");
 		mac = getLocalMacAddress(mContext);;
 		
 		editName = (EditText)rootView.findViewById(R.id.editName);

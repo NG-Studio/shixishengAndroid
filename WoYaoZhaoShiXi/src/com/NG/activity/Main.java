@@ -217,7 +217,9 @@ public class Main extends Activity {
         Fragment messageFg = new MessageFragment();
         Fragment collectFg = new CollectFragment();
         Fragment feedbackFg = new FeedbackFragment();
+        Fragment aboutusFg = new AboutusFragment();
         Fragment settingFg = new SettingFragment();
+        
 //        Bundle args = new Bundle();
 //        args.putInt(MessageFragment.ARG_PLANET_NUMBER, position);
 //        fragment.setArguments(args);
@@ -244,9 +246,16 @@ public class Main extends Activity {
 			ft.commit();
 			break;
 		case 3:
+			ft.replace(R.id.content_frame, aboutusFg);
+			ft.commit();
+			break;
+			/*
+		case 4:
 			ft.replace(R.id.content_frame, settingFg);
 			ft.commit();
 			break;
+			*/
+			
 	        
 		}
         

@@ -106,8 +106,13 @@ public class FeedbackFragment extends Fragment{
 
 		@Override    
 		protected void onPreExecute() {    
-			//第一个执行方法    
-			Toast.makeText(mContext, "正在把您的槽点运往远方...", Toast.LENGTH_SHORT).show();  
+			//第一个执行方法
+			if(editContent.length() > 0) {
+				Toast.makeText(mContext, "正在把您的槽点运往远方...", Toast.LENGTH_SHORT).show(); 
+			}
+			else {
+				
+			}
 			super.onPreExecute();    
 		}    
 
@@ -116,6 +121,12 @@ public class FeedbackFragment extends Fragment{
 			//第二个执行方法,onPreExecute()执行完后执行    
 			// TODO Auto-generated method stub  
 			String retStr = "";
+			
+			if (editContent.length() == 0)
+			{
+				retStr = "too_little";
+				return retStr;
+			}
 			
 			Mail m = new Mail("ngstudiochina@gmail.com", "ngstudio2014"); 
 
@@ -184,6 +195,9 @@ public class FeedbackFragment extends Fragment{
 			}
 			else if(r == "fail") {
 				Toast.makeText(mContext, "抱歉，槽点未能发送，请稍后重试！", Toast.LENGTH_LONG).show(); 
+			}
+			else if(r == "too_little") {
+				Toast.makeText(mContext, "亲，请随便说点什么吧^_^", Toast.LENGTH_LONG).show(); 
 			}
 			else {
 				

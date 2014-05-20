@@ -7,39 +7,29 @@
 
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
         android:layout_margin="5dp"
         android:orientation="horizontal" >
-        <TextView
+
+        <EditText
+            android:id="@+id/editContent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="昵称: " 
-            android:textSize="16sp"
-            />
-        <EditText
-            android:id="@+id/editName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" 
-            android:hint="请输入您的昵称"
-            />
+            android:hint="请留下您宝贵的建议或意见，我们会更加努力的！" />
+
     </LinearLayout>
         <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:orientation="horizontal" >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="吐槽: " 
-            android:textSize="16sp"
-            />
+
         <EditText
-            android:id="@+id/editContent"
+            android:id="@+id/editName"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="吐槽我们的应用 ^_^"
-            />
+            android:layout_height="match_parent"
+            android:hint="联系方式：填写手机或者邮箱（选填）" />
+
     </LinearLayout>
     <LinearLayout 
         android:layout_width="fill_parent"
@@ -48,19 +38,20 @@
         android:orientation="horizontal"
         android:gravity="right"
         >
-        <Button 
+
+        <Button
             android:id="@+id/btnCancel"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:text="取消"
-            />
-        <Button 
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="取消" />
+
+        <Button
             android:id="@+id/btnSend"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:text="发送"
-            />
-        
+            android:layout_weight="1"
+            android:text="发送" />
         
     </LinearLayout>
     

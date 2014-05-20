@@ -4,6 +4,7 @@ import java.util.Date;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
@@ -67,8 +68,18 @@ public class FeedbackFragment extends Fragment{
 				// TODO Auto-generated method stub
 				editName.setText("");
 				editContent.setText("");
-				mac = getLocalMacAddress(mContext);
-				//Toast.makeText(mContext, s, Toast.LENGTH_SHORT).show();  
+				//mac = getLocalMacAddress(mContext);
+				//Toast.makeText(mContext, mac, Toast.LENGTH_SHORT).show(); 
+				
+				// 用户点击取消后返回首页
+				Toast.makeText(mContext, "欢迎您有空再来吐槽^-^", Toast.LENGTH_LONG).show(); 
+				
+				// 返回首页
+				Intent intent = new Intent();  
+	            // 设置Intent的源地址和目标地址  
+	            intent.setClass(getActivity(), Main.class);  
+	            // 调用startActivity方法发送意图给系统  
+	            startActivity(intent);
 			}
 			
 		});
@@ -96,7 +107,7 @@ public class FeedbackFragment extends Fragment{
 		@Override    
 		protected void onPreExecute() {    
 			//第一个执行方法    
-			Toast.makeText(mContext, "Begin Send!", Toast.LENGTH_SHORT).show();  
+			Toast.makeText(mContext, "正在把您的槽点运往远方...", Toast.LENGTH_SHORT).show();  
 			super.onPreExecute();    
 		}    
 
@@ -104,6 +115,8 @@ public class FeedbackFragment extends Fragment{
 		protected String doInBackground(Integer... params) {    
 			//第二个执行方法,onPreExecute()执行完后执行    
 			// TODO Auto-generated method stub  
+			String retStr = "";
+			
 			Mail m = new Mail("ngstudiochina@gmail.com", "ngstudio2014"); 
 
 			String[] toArr = {"jiyuan0371@gmail.com","ngstudiochina@googlegroups.com"}; 
@@ -129,16 +142,21 @@ public class FeedbackFragment extends Fragment{
 				//m.addAttachment("/sdcard/filelocation"); 
 
 				if(m.send()) { 
+					retStr = "success";
 					System.out.println("Email was sent successfully."); 
 				} else { 
+					retStr = "fail";
 					System.out.println("Email was not sent.");
 				} 
 			} catch(Exception e) { 
-				Toast.makeText(mContext, "There was a problem sending the email.", Toast.LENGTH_LONG).show(); 
+				retStr = "fail";
+				//Toast.makeText(mContext, "There was a problem sending the email.", Toast.LENGTH_LONG).show(); 
 				Log.e("MailApp", "Could not send email	", e); 
+			} finally {
+				// Don't exit the app
 			}
 
-			return "";    
+			return retStr;    
 		}    
 
 		@Override    
@@ -154,14 +172,24 @@ public class FeedbackFragment extends Fragment{
 			//doInBackground返回时触发，换句话说，就是doInBackground执行完后触发    
 			//这里的result就是上面doInBackground执行后的返回值，所以这里是"执行完毕"    
 			//setTitle(result);  
+			if(r == "success") {
+				Toast.makeText(mContext, "槽点已成功抵达，感谢您的支持！", Toast.LENGTH_LONG).show(); 
+				
+				// 返回首页
+				Intent intent = new Intent();  
+	            // 设置Intent的源地址和目标地址  
+	            intent.setClass(getActivity(), Main.class);  
+	            // 调用startActivity方法发送意图给系统  
+	            startActivity(intent);
+			}
+			else if(r == "fail") {
+				Toast.makeText(mContext, "抱歉，槽点未能发送，请稍后重试！", Toast.LENGTH_LONG).show(); 
+			}
+			else {
+				
+			}
+			
 			super.onPostExecute(r);    
-		}    
-		
-	    
-        
-
+		}   
 	}    
-	
-	
-	
 }

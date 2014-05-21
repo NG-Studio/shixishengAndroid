@@ -23,6 +23,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Toast;
 
 import com.NG.adapter.MessageAdapter;
 import com.NG.db.ShixiDatabaseManager;
@@ -42,10 +43,23 @@ public class MessageFragment extends Fragment implements IXListViewListener {
 	SharedPreferences.Editor editor;
 	
 	// endtime
-	private static long time_now = 0;
-	private static long start_time = 0;
-	private static long update_time = 0;
-	private static long loadmore_time = 0;
+	private  long current_time = 0;
+	private  long update_start_time = 0;
+	private  long local_sql_last_time = 0;
+	private  long loadmore_start_time = 0;
+	private  long loadmore_end_time = 0;
+	private int loadmore_state;
+	
+	//下拉刷新得到新数据的条数
+	private int update_list_size;
+	private int loadmore_list_size;
+	
+	//一次刷新的条目数
+	private static int UPDATE_NUM = 20;
+	private static int LOADMORE_NUM = 10;
+	
+	private static int LOADMORE_NORMAL = 0;
+	private static int LOADMORE_UPDATE = 1;
 	
 	private static String user_mac = "";
 
@@ -150,18 +164,24 @@ public class MessageFragment extends Fragment implements IXListViewListener {
 
 	private void loadDataInSql() {
 		// TODO Auto-generated method stub
+		loadmore_state = LOADMORE_NORMAL;
+		
 		showList = MyUtils.ItemListInSql2MessageList(dbManager
 				.queryMultipleItemsOnline());
 		mAdapter = new MessageAdapter(mContext, showList);
 		mListView.setAdapter(mAdapter);
 		try {
 
-			start_time = Long.parseLong(showList.get(0).getTime());
-			mListView.setRefreshTime(TimeUtils.longToMinute(start_time));
+			local_sql_last_time = Long.parseLong(showList.get(0).getTime());
+			mListView.setRefreshTime(TimeUtils.longToMinute(local_sql_last_time));
 			//start_time = 1400483739;
+			loadmore_end_time = Long.parseLong(showList
+					.get(showList.size() - 1).getTime()) - 1;
+			
+			update_start_time = local_sql_last_time;
 
 		} catch (Exception e) {
-			start_time = 0;
+			local_sql_last_time = 0;
 			e.printStackTrace();
 		}
 
@@ -206,16 +226,52 @@ public class MessageFragment extends Fragment implements IXListViewListener {
 				//将下拉刷新得到的list存入数据库
 				dbManager.addMultipleItemsOnline(MyUtils
 						.MessageList2ItemInSqlList(updateList));
-				//从数据库中查找全部数据 得到应该显示的list
-				showList = MyUtils.ItemListInSql2MessageList(dbManager
-						.queryMultipleItemsOnline());
+				update_list_size = updateList.size();
+				if(update_list_size==0){
+					Toast.makeText(mContext, "没有新的信息哦^_^",
+							Toast.LENGTH_LONG).show();
+				}
+				else{
+					Toast.makeText(mContext, "更新了" + update_list_size + "条实习信息",
+							Toast.LENGTH_LONG).show();
+				}
+				//接上
+				if(update_list_size < UPDATE_NUM){	
+					loadmore_state = LOADMORE_NORMAL;
+					//从数据库中查找全部数据 得到应该显示的list
+					showList = MyUtils.ItemListInSql2MessageList(dbManager
+							.queryMultipleItemsOnline());
 
-				mAdapter = new MessageAdapter(mContext, showList);
-				mListView.setAdapter(mAdapter);
+					mAdapter = new MessageAdapter(mContext, showList);
+					mListView.setAdapter(mAdapter);
+					//查出来的本地数据库中第一项 即是最新的一项
+					local_sql_last_time = Long.parseLong(showList.get(0)
+							.getTime());					
+					//查出来的本地数据库中的最后一项，即是 最老的一项
+					loadmore_end_time = Long.parseLong(showList.get(
+							showList.size() - 1).getTime()) - 1;
+					//loadmore 的 start时间 设置为0
+					loadmore_start_time = 0;
+				}
+				//沒接上
+				else{
+					loadmore_state = LOADMORE_UPDATE;
+					
+					showList = updateList;
+					mAdapter = new MessageAdapter(mContext, showList);
+					mListView.setAdapter(mAdapter);
+
+					//沒接上的情況，应该通过Loadmore 继续请求新的条目
+					loadmore_end_time = Long.parseLong(showList.get(
+							update_list_size - 1).getTime()) - 1;
+					//start时间没有变化，还应该是之前 保存的本地最新时间，这个变量此种情况下不更新
+					//loadmore_start_time = local_sql_last_time;
+
+				}
+				//下拉刷新开始时间，永远是本地数据库中最新时间
+				update_start_time = Long.parseLong(dbManager
+						.queryMultipleItemsOnline().get(0).getTime());
 				
-				start_time = Long.parseLong(showList.get(0).getTime());
-				loadmore_time = Long.parseLong(showList
-						.get(showList.size() - 1).getTime()) - 1;
 
 			} catch (Exception e) {
 				// TODO: handle exception
@@ -232,9 +288,12 @@ public class MessageFragment extends Fragment implements IXListViewListener {
 			Log.d(TAG, "run()");
 			try {
 				Date d = new Date();
-				time_now = d.getTime() / 1000;
+				current_time = d.getTime() / 1000;
 				String url = "http://211.155.86.159/online/info/get_message?startTime="
-						+ start_time + "&endTime=" + time_now + "&count=20"+"&mac="+user_mac;
+						+ update_start_time
+						+ "&endTime="
+						+ current_time
+						+ "&count=" + UPDATE_NUM + "&mac=" + user_mac;
 				// String url =
 				// "http://211.155.86.159:8008/info/get_message?startTime=0&endTime="+time_now+"&count=50";
 
@@ -254,13 +313,44 @@ public class MessageFragment extends Fragment implements IXListViewListener {
 	private Handler loadmoreHandler = new Handler() {
 		@Override
 		public void handleMessage(Message message) {
-			try {
-				showList.addAll(loadmoreList);
-				mAdapter.notifyDataSetChanged();
-
-				loadmore_time = Long.parseLong(showList
-						.get(showList.size() - 1).getTime()) - 1;
-				System.out.println("loadmore_time = " + loadmore_time);
+			try {				
+				//不管啥情况，都要写进本地数据库
+				dbManager.addMultipleItemsOnline(MyUtils
+						.MessageList2ItemInSqlList(loadmoreList));
+				
+				loadmore_list_size = loadmoreList.size();				
+				//正常情况下，都是去读取旧的
+				if(loadmore_state==LOADMORE_NORMAL){
+					Toast.makeText(mContext, "载入了" + loadmore_list_size + "条数据",
+							Toast.LENGTH_LONG).show();
+					
+					showList.addAll(loadmoreList);
+					mAdapter.notifyDataSetChanged();
+					
+					loadmore_end_time = Long.parseLong(showList
+							.get(showList.size() - 1).getTime()) - 1;
+					Log.d(TAG, "loadmore_end_time = "+loadmore_end_time);
+					
+				}
+				if(loadmore_state==LOADMORE_UPDATE){
+					//小于，说明余下的是在本地，接上了，所以要从本地显示出来
+					if(loadmore_list_size < LOADMORE_NUM){
+						
+						loadmore_start_time = 0;	
+						loadmore_state = LOADMORE_NORMAL;
+						showList = MyUtils.ItemListInSql2MessageList(dbManager.queryMultipleItemsOnline());
+						mAdapter = new MessageAdapter(mContext, showList);
+						mListView.setAdapter(mAdapter);
+						
+					}
+					//本地的比较旧，仍有一些没有读出来
+					else{								
+						loadmore_end_time = Long.parseLong(showList
+								.get(showList.size() - 1).getTime()) - 1;					
+						showList.addAll(loadmoreList);
+						mAdapter.notifyDataSetChanged();
+					}					
+				}
 
 			} catch (Exception e) {
 				// TODO: handle exception
@@ -276,18 +366,21 @@ public class MessageFragment extends Fragment implements IXListViewListener {
 			int choice = 0;
 			Log.d(TAG, "run()");
 			try {
-				// Date d = new Date();
-				// time_now = d.getTime()/1000;
-				String url = "http://211.155.86.159/online/info/get_message?startTime=0&endTime="
-						+ loadmore_time + "&count=5"+"&mac="+user_mac;
-				// String url =
-				// "http://211.155.86.159:8008/info/get_message?startTime=0&endTime="+loadmore_time+"&count=20";
-
+				if(loadmore_state==LOADMORE_NORMAL){
+					loadmore_start_time=0;
+				}
+				if(loadmore_state==LOADMORE_UPDATE){
+					loadmore_start_time = local_sql_last_time;
+				}
+				String url = "http://211.155.86.159/online/info/get_message?startTime="
+						+ loadmore_start_time
+						+ "&endTime="
+						+ loadmore_end_time
+						+ "&count=" + LOADMORE_NUM + "&mac=" + user_mac;
 				loadmoreList = mMessageLoader.parserMovieJson(url);
 				loadmoreHandler.sendEmptyMessage(choice);
 
-				dbManager.addMultipleItemsOnline(MyUtils
-						.MessageList2ItemInSqlList(loadmoreList));
+				
 
 			} catch (Exception e) {
 				// TODO Auto-generated catch block

@@ -86,21 +86,21 @@
     <Wechat
         Id="4"
         SortId="4"
-        AppId="wx4553ca8557d1b0c3"
+        AppId="wx5d8ed85c7fcd0f47"
         BypassApproval="false"
         Enable="true" />
     
     <WechatMoments
         Id="5"
         SortId="5"
-        AppId="wx4553ca8557d1b0c3"
+        AppId="wx5d8ed85c7fcd0f47"
         BypassApproval="false"
         Enable="true" />
         
 	<WechatFavorite
         Id="6"
         SortId="6"
-        AppId="wx4553ca8557d1b0c3"
+        AppId="wx5d8ed85c7fcd0f47"
         Enable="true" />
 	
 	<QQ

@@ -85,7 +85,7 @@ public class Main extends Activity {
     private static boolean isExit = false; // 用于管理是否退出应用
     
     // shareSDK
- 	private static final String IMAGE_FILE_NAME = "washixi.jpg";
+ 	private static final String IMAGE_FILE_NAME = "washixi_share.png";
  	public static String SHARE_IMAGE;
  	public static String SHARE_IMAGE_URL;
  	
@@ -96,7 +96,7 @@ public class Main extends Activity {
 			File file = new File(SHARE_IMAGE);
 			if (!file.exists()) {
 				file.createNewFile();
-				Bitmap pic = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
+				Bitmap pic = BitmapFactory.decodeResource(getResources(), R.drawable.washixi_share);
 				FileOutputStream fos = new FileOutputStream(file);
 				pic.compress(CompressFormat.PNG, 100, fos);
 				fos.flush();

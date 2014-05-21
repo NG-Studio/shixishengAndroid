@@ -229,7 +229,7 @@ public class DetailActivity extends Activity{
 		OnekeyShare oks = new OnekeyShare();
 		
 		// 分享时Notification的图标和文字
-		oks.setNotification(R.drawable.ic_launcher, "51zhaoshixi");
+		//oks.setNotification(R.drawable.ic_launcher, "51zhaoshixi");
 		
 		// address是接收人地址，仅在信息和邮件使用		
 		// 这里本质是需要用回调来把短信和邮件发送分开，可以让用户设置手机号码和邮箱地址

@@ -1,4 +1,4 @@
-package com.NG.activity;
+﻿package com.NG.activity;
 
 import com.ngstudio.zhaoshixi.R;
 
@@ -20,8 +20,8 @@ public class webActivity extends Activity {
 		setContentView(R.layout.activity_webview);
 
 		webView = (WebView) findViewById(R.id.webView1);
-		webView.getSettings().setJavaScriptEnabled(true);// ����ʹ�ù�ִ��JS�ű�
-		webView.getSettings().setBuiltInZoomControls(true);// ����ʹ֧������
+		webView.getSettings().setJavaScriptEnabled(true);//
+		webView.getSettings().setBuiltInZoomControls(true);//
 		// webView.getSettings().setDefaultFontSize(5);
 		
 		Bundle bundle = getIntent().getExtras();
@@ -31,12 +31,12 @@ public class webActivity extends Activity {
 			@Override
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {
 				// TODO Auto-generated method stub
-				view.loadUrl(url);// ʹ�õ�ǰWebView������ת
-				return true;// true��ʾ���¼��ڴ˴������?����Ҫ�ٹ㲥
+				view.loadUrl(url);
+				return true;//
 			}
 
 			@Override
-			// ת�����ʱ�Ĵ���
+			// 
 			public void onReceivedError(WebView view, int errorCode,
 					String description, String failingUrl) {
 				// TODO Auto-generated method stub
@@ -45,13 +45,17 @@ public class webActivity extends Activity {
 			}
 		});
 	}
-
+	
 	@Override
-	// Ĭ�ϵ���˼���˳�Activity�������������ʹ������WebView�ڷ���
+	// 
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		// TODO Auto-generated method stub
-		if ((keyCode == KeyEvent.KEYCODE_BACK) && webView.canGoBack()) {
-			webView.goBack();
+		if ((keyCode == KeyEvent.KEYCODE_BACK) 
+				//&& webView.canGoBack()
+				) {
+			
+			this.finish();
+			//webView.goBack();
 			return true;
 		}
 		return super.onKeyDown(keyCode, event);

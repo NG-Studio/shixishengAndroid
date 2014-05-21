@@ -2,23 +2,42 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#e6ebf0"
+    android:background="@drawable/aboutus_bg"
     android:orientation="vertical" >
-
-    <TextView
+    <ImageView 
+        android:layout_marginTop="50dp"
+        android:layout_width="80dp"
+        android:layout_height="160dp"
+        android:layout_gravity="center"
+        android:src="@drawable/aboutus_icon"
+        />
+     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:gravity="center"
         android:textSize="20sp"
-        android:text="关于我们" />
-
-    <TextView
-        android:layout_width="wrap_content"
+        android:text="V1.0" />
+     
+     <TextView
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="20dp"
+		android:layout_marginRight="20dp"
+        android:gravity="center"
         android:textSize="16sp"
-        android:text="    我们是  NG Studio" />
+        android:text="我们是NG团队，是一个以北邮和中科院研究生为主的5人小团队， 希望我们的APP能为您带来帮助:)" />
+     
+     <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="120dp"
+        android:gravity="center"
+        android:textSize="12sp"
+        android:textColor="#525252"
+        android:text="Copyright © NG Studio 2013-2014 版权所有" />
+	<!-- 
 
     <TextView
         android:layout_width="wrap_content"
@@ -26,6 +45,8 @@
         android:layout_margin="10dp"
         android:textSize="15sp"
         android:text="    我们是一个以北邮和中科院在读研究生为主的5人小团队，因为对互联网的热爱聚到一起，希望用技术为大家带来帮助：）" 
-        />
+        /> 
+        
+    -->
 
 </LinearLayout>

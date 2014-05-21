@@ -31,12 +31,14 @@
                 <RelativeLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content" 
+                    android:layout_marginTop="8dp"
                     >
 
                     <TextView
                         android:id="@+id/item_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        
                         android:layout_alignParentLeft="true"
                         android:padding="3dp"
                         android:textSize="12sp" />

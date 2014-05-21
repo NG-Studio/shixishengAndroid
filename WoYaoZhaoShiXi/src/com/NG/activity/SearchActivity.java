@@ -234,7 +234,7 @@ public class SearchActivity extends Activity implements IXListViewListener {
 				// Date d = new Date();
 				// time_now = d.getTime()/1000;
 				String ch = URLEncoder.encode(name, "utf-8");
-				String url = "http://211.155.86.159/online/info/get_message?startTime=0&endTime="
+				String url = "http://211.155.86.159/online/info/search?startTime=0&endTime="
 						+ loadmore_time
 						+ "&count=20&query="
 						+ ch

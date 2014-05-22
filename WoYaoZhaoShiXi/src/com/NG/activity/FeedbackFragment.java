@@ -109,6 +109,13 @@ public class FeedbackFragment extends Fragment{
 			//第一个执行方法
 			if(editContent.length() > 0) {
 				Toast.makeText(mContext, "正在把您的槽点运往远方...", Toast.LENGTH_SHORT).show(); 
+				
+				// 返回首页
+				Intent intent = new Intent();  
+	            // 设置Intent的源地址和目标地址  
+	            intent.setClass(getActivity(), Main.class);  
+	            // 调用startActivity方法发送意图给系统  
+	            startActivity(intent);
 			}
 			else {
 				
@@ -186,12 +193,6 @@ public class FeedbackFragment extends Fragment{
 			if(r == "success") {
 				Toast.makeText(mContext, "槽点已成功抵达，感谢您的支持！", Toast.LENGTH_LONG).show(); 
 				
-				// 返回首页
-				Intent intent = new Intent();  
-	            // 设置Intent的源地址和目标地址  
-	            intent.setClass(getActivity(), Main.class);  
-	            // 调用startActivity方法发送意图给系统  
-	            startActivity(intent);
 			}
 			else if(r == "fail") {
 				Toast.makeText(mContext, "抱歉，槽点未能发送，请稍后重试！", Toast.LENGTH_LONG).show(); 

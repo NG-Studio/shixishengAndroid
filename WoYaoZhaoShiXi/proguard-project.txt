@@ -18,3 +18,85 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+
+# specified rules start here
+# leave the third party libraries alone
+-libraryjars libs/ShareSDK-QQ-2.3.7.jar
+-libraryjars libs/ShareSDK-ShortMessage-2.3.7.jar
+-libraryjars libs/ShareSDK-SinaWeibo-2.3.7.jar
+-libraryjars libs/additionnal.jar
+-libraryjars libs/mail.jar
+-libraryjars libs/mframework.jar
+-libraryjars libs/ShareSDK-Wechat-2.3.7.jar
+-libraryjars libs/ShareSDK-Wechat-Favorite-2.3.7.jar
+-libraryjars libs/ShareSDK-TencentWeibo-2.3.7.jar
+-libraryjars libs/ShareSDK-Wechat-Moments-2.3.7.jar
+-libraryjars libs/ShareSDK-QZone-2.3.7.jar
+-libraryjars libs/ShareSDK-Email-2.3.7.jar
+-libraryjars libs/activation.jar
+-libraryjars libs/ShareSDK-Core-2.3.7.jar
+-libraryjars libs/ShareSDK-Wechat-Core-2.3.7.jar
+
+# additionnal.jar
+-dontwarn org.apache.harmony.awt.datatransfer.**
+#-keep class org.apache.harmony.awt.datatransfer.**{*;}
+
+-dontwarn org.apache.harmony.awt.**
+#-keep class org.apache.harmony.awt.**{*;}
+
+-keep class myjava.awt.datatransfer.**{*;}
+-keep class org.apache.harmony.**{*;}
+
+# mail.jar
+-dontwarn com.sun.mail.imap.protocol.**
+#-keep class com.sun.mail.imap.protocol.**{*;}
+
+-keep class com.sun.**{*;}
+-keep class javax.mail.**{*;}
+
+# activation.jar
+-dontwarn javax.activation.**
+#-keep class javax.activation.**{*;}
+
+-keep class com.sun.activation.**{*;}
+-keep class javax.activation.**{*;}
+
+# keep all the third party libraries safe
+# The shareSDK jars can share the same one
+#-libraryjars libs/ShareSDK-QQ-2.3.7.jar
+
+-keep class cn.sharesdk.**{*;}
+-keep class com.sina.**{*;}
+-keep class m.framework.**{*;}
+
+#-libraryjars libs/ShareSDK-ShortMessage-2.3.7.jar
+
+#-libraryjars libs/ShareSDK-SinaWeibo-2.3.7.jar
+
+#-libraryjars libs/additionnal.jar
+
+#-libraryjars libs/mail.jar
+
+#-libraryjars libs/mframework.jar
+
+#-libraryjars libs/ShareSDK-Wechat-2.3.7.jar
+
+#-libraryjars libs/ShareSDK-Wechat-Favorite-2.3.7.jar
+
+#-libraryjars libs/ShareSDK-TencentWeibo-2.3.7.jar
+
+#-libraryjars libs/ShareSDK-Wechat-Moments-2.3.7.jar
+
+#-libraryjars libs/ShareSDK-QZone-2.3.7.jar
+
+#-libraryjars libs/ShareSDK-Email-2.3.7.jar
+
+#-libraryjars libs/activation.jar
+
+#-libraryjars libs/ShareSDK-Core-2.3.7.jar
+
+#-libraryjars libs/ShareSDK-Wechat-Core-2.3.7.jar
+
+# template for future
+#-dontwarn
+#-keep class {*;}

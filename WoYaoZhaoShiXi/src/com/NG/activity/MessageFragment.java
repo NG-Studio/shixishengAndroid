@@ -19,10 +19,15 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.NG.adapter.MessageAdapter;
@@ -63,6 +68,7 @@ public class MessageFragment extends Fragment implements IXListViewListener {
 	
 	private static String user_mac = "";
 
+	private Button iKnow;
 	private XListView mListView;
 	private MessageAdapter mAdapter;
 	// 用于显示的List
@@ -100,6 +106,17 @@ public class MessageFragment extends Fragment implements IXListViewListener {
 		
 		final Activity MainActivity = this.getActivity();	
 		
+		
+		iKnow = (Button)rootView.findViewById(R.id.btn_Iknow);
+		iKnow.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Log.d(TAG,"点击 了！");
+			}
+			
+		});
 		
 		// geneItems();
 		mListView = (XListView) rootView.findViewById(R.id.xListView);
@@ -153,6 +170,8 @@ public class MessageFragment extends Fragment implements IXListViewListener {
 			new Thread(new LoadUpdateData()).start();
 			onLoad();
 			proDialog.show();
+			
+			//guide_frame.setVisibility(View.VISIBLE);
 			
 		} else {
 			System.out.println("不是首次使用");

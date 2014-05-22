@@ -70,7 +70,7 @@ public class FeedbackFragment extends Fragment{
 				editContent.setText("");
 				//mac = getLocalMacAddress(mContext);
 				//Toast.makeText(mContext, mac, Toast.LENGTH_SHORT).show(); 
-				
+				/*
 				// 用户点击取消后返回首页
 				Toast.makeText(mContext, "欢迎您有空再来吐槽^-^", Toast.LENGTH_LONG).show(); 
 				
@@ -80,6 +80,7 @@ public class FeedbackFragment extends Fragment{
 	            intent.setClass(getActivity(), Main.class);  
 	            // 调用startActivity方法发送意图给系统  
 	            startActivity(intent);
+	            */
 			}
 			
 		});
@@ -99,6 +100,7 @@ public class FeedbackFragment extends Fragment{
         WifiInfo info = wifi.getConnectionInfo();  
         return info.getMacAddress();  
     }
+
     
 	
 	class SendTask extends AsyncTask<Integer, Integer, String>{    
@@ -108,14 +110,15 @@ public class FeedbackFragment extends Fragment{
 		protected void onPreExecute() {    
 			//第一个执行方法
 			if(editContent.length() > 0) {
-				Toast.makeText(mContext, "正在把您的槽点运往远方...", Toast.LENGTH_SHORT).show(); 
-				
+				Toast.makeText(mContext, "正在把您的槽点运往远方...请不要着急关闭应用哦^_^", Toast.LENGTH_SHORT).show(); 
+				/*
 				// 返回首页
 				Intent intent = new Intent();  
 	            // 设置Intent的源地址和目标地址  
 	            intent.setClass(getActivity(), Main.class);  
 	            // 调用startActivity方法发送意图给系统  
 	            startActivity(intent);
+	            */
 			}
 			else {
 				

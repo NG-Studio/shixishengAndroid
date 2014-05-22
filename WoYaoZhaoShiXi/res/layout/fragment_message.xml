@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#e6ebf0"
-    android:orientation="vertical" >
+    android:background="#e6ebf0" >
 
     <me.maxwin.view.XListView
         android:id="@+id/xListView"
@@ -12,4 +11,34 @@
         android:cacheColorHint="#00000000" >
     </me.maxwin.view.XListView>
 
-</LinearLayout>
+    <FrameLayout
+        android:id="@+id/frame_guide"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" 
+        >
+
+        <View
+            android:id="@+id/filter"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="#A0000000" >
+        </View>
+
+        <ImageView
+            android:id="@+id/guide_text"
+            android:layout_width="320dp"
+            android:layout_height="400dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/guide" 
+            />
+        <Button
+            android:id="@+id/btn_Iknow"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="我知道了"
+            >
+        </Button>
+    </FrameLayout>
+
+</FrameLayout>

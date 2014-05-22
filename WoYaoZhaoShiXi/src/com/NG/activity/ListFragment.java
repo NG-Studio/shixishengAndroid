@@ -29,7 +29,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
@@ -60,6 +62,8 @@ public class ListFragment extends Fragment implements IXListViewListener{
 	private static String user_mac = "";
 
 	private XListView mListView;
+	
+	private FrameLayout guide_frame;
 	
 	// 用于显示的List
 	private List<ShixiMessage> showList = new ArrayList<ShixiMessage>();
@@ -96,6 +100,17 @@ public class ListFragment extends Fragment implements IXListViewListener{
 		
 		final Activity MainActivity = this.getActivity();	
 		
+		guide_frame = (FrameLayout)rootView.findViewById(R.id.frame_guide);
+		guide_frame.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Log.d(TAG,"点击 了！");
+				guide_frame.setVisibility(View.GONE);
+			}
+			
+		});
 		
 		// geneItems();
 		mListView = (XListView) rootView.findViewById(R.id.xListView);
@@ -149,6 +164,8 @@ public class ListFragment extends Fragment implements IXListViewListener{
 			new Thread(new LoadUpdateData()).start();
 			onLoad();
 			proDialog.show();
+			
+			guide_frame.setVisibility(View.VISIBLE);
 			
 		} else {
 			System.out.println("不是首次使用");

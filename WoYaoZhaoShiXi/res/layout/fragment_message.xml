@@ -15,6 +15,7 @@
         android:id="@+id/frame_guide"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" 
+        android:visibility="gone"
         >
 
         <View
@@ -32,13 +33,7 @@
             android:layout_marginTop="5dp"
             android:src="@drawable/guide" 
             />
-        <Button
-            android:id="@+id/btn_Iknow"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:text="我知道了"
-            >
-        </Button>
+
     </FrameLayout>
 
 </FrameLayout>

@@ -10,7 +10,7 @@ import android.os.Handler;
 import android.util.DisplayMetrics;
 
 public class SplashActivity extends Activity{
-	private final int SPLASH_DISPLAY_LENGHT = 3000; // Splash display time in ms
+	private final int SPLASH_DISPLAY_LENGHT = 2000; // Splash display time in ms
 
 	//private ImageView imageview;
 	//private TextView tv;

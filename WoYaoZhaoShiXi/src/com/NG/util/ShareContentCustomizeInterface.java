@@ -17,6 +17,8 @@ import cn.sharesdk.system.email.Email;
 import cn.sharesdk.system.text.ShortMessage;
 import cn.sharesdk.tencent.qzone.QZone;
 import cn.sharesdk.tencent.weibo.TencentWeibo;
+import cn.sharesdk.wechat.favorite.WechatFavorite;
+import cn.sharesdk.wechat.moments.WechatMoments;
 
 
 /**
@@ -67,7 +69,7 @@ public class ShareContentCustomizeInterface implements ShareContentCustomizeCall
 		}
 		
 		else if ((TencentWeibo.NAME).equals(platform.getName())) {
-			Log.i("shareSDK", "Sharing ShortMessage...");
+			Log.i("shareSDK", "Sharing TecentWeibo...");
 			
 			String oldText = paramsToShare.getText();
 			String oldUrl = paramsToShare.getUrl();
@@ -79,7 +81,7 @@ public class ShareContentCustomizeInterface implements ShareContentCustomizeCall
 		}
 		
 		else if ((QZone.NAME).equals(platform.getName())) {
-			Log.i("shareSDK", "Sharing ShortMessage...");
+			Log.i("shareSDK", "Sharing QZone...");
 			
 			String oldText = paramsToShare.getText();
 			String oldUrl = paramsToShare.getUrl();
@@ -88,6 +90,32 @@ public class ShareContentCustomizeInterface implements ShareContentCustomizeCall
 			Log.i("shareSDK", "oldUrl:" + oldUrl);
 			
 			paramsToShare.setText(oldText + "-" + oldUrl);
+		}
+		
+		else if ((WechatMoments.NAME).equals(platform.getName())) {
+			Log.i("shareSDK", "Sharing WechatMoments...");
+			
+			String oldText = paramsToShare.getText();
+			String oldUrl = paramsToShare.getUrl();
+			
+			Log.i("shareSDK", "oldText:" + oldText);
+			Log.i("shareSDK", "oldUrl:" + oldUrl);
+			
+			//paramsToShare.setText(oldText + "-" + oldUrl);
+			paramsToShare.setTitle(oldText);
+		}
+		
+		else if ((WechatFavorite.NAME).equals(platform.getName())) {
+			Log.i("shareSDK", "Sharing WechatFavorite...");
+			
+			String oldText = paramsToShare.getText();
+			String oldUrl = paramsToShare.getUrl();
+			
+			Log.i("shareSDK", "oldText:" + oldText);
+			Log.i("shareSDK", "oldUrl:" + oldUrl);
+			
+			//paramsToShare.setText(oldText + "-" + oldUrl);
+			paramsToShare.setTitle(oldText);
 		}
 		
 		else {

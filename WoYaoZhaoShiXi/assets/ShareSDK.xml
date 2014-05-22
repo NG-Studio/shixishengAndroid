@@ -54,7 +54,7 @@
     <!-- ShareByAppClient标识是否使用微博客户端分享，默认是false -->
     <SinaWeibo
         Id="1"
-        SortId="1"
+        SortId="7"
         AppKey="3665707006"
         AppSecret="95ae6eb41d22903b7cbc9e2aa00646bf"
         RedirectUrl="http://www.51zhaoshixi.com"
@@ -63,7 +63,7 @@
     
     <Email
         Id="2" 
-        SortId="2"
+        SortId="4"
         Enable="true" />
     
     <ShortMessage
@@ -85,7 +85,7 @@
 	-->
     <Wechat
         Id="4"
-        SortId="4"
+        SortId="1"
         AppId="wx5d8ed85c7fcd0f47"
         BypassApproval="false"
         Enable="true" />
@@ -105,7 +105,7 @@
 	
 	<QQ
         Id="7"
-        SortId="7"
+        SortId="2"
         AppId="101076890"
         AppKey="2c9d8eb6055a5f6b045d591eb482a61b"
         Enable="true" />

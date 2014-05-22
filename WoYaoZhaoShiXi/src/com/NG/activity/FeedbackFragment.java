@@ -135,7 +135,7 @@ public class FeedbackFragment extends Fragment{
 				return retStr;
 			}
 			
-			Mail m = new Mail("ngstudiochina@gmail.com", "ngstudio2014"); 
+			Mail m = new Mail("shixiwa.feedback@gmail.com", "shixiwafeedback"); 
 
 			String[] toArr = {"jiyuan0371@gmail.com","ngstudiochina@googlegroups.com"}; 
 			m.setTo(toArr); 

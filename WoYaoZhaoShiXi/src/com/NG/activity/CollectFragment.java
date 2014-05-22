@@ -55,7 +55,7 @@ public class CollectFragment extends Fragment {
 		listView.setDividerHeight(0);
 		
 
-		items = dbManager.queryMultipleItemsOnline();
+		items = dbManager.queryMultipleItemsOnline();		
 		List<ShixiItemInSqlite> collectedList = new ArrayList<ShixiItemInSqlite>();
 		for(ShixiItemInSqlite it:items){
 			if(it.getIs_collected()==1)

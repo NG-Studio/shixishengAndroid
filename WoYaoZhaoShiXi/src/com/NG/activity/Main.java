@@ -221,7 +221,8 @@ public class Main extends Activity {
     
     private void selectItem(int position) {
         // update the main content by replacing fragments
-        Fragment messageFg = new MessageFragment();
+        //Fragment messageFg = new MessageFragment();
+        Fragment messageFg = new ListFragment();
         Fragment collectFg = new CollectFragment();
         Fragment feedbackFg = new FeedbackFragment();
         Fragment aboutusFg = new AboutusFragment();

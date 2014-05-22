@@ -166,9 +166,13 @@ public class DetailActivity extends Activity{
 					item.setIs_collected(1);
 					item.setText_body(mItem.getText_body());
 					
-					dbManager.updateItemOnline(item);
+					int status = dbManager.updateItemOnline(item);
+					if(status==0){
+						dbManager.addSingleItemOnline(item);
+					}
 					
-					//dbManager.addSingleItem(mItem);			
+					
+					//dbManager.addSingleItemOnline(item);			
 					b_collect.setTextColor(Color.BLUE);
 					b_collect.setText("已收藏");
 					isCollected = true;

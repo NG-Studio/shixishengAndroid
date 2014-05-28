@@ -110,6 +110,10 @@ public class FeedbackFragment extends Fragment{
 		protected void onPreExecute() {    
 			//第一个执行方法
 			if(editContent.length() > 0) {
+				// 置sendBtn为不可点击状态
+				sendBtn.setClickable(false);
+				sendBtn.setEnabled(false);
+				
 				Toast.makeText(mContext, "正在把您的槽点运往远方...请不要着急关闭应用哦^_^", Toast.LENGTH_SHORT).show(); 
 				/*
 				// 返回首页
@@ -206,6 +210,10 @@ public class FeedbackFragment extends Fragment{
 			else {
 				
 			}
+			
+			// 置sendBtn为可点击状态
+			sendBtn.setClickable(true);
+			sendBtn.setEnabled(true);
 			
 			super.onPostExecute(r);    
 		}   

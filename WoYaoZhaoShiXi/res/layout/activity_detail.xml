@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#efefef"
+    android:background="#ffffff"
     android:orientation="vertical" >
 
     <ScrollView
@@ -20,27 +20,31 @@
                 android:layout_margin="5dp"
                 android:background="#ffffff"
                 android:orientation="vertical"
-                android:padding="10dp" >
+                 >
 
                 <TextView
                     android:id="@+id/item_title"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:textSize="18sp" />
+                    android:layout_margin="5dp"
+                    android:text="标题"
+                    android:textColor="#473c3c"
+                    android:textSize="20sp" />
 
                 <RelativeLayout
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content" 
-                    android:layout_marginTop="8dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
                     >
 
                     <TextView
                         android:id="@+id/item_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        
                         android:layout_alignParentLeft="true"
                         android:padding="3dp"
+                        android:text="2014-4-00 00:00"
+                        android:textColor="#28a8a0"
                         android:textSize="12sp" />
 
                     <TextView
@@ -48,10 +52,22 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
+                        android:background="#ffcccc"
                         android:padding="3dp"
-                        android:background="#dddddd"
-                        android:textSize="12sp" />
+                        android:text="测试：北邮人论坛"
+                        android:textColor="#ffffff"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
                 </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="2dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="#d6d2d2"
+                android:orientation="vertical" >
             </LinearLayout>
 
             <LinearLayout
@@ -69,24 +85,31 @@
                     android:layout_height="fill_parent"
                     android:textSize="16sp" />
             </LinearLayout>
-            
-            <LinearLayout 
+
+            <LinearLayout
                 android:id="@+id/btn_source"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:orientation="vertical"
-                >
-                <TextView 
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="2dp"
+                    android:layout_margin="5dp"
+                    android:background="#d6d2d2"
+                    android:orientation="vertical" >
+                </LinearLayout>
+
+                <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:background="#ffffff"
-                    android:textColor="#666666"
-                    android:padding="5dp"
                     android:gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:padding="5dp"
                     android:text="已自动优化阅读，点击查看原文"
-                    />
-                
+                    android:textColor="#80c4bf" />
             </LinearLayout>
 
             <LinearLayout
@@ -107,13 +130,13 @@
 
                 <Button
                     android:id="@+id/button_share"
-                    android:onClick="oneClickShare"
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
                     android:layout_marginLeft="3dp"
                     android:layout_marginRight="5dp"
                     android:layout_weight="1"
                     android:background="#ffffff"
+                    android:onClick="oneClickShare"
                     android:text="分享" />
             </LinearLayout>
         </LinearLayout>

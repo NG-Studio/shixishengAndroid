@@ -11,9 +11,12 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.Html;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,13 +44,15 @@ public class DetailActivity extends Activity{
 	private TextView contentView;
 	private View sourceButton;
 
-	private Button b_collect;
+	//private Button b_collect;
 	//private Button b_share;
 	
 	private ProgressDialog proDialog;
 	
 	private ShixiItem mItem;
 	private ShixiItemLoader mItemLoader;
+	
+	private ShixiItemInSqlite item_insql;
 	
 	private String url;
 	private static String user_mac;
@@ -70,7 +75,7 @@ public class DetailActivity extends Activity{
 		Bundle bundle = getIntent().getExtras();
 		int item_id = bundle.getInt("item_id");
 		
-		ShixiItemInSqlite item = dbManager.querySingleItemOnline(item_id);
+		item_insql = dbManager.querySingleItemOnline(item_id);
 		
 		
 		url = "http://211.155.86.159/online/info/get_item?item_id=" + item_id
@@ -80,18 +85,21 @@ public class DetailActivity extends Activity{
 		// loadData();
 
 		mItemLoader = new ShixiItemLoader();
-		Log.d(TAG, "getIs_collected = "+item.getIs_collected());
+		Log.d(TAG, "getIs_collected = "+item_insql.getIs_collected());
 		
-		if(item.getIs_collected()==1){
+		this.getWindow().invalidatePanelMenu(Window.FEATURE_OPTIONS_PANEL);
+		
+		if(item_insql.getIs_collected()==1){
 			
 			isCollected = true;
-			b_collect.setTextColor(Color.BLUE);
-			b_collect.setText("已收藏");
-			mItem = MyUtils.ItemInSql2Item(item);
+			mItem = MyUtils.ItemInSql2Item(item_insql);
 			titleView.setText(mItem.getTitle());
 			contentView.setText(Html.fromHtml(mItem.getText_body()));
 			timeView.setText(TimeUtils.stringToDay(mItem.getTime()));
 			sourceView.setText(mItem.getSource());
+			
+			
+			
 		}
 		else{
 			isCollected = false;
@@ -105,7 +113,25 @@ public class DetailActivity extends Activity{
 		//contentView.setText(Html.fromHtml(html));
 	
 	}
-	
+	/*
+	 * 最开始判断该详情是否已经收藏
+	 * 
+	 */
+	@Override
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		System.out.println("执行了onPrepareOptionsMenu");
+		MenuItem item = menu.getItem(0);
+		if(item_insql.getIs_collected()==1){
+			item.setIcon(R.drawable.icon_collected);	
+		}
+		else{
+			//
+		}
+		
+		return super.onPrepareOptionsMenu(menu);
+	}
+
+
 	
 
 	public void initView(){
@@ -145,81 +171,97 @@ public class DetailActivity extends Activity{
 		proDialog.setMessage("请您耐心等待...");
 		
 		
-		b_collect = (Button)findViewById(R.id.button_collect);
-		b_collect.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View arg0) {
-				Context context = getApplicationContext();
-				CharSequence text ;
-				int duration = Toast.LENGTH_SHORT;				
-				
-				if(!isCollected){
-					text = "添加到我的收藏";
-					ShixiItemInSqlite item = new ShixiItemInSqlite();
-					
-					item.setItem_id(mItem.getItem_id());
-					item.setTitle(mItem.getTitle());
-					item.setTime(mItem.getTime());
-					item.setSource(mItem.getSource());
-					item.setSource_url(mItem.getSource_url());
-					item.setIs_clicked(1);
-					item.setIs_collected(1);
-					item.setText_body(mItem.getText_body());
-					
-					int status = dbManager.updateItemOnline(item);
-					if(status==0){
-						dbManager.addSingleItemOnline(item);
-					}
-					
-					
-					//dbManager.addSingleItemOnline(item);			
-					b_collect.setTextColor(Color.BLUE);
-					b_collect.setText("已收藏");
-					isCollected = true;
-					Toast toast = Toast.makeText(context, text, duration);
-					toast.show();
-					
-				}
-				else{
-					text = "取消收藏";
-					Toast toast = Toast.makeText(context, text, duration);
-					toast.show();
-
-					ShixiItemInSqlite item = new ShixiItemInSqlite();
-
-					item.setItem_id(mItem.getItem_id());
-					item.setTitle(mItem.getTitle());
-					item.setTime(mItem.getTime());
-					item.setSource(mItem.getSource());
-					item.setSource_url(mItem.getSource_url());
-					item.setIs_clicked(1);
-					item.setIs_collected(0);
-					item.setText_body(mItem.getText_body());
-
-					dbManager.updateItemOnline(item);
-
-					b_collect.setTextColor(Color.BLACK);
-					b_collect.setText("收藏");
-					isCollected = false;
-				}
-				
-				
-				
-			}
-		});
+		
+	}
+	
+	@Override  
+	public boolean onCreateOptionsMenu(Menu menu) {  
+	    MenuInflater inflater = getMenuInflater();  
+	    inflater.inflate(R.menu.detail_menu, menu);
+	    return true;  
 	}
 	
 	@Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
         // TODO Auto-generated method stub
-        if(item.getItemId() == android.R.id.home)
-        {
-            finish();
-            return true;
-        }
+		switch (item.getItemId()) {
+		
+		case android.R.id.home:
+			finish();
+			return true;
+
+		case R.id.action_collect_btn:
+			item.setIcon(R.drawable.icon_collected);
+			
+			
+			Context context = getApplicationContext();
+			CharSequence text ;
+			int duration = Toast.LENGTH_SHORT;				
+			
+			if(!isCollected){
+				text = "添加到我的收藏";
+				ShixiItemInSqlite shixi_item = new ShixiItemInSqlite();
+				
+				shixi_item.setItem_id(mItem.getItem_id());
+				shixi_item.setTitle(mItem.getTitle());
+				shixi_item.setTime(mItem.getTime());
+				shixi_item.setSource(mItem.getSource());
+				shixi_item.setSource_url(mItem.getSource_url());
+				shixi_item.setIs_clicked(1);
+				shixi_item.setIs_collected(1);
+				shixi_item.setText_body(mItem.getText_body());
+				
+				int status = dbManager.updateItemOnline(shixi_item);
+				if(status==0){
+					dbManager.addSingleItemOnline(shixi_item);
+				}
+				
+				
+				//dbManager.addSingleItemOnline(item);	
+				item.setIcon(R.drawable.icon_collected);
+				
+				isCollected = true;
+				Toast toast = Toast.makeText(context, text, duration);
+				toast.show();
+				
+			}
+			else{
+				text = "取消收藏";
+				Toast toast = Toast.makeText(context, text, duration);
+				toast.show();
+
+				ShixiItemInSqlite shixi_item = new ShixiItemInSqlite();
+
+				shixi_item.setItem_id(mItem.getItem_id());
+				shixi_item.setTitle(mItem.getTitle());
+				shixi_item.setTime(mItem.getTime());
+				shixi_item.setSource(mItem.getSource());
+				shixi_item.setSource_url(mItem.getSource_url());
+				shixi_item.setIs_clicked(1);
+				shixi_item.setIs_collected(0);
+				shixi_item.setText_body(mItem.getText_body());
+
+				dbManager.updateItemOnline(shixi_item);
+				
+				item.setIcon(R.drawable.icon_collect);
+
+				isCollected = false;
+				
+			}
+			return true;
+			
+		case R.id.action_share_btn:
+			oneClickShare();
+			return true;
+
+		}
+        
         return super.onOptionsItemSelected(item);
     }
+	
+	
+	
 	
 	@Override
 	protected void onDestroy() {
@@ -228,7 +270,7 @@ public class DetailActivity extends Activity{
 	}
 
 	// 一键分享的点击事件
-	public void oneClickShare(View v) {
+	public void oneClickShare() {
 		// 实例化一个OnekeyShare对象
 		OnekeyShare oks = new OnekeyShare();
 		

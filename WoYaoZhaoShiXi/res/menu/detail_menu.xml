@@ -1,0 +1,12 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/action_collect_btn"
+          android:icon="@drawable/icon_collect"
+          android:title="收藏"
+          android:showAsAction="ifRoom|withText" />
+    
+    <item android:id="@+id/action_share_btn"
+          android:icon="@drawable/button_share"
+          android:title="分享"
+          android:showAsAction="ifRoom|withText" />
+    
+</menu>

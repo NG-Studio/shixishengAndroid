@@ -21,7 +21,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class MessageAdapter extends BaseAdapter {
-
+	
 	private static final String TAG = "adapter";
 	private boolean mBusy = false;
 

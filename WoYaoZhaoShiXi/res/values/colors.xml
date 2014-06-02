@@ -150,4 +150,7 @@
 
 <color name="deepdarkgray">#333333</color>
 <color name="detail_bg_white">#f7f7f7</color>
+
+<color name="drawer_bg_pink">#f2c6ca</color>
+
 </resources>

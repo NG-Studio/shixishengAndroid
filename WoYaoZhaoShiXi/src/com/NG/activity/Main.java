@@ -39,10 +39,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 import cn.sharesdk.framework.ShareSDK;
 
+import com.NG.adapter.DrawerAdapter;
 import com.ngstudio.zhaoshixi.R;
 
 /**
@@ -81,6 +83,8 @@ public class Main extends Activity {
     private CharSequence mTitle;
     private String[] mPlanetTitles;
     private int currentFragmentID;
+    
+    private DrawerAdapter drawerAdapter;
     
     private static boolean isExit = false; // 用于管理是否退出应用
     
@@ -122,8 +126,12 @@ public class Main extends Activity {
         // set a custom shadow that overlays the main content when the drawer opens
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
         // set up the drawer's list view with items and click listener
-        mDrawerList.setAdapter(new ArrayAdapter<String>(this,
-                R.layout.drawer_list_item, mPlanetTitles));
+        
+
+		//        mDrawerList.setAdapter(new ArrayAdapter<String>(this,
+//                R.layout.drawer_list_item, mPlanetTitles));
+        drawerAdapter = new DrawerAdapter(this,mPlanetTitles);
+        mDrawerList.setAdapter(drawerAdapter);        
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
         // enable ActionBar app icon to behave as action to toggle nav drawer

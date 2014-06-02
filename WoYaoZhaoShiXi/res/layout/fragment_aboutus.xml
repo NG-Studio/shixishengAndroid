@@ -5,35 +5,42 @@
     android:background="@drawable/aboutus_bg"
     android:orientation="vertical" >
     <ImageView 
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="15dp"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
         android:layout_gravity="center"
         android:src="@drawable/aboutus_washixi"
         />
     <ImageView 
-        android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_gravity="center"
         android:src="@drawable/aboutus_feiji"
         />
     <ImageView 
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:layout_width="wrap_content"
-        android:layout_height="150dp"
+        android:layout_height="140dp"
         android:layout_gravity="center"
         android:src="@drawable/aboutus_qingwa"
         />
+    <Button 
+        android:id="@+id/btn_check_version"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="15dp"
+        android:layout_gravity="center"
+        android:background="@drawable/check_new_version_button"
+        />
     <ImageView 
-        android:layout_marginTop="20dp"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:layout_width="270dp"
+        android:layout_height="44dp"
         android:layout_gravity="center"
         android:src="@drawable/aboutus_womenshi"
         />
      <ImageView 
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:layout_gravity="center"
@@ -41,47 +48,10 @@
         />
     <ImageView 
         android:layout_marginTop="10dp"
-        android:layout_width="240dp"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:src="@drawable/aboutus_copyright"
         />
-    
-    <!-- 
-    <ImageView 
-        android:layout_marginTop="50dp"
-        android:layout_width="80dp"
-        android:layout_height="160dp"
-        android:layout_gravity="center"
-        android:src="@drawable/aboutus_icon"
-        />
-     <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:gravity="center"
-        android:textSize="20sp"
-        android:text="V1.0" />
-     
-     <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:layout_marginLeft="20dp"
-		android:layout_marginRight="20dp"
-        android:gravity="center"
-        android:textSize="16sp"
-        android:text="我们是NG团队，是一个以北邮和中科院研究生为主的5人小团队， 希望我们的APP能为您带来帮助:)" />
-     
-     <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="120dp"
-        android:gravity="center"
-        android:textSize="12sp"
-        android:textColor="#525252"
-        android:text="Copyright © NG Studio 2013-2014 版权所有" />
-	
-    -->
 
 </LinearLayout>

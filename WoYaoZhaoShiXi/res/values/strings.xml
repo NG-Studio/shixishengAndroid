@@ -20,7 +20,7 @@
     <string name="origin_post">原链接</string>
     <string-array name="planets_array">
         <item>全部实习</item>
-        <item>收藏</item>
+        <item>我的收藏</item>
         <item>吐槽一下</item>
         <item>关于我们</item>
     </string-array>

@@ -153,6 +153,7 @@ public class Main extends Activity {
             }
 
             public void onDrawerOpened(View drawerView) {
+            	mDrawerTitle = "";
                 getActionBar().setTitle(mDrawerTitle);
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }

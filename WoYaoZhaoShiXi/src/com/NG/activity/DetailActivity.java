@@ -194,7 +194,6 @@ public class DetailActivity extends Activity{
 		case R.id.action_collect_btn:
 			item.setIcon(R.drawable.icon_collected);
 			
-			
 			Context context = getApplicationContext();
 			CharSequence text ;
 			int duration = Toast.LENGTH_SHORT;				

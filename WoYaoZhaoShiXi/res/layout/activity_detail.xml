@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
+    android:background="#caf3ec"
     android:orientation="vertical" >
 
     <ScrollView
@@ -12,6 +12,8 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
+            android:layout_margin="5dp"
+            android:background="#ffffff"
             android:orientation="vertical" >
 
             <LinearLayout
@@ -28,7 +30,7 @@
                     android:layout_height="fill_parent"
                     android:layout_margin="5dp"
                     android:text="标题"
-                    android:textColor="#473c3c"
+                    android:textColor="#4f0c46"
                     android:textSize="20sp" />
 
                 <RelativeLayout
@@ -44,7 +46,7 @@
                         android:layout_alignParentLeft="true"
                         android:padding="3dp"
                         android:text="2014-4-00 00:00"
-                        android:textColor="#28a8a0"
+                        android:textColor="#00beaa"
                         android:textSize="12sp" />
 
                     <TextView
@@ -52,10 +54,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:background="#ffcccc"
+                        android:background="#ffdbec"
                         android:padding="3dp"
                         android:text="测试：北邮人论坛"
-                        android:textColor="#ffffff"
+                        android:textColor="#971f68"
                         android:textSize="12sp"
                         android:textStyle="bold" />
                 </RelativeLayout>
@@ -64,9 +66,7 @@
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="2dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="#d6d2d2"
+                android:background="#caf3ec"
                 android:orientation="vertical" >
             </LinearLayout>
 
@@ -85,6 +85,13 @@
                     android:layout_height="fill_parent"
                     android:textSize="16sp" />
             </LinearLayout>
+            
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="2dp"
+                android:background="#caf3ec"
+                android:orientation="vertical" >
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/btn_source"
@@ -93,13 +100,7 @@
                 android:layout_margin="5dp"
                 android:orientation="vertical" >
 
-                <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="2dp"
-                    android:layout_margin="5dp"
-                    android:background="#d6d2d2"
-                    android:orientation="vertical" >
-                </LinearLayout>
+               
 
                 <TextView
                     android:layout_width="fill_parent"
@@ -110,7 +111,7 @@
                     android:layout_marginBottom="10dp"
                     android:padding="5dp"
                     android:text="已自动优化阅读，点击查看原文"
-                    android:textColor="#80c4bf" />
+                    android:textColor="#00cec8" />
                 
                  <LinearLayout
                     android:layout_width="fill_parent"

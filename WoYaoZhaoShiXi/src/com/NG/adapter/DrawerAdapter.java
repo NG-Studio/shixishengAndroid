@@ -67,7 +67,21 @@ public class DrawerAdapter extends BaseAdapter{
 		}
 		
 		viewHolder.mTextView.setText(aList[position]);
-		viewHolder.mImageView.setImageResource(R.drawable.icon_intern);
+		switch(position){
+		case 0:
+			viewHolder.mImageView.setImageResource(R.drawable.drawer_icon_intern);
+			break;
+		case 1:
+			viewHolder.mImageView.setImageResource(R.drawable.drawer_icon_collect);
+			break;
+		case 2:
+			viewHolder.mImageView.setImageResource(R.drawable.drawer_icon_feedback);
+			break;
+		case 3:
+			viewHolder.mImageView.setImageResource(R.drawable.drawer_icon_aboutus);
+			break;
+		}
+		
 
 		return convertView;
 	}

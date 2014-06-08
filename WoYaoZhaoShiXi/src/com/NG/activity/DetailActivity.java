@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.Html;
+import android.text.method.LinkMovementMethod;
+import android.text.util.Linkify;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -93,13 +95,8 @@ public class DetailActivity extends Activity{
 			
 			isCollected = true;
 			mItem = MyUtils.ItemInSql2Item(item_insql);
-			titleView.setText(mItem.getTitle());
-			contentView.setText(Html.fromHtml(mItem.getText_body()));
-			timeView.setText(TimeUtils.stringToDay(mItem.getTime()));
-			sourceView.setText(mItem.getSource());
 			
-			
-			
+			showViews();			
 		}
 		else{
 			isCollected = false;
@@ -113,6 +110,16 @@ public class DetailActivity extends Activity{
 		//contentView.setText(Html.fromHtml(html));
 	
 	}
+	
+	public void showViews(){
+		titleView.setText(mItem.getTitle());
+		contentView.setText(Html.fromHtml(mItem.getText_body()));
+		timeView.setText(TimeUtils.stringToDay(mItem.getTime()));
+		sourceView.setText(mItem.getSource());
+		contentView.setAutoLinkMask(Linkify.ALL); 
+		contentView.setMovementMethod(LinkMovementMethod.getInstance()); 
+	}
+	
 	/*
 	 * 最开始判断该详情是否已经收藏
 	 * 
@@ -347,10 +354,14 @@ public class DetailActivity extends Activity{
 		@Override
 		public void handleMessage(Message message) {
 			try {
-				titleView.setText(mItem.getTitle());
-				contentView.setText(Html.fromHtml(mItem.getText_body()));
-				timeView.setText(TimeUtils.stringToDay(mItem.getTime()));
-				sourceView.setText(mItem.getSource());
+//				titleView.setText(mItem.getTitle());
+//				contentView.setText(Html.fromHtml(mItem.getText_body()));
+//				timeView.setText(TimeUtils.stringToDay(mItem.getTime()));
+//				sourceView.setText(mItem.getSource());
+//				contentView.setAutoLinkMask(Linkify.ALL); 
+//				contentView.setMovementMethod(LinkMovementMethod.getInstance()); 
+				showViews();
+				
 				proDialog.dismiss();
 			} catch (Exception e) {
 				// TODO: handle exception

@@ -30,7 +30,7 @@
         android:id="@+id/drawer_image"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:src="@drawable/icon_intern" />
+        android:src="@drawable/drawer_icon_intern" />
 
     <TextView
         android:id="@+id/drawer_text"

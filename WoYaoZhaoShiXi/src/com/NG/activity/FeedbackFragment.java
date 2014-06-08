@@ -26,7 +26,7 @@ public class FeedbackFragment extends Fragment{
 	private Context mContext;
 	
 	private Button sendBtn;
-	private Button cancelBtn;
+//	private Button cancelBtn;
 	private EditText editName;
 	private EditText editContent;
 	
@@ -59,31 +59,31 @@ public class FeedbackFragment extends Fragment{
 				sTask.execute();
 			} 
 		}); 
-		
-		cancelBtn=(Button)rootView.findViewById(R.id.btnCancel);
-		cancelBtn.setOnClickListener(new View.OnClickListener(){
-
-			@Override
-			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
-				editName.setText("");
-				editContent.setText("");
-				//mac = getLocalMacAddress(mContext);
-				//Toast.makeText(mContext, mac, Toast.LENGTH_SHORT).show(); 
-				/*
-				// 用户点击取消后返回首页
-				Toast.makeText(mContext, "欢迎您有空再来吐槽^-^", Toast.LENGTH_LONG).show(); 
-				
-				// 返回首页
-				Intent intent = new Intent();  
-	            // 设置Intent的源地址和目标地址  
-	            intent.setClass(getActivity(), Main.class);  
-	            // 调用startActivity方法发送意图给系统  
-	            startActivity(intent);
-	            */
-			}
-			
-		});
+//		
+//		cancelBtn=(Button)rootView.findViewById(R.id.btnCancel);
+//		cancelBtn.setOnClickListener(new View.OnClickListener(){
+//
+//			@Override
+//			public void onClick(View arg0) {
+//				// TODO Auto-generated method stub
+//				editName.setText("");
+//				editContent.setText("");
+//				//mac = getLocalMacAddress(mContext);
+//				//Toast.makeText(mContext, mac, Toast.LENGTH_SHORT).show(); 
+//				/*
+//				// 用户点击取消后返回首页
+//				Toast.makeText(mContext, "欢迎您有空再来吐槽^-^", Toast.LENGTH_LONG).show(); 
+//				
+//				// 返回首页
+//				Intent intent = new Intent();  
+//	            // 设置Intent的源地址和目标地址  
+//	            intent.setClass(getActivity(), Main.class);  
+//	            // 调用startActivity方法发送意图给系统  
+//	            startActivity(intent);
+//	            */
+//			}
+//			
+//		});
 		
 		
 		return rootView;

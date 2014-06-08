@@ -32,11 +32,11 @@ public class SplashActivity extends Activity{
         System.out.println(displayHeight);
         System.out.println(displayWidth);
         System.out.println(density);
-        
+        /*
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
         WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
+        */
         setContentView(R.layout.splash);
         
         new Handler().postDelayed(new Runnable() {

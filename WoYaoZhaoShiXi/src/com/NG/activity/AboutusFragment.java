@@ -121,6 +121,13 @@ public class AboutusFragment extends Fragment {
 				info = UpdataInfoParser.getUpdataInfo(is);
 				System.out.println("VersionActivity            ----------->          info = "
 								+ info);
+				System.out.println("Remote version: " + info.getVersion());
+				
+				localVersion = getVersionName();
+				
+				System.out.println("Local version: " + localVersion);
+				System.out.println("info.getVersion().equals(localVersion) == " + info.getVersion().equals(localVersion));
+
 				if (info.getVersion().equals(localVersion)) {
 					Log.i(TAG, "版本号相同无需升级");
 					Message msg = new Message();
@@ -153,6 +160,7 @@ public class AboutusFragment extends Fragment {
 			case UPDATA_NONEED:
 				Toast.makeText(mContext.getApplicationContext(), "版本号相同无需升级",
 						Toast.LENGTH_SHORT).show();
+				break;
 			case UPDATA_CLIENT:
 				// 对话框通知用户升级程序
 				// Toast.makeText(getApplicationContext(), "可以升级程序啦~",

@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnFocusChangeListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -49,8 +50,33 @@ public class FeedbackFragment extends Fragment{
 		this.getActivity().setTitle("吐槽一下");
 		mac = getLocalMacAddress(mContext);;
 		
-		editName = (EditText)rootView.findViewById(R.id.editName);
+		editName = (EditText)rootView.findViewById(R.id.editName);		
 		editContent = (EditText)rootView.findViewById(R.id.editContent);
+		//获得焦点时，hint变成空白
+		editName.setOnFocusChangeListener(new OnFocusChangeListener() {
+		    public void onFocusChange(View v, boolean hasFocus) {
+		        EditText _v=(EditText)v;
+		        if (!hasFocus) {// 失去焦点
+		            _v.setHint(_v.getTag().toString());
+		        } else {
+		            String hint=_v.getHint().toString();
+		            _v.setTag(hint);
+		            _v.setHint("");
+		        }
+		    }
+		});
+		editContent.setOnFocusChangeListener(new OnFocusChangeListener() {
+		    public void onFocusChange(View v, boolean hasFocus) {
+		        EditText _v=(EditText)v;
+		        if (!hasFocus) {// 失去焦点
+		            _v.setHint(_v.getTag().toString());
+		        } else {
+		            String hint=_v.getHint().toString();
+		            _v.setTag(hint);
+		            _v.setHint("");
+		        }
+		    }
+		});
 		
 		sendBtn=(Button)rootView.findViewById(R.id.btnSend);
 		sendBtn.setOnClickListener(new View.OnClickListener() { 

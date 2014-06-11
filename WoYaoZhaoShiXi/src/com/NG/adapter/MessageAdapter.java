@@ -1,29 +1,25 @@
 ﻿package com.NG.adapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import com.NG.db.ShixiMessage;
-import com.NG.util.TimeUtils;
-import com.ngstudio.zhaoshixi.R;
-
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.NG.db.ShixiMessage;
+import com.NG.util.TimeUtils;
+import com.ngstudio.zhaoshixi.R;
+
 public class MessageAdapter extends BaseAdapter {
 	
 	private static final String TAG = "adapter";
 	private boolean mBusy = false;
+//	private Typeface face;
 
 	public void setFlagBusy(boolean busy) {
 		this.mBusy = busy;
@@ -36,9 +32,11 @@ public class MessageAdapter extends BaseAdapter {
 		this.mContext = context;
 		Log.d(TAG, "contruct");
 		aList = seList;
+		/*
 		for(int i=0;i<seList.size();i++){
 			Log.d(TAG, seList.get(0).getTitle());
-		}
+		}*/
+//		face = Typeface.createFromAsset(mContext.getAssets(), "fonts/FashionBlack.ttf");
 		
 	}
 
@@ -90,7 +88,10 @@ public class MessageAdapter extends BaseAdapter {
 		viewHolder.titleView.setText(m.getTitle());
 		viewHolder.timeView.setText(TimeUtils.stringToMinuteWithoutYear(m.getTime()));
 		viewHolder.sourceView.setText(m.getSource());
-
+//		viewHolder.titleView.setTypeface(face);
+//		viewHolder.sourceView.setTypeface(face);
+//		viewHolder.timeView.setTypeface(face);
+		
 		return convertView;
 	}
 

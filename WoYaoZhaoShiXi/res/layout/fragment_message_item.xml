@@ -9,7 +9,7 @@
         android:layout_width="fill_parent"
         android:layout_height="100dp"
         android:background="@drawable/message_item_bg"
-        android:padding="5px"
+        android:padding="5dp"
         android:orientation="vertical" >
 
         <TextView
@@ -38,7 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="2014-04-18"
-                android:textColor="#666666"
+                android:textColor="#333333"
                 android:textSize="13sp" />
 
             <TextView
@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:text="北邮人论坛"
-                android:textColor="#666666"
+                android:textColor="#333333"
                 android:textSize="13sp" />
         </RelativeLayout>
     </LinearLayout>

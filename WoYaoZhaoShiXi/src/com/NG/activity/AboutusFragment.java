@@ -72,7 +72,7 @@ public class AboutusFragment extends Fragment {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				try {
-					Toast.makeText(mContext, "当前版本为"+getVersionName(), Toast.LENGTH_SHORT).show();
+					//Toast.makeText(mContext, "当前版本为"+getVersionName(), Toast.LENGTH_SHORT).show();
 					
 					CheckVersionTask cv = new CheckVersionTask();
 					new Thread(cv).start();
@@ -119,8 +119,7 @@ public class AboutusFragment extends Fragment {
 				conn.setConnectTimeout(5000);
 				InputStream is = conn.getInputStream();
 				info = UpdataInfoParser.getUpdataInfo(is);
-				System.out
-						.println("VersionActivity            ----------->          info = "
+				System.out.println("VersionActivity            ----------->          info = "
 								+ info);
 				if (info.getVersion().equals(localVersion)) {
 					Log.i(TAG, "版本号相同无需升级");
@@ -189,7 +188,13 @@ public class AboutusFragment extends Fragment {
 	protected void showUpdataDialog() {
 		AlertDialog.Builder builer = new Builder(mActivity);
 		builer.setTitle("版本升级");
-		builer.setMessage(info.getDescription());
+		try {
+			builer.setMessage("当前版本为"+getVersionName()+"\n"+info.getDescription());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			builer.setMessage(info.getDescription());
+			e.printStackTrace();
+		}
 		// 当点确定按钮时从服务器上下载 新的apk 然后安装
 		builer.setPositiveButton("确定", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {

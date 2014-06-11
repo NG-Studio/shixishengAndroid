@@ -3,14 +3,13 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:background="#caf3ec"
-    android:orientation="vertical"
-    android:padding="5px" >
+    android:orientation="vertical" >
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="100dp"
         android:background="@drawable/message_item_bg"
-        android:padding="5dp"
+        android:padding="5px"
         android:orientation="vertical" >
 
         <TextView
@@ -22,7 +21,7 @@
             android:paddingRight="10dp"
             android:paddingTop="5dp"
             android:text="title"
-            android:textColor="#5e0853"
+            android:textColor="#333333"
             android:textSize="20sp" />
 
         <RelativeLayout
@@ -39,7 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="2014-04-18"
-                android:textColor="#32d3ce"
+                android:textColor="#666666"
                 android:textSize="13sp" />
 
             <TextView
@@ -48,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:text="北邮人论坛"
-                android:textColor="#32d3ce"
+                android:textColor="#666666"
                 android:textSize="13sp" />
         </RelativeLayout>
     </LinearLayout>

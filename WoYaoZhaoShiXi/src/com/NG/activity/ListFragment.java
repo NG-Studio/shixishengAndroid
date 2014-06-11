@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.NG.activity.MessageFragment.LoadMoreData;
-import com.NG.activity.MessageFragment.LoadUpdateData;
 import com.NG.adapter.MessageAdapter;
 import com.NG.db.ShixiDatabaseManager;
 import com.NG.db.ShixiMessage;

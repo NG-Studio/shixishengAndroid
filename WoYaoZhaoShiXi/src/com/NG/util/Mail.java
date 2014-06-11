@@ -49,6 +49,13 @@ public class Mail extends javax.mail.Authenticator {
 		// 163
 		//_host = "smtp.163.com";
 		//_port = "25";
+		//_sport = "25";
+		
+		// qq
+		//_host = "smtp.qq.com";
+		//_port = "465";
+		//_sport = "465";
+
 
 		_user = ""; // username 
 		_pass = ""; // password 
@@ -77,6 +84,7 @@ public class Mail extends javax.mail.Authenticator {
 		_user = user; 
 		_pass = pass; 
 	} 
+	
 	public void setTo(String[] toArr) {
 		this._to = toArr;
 	}

@@ -143,11 +143,11 @@ public class FeedbackFragment extends Fragment{
 			}
 			
 			Mail m = new Mail("shixiwa.feedback@gmail.com", "shixiwafeedback"); 
-
-			String[] toArr = {"jiyuan0371@gmail.com","ngstudiochina@googlegroups.com"}; 
+			String[] toArr = {"jiyuan0371@gmail.com","washixi@googlegroups.com"}; 
+			
 			m.setTo(toArr); 
 			m.setFrom("wooo@wooo.com"); 
-
+			
 			String subject = "【用户反馈邮件】";
 			m.setSubject(subject);
 

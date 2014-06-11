@@ -2,7 +2,9 @@ package com.NG.loader;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,24 +36,38 @@ public class ShixiItemLoader {
 
 		URL url = new URL(singleUrl);
 		Log.d(TAG, singleUrl);
-
-		// 
+		
+		HttpURLConnection conn = (HttpURLConnection) url
+				.openConnection();
+		conn.setConnectTimeout(5000);
+		InputStream is = conn.getInputStream();
+        //读取数据的包装流
+        BufferedReader br=new BufferedReader(new InputStreamReader(is));
+        //str用于读取一行数据
+        String str=null;
+        //StringBuffer用于存储所欲数据
+        StringBuffer sb=new StringBuffer();
+        while((str=br.readLine())!=null){
+            sb.append(str);
+        }
+        Log.d(TAG, sb.toString());
+		/* 
 		StringBuilder stringBuilder = new StringBuilder();
 		BufferedReader bufferedReader = new BufferedReader(
 				new InputStreamReader(url.openStream()));
 		for (String s = bufferedReader.readLine(); s != null; s = bufferedReader
 				.readLine()) {
 			stringBuilder.append(s);
-		}
+		}*/
 		
-		Log.d(TAG, stringBuilder.toString());
+		//Log.d(TAG, stringBuilder.toString());
 		
 		JSONObject jsonObject = null;
 		JSONArray itemsJson = null;
 
 		try {
 			
-			jsonObject = new JSONObject(stringBuilder.toString());
+			jsonObject = new JSONObject(sb.toString());
 			
 			itemsJson = jsonObject.getJSONArray("data");
 			JSONObject ob = itemsJson.getJSONObject(0);

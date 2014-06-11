@@ -38,6 +38,8 @@ import com.ngstudio.zhaoshixi.R;
 public class DetailActivity extends Activity{
 
 	final static String TAG = "DetailActivity";
+	final static int LOADDETAIL_WRONG = 0;
+	final static int LOADDETAIL_OK = 1;
 	
 
 	private TextView titleView;
@@ -76,7 +78,7 @@ public class DetailActivity extends Activity{
 
 		Bundle bundle = getIntent().getExtras();
 		int item_id = bundle.getInt("item_id");
-		
+		//int item_id = 0 ;
 		item_insql = dbManager.querySingleItemOnline(item_id);
 		
 		
@@ -352,20 +354,26 @@ public class DetailActivity extends Activity{
 	private Handler mHandler = new Handler() {
 		@Override
 		public void handleMessage(Message message) {
-			try {
-//				titleView.setText(mItem.getTitle());
-//				contentView.setText(Html.fromHtml(mItem.getText_body()));
-//				timeView.setText(TimeUtils.stringToDay(mItem.getTime()));
-//				sourceView.setText(mItem.getSource());
-//				contentView.setAutoLinkMask(Linkify.ALL); 
-//				contentView.setMovementMethod(LinkMovementMethod.getInstance()); 
-				showViews();
-				
+			switch(message.what){
+			case LOADDETAIL_WRONG:
+				Toast.makeText(getApplicationContext(), "请求错误，请检查您的网络连接",
+					     Toast.LENGTH_SHORT).show();
 				proDialog.dismiss();
-			} catch (Exception e) {
-				// TODO: handle exception
-				System.out.println("有些没有");
+				break;
+			case LOADDETAIL_OK:
+				
+				try {
+					showViews();
+					} catch (Exception e) {
+					// TODO: handle exception
+					System.out.println("有些没有");
+				}
+				proDialog.dismiss();
+				break;
 			}
+			
+			
+			
 		}
 	};
 	class LoadData implements Runnable {
@@ -379,12 +387,16 @@ public class DetailActivity extends Activity{
 				//String url = "http://51zhaoshixi.com:8008/info/get_item?item_id=380";
 				mItem = mItemLoader.parserMovieJson(url);
 				//mdlist = mMessageLoader.parserMovieJson(url);
-				mHandler.sendEmptyMessage(choice);
+				if(mItem.equals(null)){
+					mHandler.sendEmptyMessage(LOADDETAIL_WRONG);
+				}
+				mHandler.sendEmptyMessage(LOADDETAIL_OK);
 				
 				Log.d(TAG, mItem.getTitle());
 
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
+				mHandler.sendEmptyMessage(LOADDETAIL_WRONG);
 				e.printStackTrace();
 			}
 		}

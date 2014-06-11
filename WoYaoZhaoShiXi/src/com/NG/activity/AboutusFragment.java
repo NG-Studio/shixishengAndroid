@@ -158,7 +158,7 @@ public class AboutusFragment extends Fragment {
 			super.handleMessage(msg);
 			switch (msg.what) {
 			case UPDATA_NONEED:
-				Toast.makeText(mContext.getApplicationContext(), "版本号相同无需升级",
+				Toast.makeText(mContext.getApplicationContext(), "已是最新版本^_^",
 						Toast.LENGTH_SHORT).show();
 				break;
 			case UPDATA_CLIENT:

@@ -3,6 +3,10 @@ package com.NG.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.content.Context;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
@@ -117,6 +121,61 @@ public class MyUtils {
 		return si;
 	}
 	
+	
+	
+	/**
+	 * 解析json串，变成ShixiMessage的方法
+	 * 
+	 * */
+	public static ShixiMessage jsonObjectToShixiMessage(JSONObject j) {
+		ShixiMessage message = new ShixiMessage();
+		try {
+
+			message.setTitle(j.getString("item_title"));
+			message.setMessage_id(j.getInt("item_id"));
+			message.setSource(j.getString("item_source"));
+			message.setSource_url(j.getString("item_url"));
+			message.setTime(j.getString("publish_time"));
+
+			// String time;
+			// long time_long = Long.parseLong(j.getString("publish_time"));
+			// time = TimeUtils.stringToSecond(time_long);
+			// message.setTime(time_long);
+
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return message;
+	}
+	
+	/**
+	 * json数组解析成shixiMessage 的list
+	 * 
+	 * */
+	public static List<ShixiMessage> jsonObjectToMessageList(JSONArray ja) {
+
+		int length = ja.length();
+		System.out.println("Json Array's length is :" + length);
+
+		List<ShixiMessage> list = new ArrayList<ShixiMessage>();
+		for (int i = 0; i < length; i++) {
+			try {
+				ShixiMessage md = new ShixiMessage();
+
+				md = jsonObjectToShixiMessage(ja.getJSONObject(i));
+
+				list.add(md);
+
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		return list;
+
+	}
 	
 	
 	

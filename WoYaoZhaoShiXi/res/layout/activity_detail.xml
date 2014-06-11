@@ -29,7 +29,6 @@
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:layout_margin="5dp"
-                    android:text="标题"
                     android:textColor="#333333"
                     android:textSize="20sp" />
 
@@ -45,7 +44,6 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:padding="3dp"
-                        android:text="2014-4-00 00:00"
                         android:textColor="#00beaa"
                         android:textSize="12sp" />
 
@@ -56,7 +54,6 @@
                         android:layout_alignParentRight="true"
                         android:background="#ffdbec"
                         android:padding="3dp"
-                        android:text="测试：北邮人论坛"
                         android:textColor="#971f68"
                         android:textSize="12sp"
                         android:textStyle="bold" />

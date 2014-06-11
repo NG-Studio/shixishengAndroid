@@ -280,7 +280,7 @@ public class ListFragment extends Fragment implements IXListViewListener{
 
 		@Override
 		public void run() {
-			int choice = 0;
+			int response = 0;
 			Log.d(TAG, "LoadUpdateData()");			
 			try {
 				Date d = new Date();
@@ -295,7 +295,7 @@ public class ListFragment extends Fragment implements IXListViewListener{
 				// "http://211.155.86.159:8008/info/get_message?startTime=0&endTime="+time_now+"&count=50";
 
 				updateList = mMessageLoader.parserMovieJson(url);
-				updateHandler.sendEmptyMessage(choice);
+				updateHandler.sendEmptyMessage(response);
 				
 				proDialog.dismiss();
 

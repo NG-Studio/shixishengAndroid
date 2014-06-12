@@ -25,6 +25,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.NG.loader.DownLoadManager;
@@ -39,6 +40,7 @@ public class AboutusFragment extends Fragment {
 	private Activity mActivity;
 	private Context mContext;
 	private Button checkVersionBth;
+	private TextView version_text;
 	
 	private final int UPDATA_NONEED = 0;
 	private final int UPDATA_CLIENT = 1;
@@ -84,7 +86,13 @@ public class AboutusFragment extends Fragment {
 			}
 
 		});
-		
+		version_text = (TextView) rootView.findViewById(R.id.text_version);
+		try {
+			version_text.setText("V"+getVersionName());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 
 		return rootView;
@@ -263,8 +271,8 @@ public class AboutusFragment extends Fragment {
 		// 执行动作
 		intent.setAction(Intent.ACTION_VIEW);
 		// 执行的数据类型
-		intent.setDataAndType(Uri.fromFile(file),
-				"application/vnd.android.package-archive");
+		intent.setDataAndType(Uri.fromFile(file),"application/vnd.android.package-archive");
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
 		startActivity(intent);
 	}
 	

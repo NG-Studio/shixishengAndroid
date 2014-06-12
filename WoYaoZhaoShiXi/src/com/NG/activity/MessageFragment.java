@@ -42,6 +42,10 @@ public class MessageFragment extends Fragment implements IXListViewListener {
 	
 	private static final int DOWNLOAD_WRONG = 0;
 	private static final int DOWNLOAD_OK = 1;
+	private static final int LOAD_FROM_LOACL_OK = 2;
+	
+	private static int LOADMORE_FROM_LOCAL  = 0;
+	private static int LOADMORE_FROM_INTERNET = 1;
 
 	SharedPreferences settings;
 	SharedPreferences.Editor editor;
@@ -58,10 +62,9 @@ public class MessageFragment extends Fragment implements IXListViewListener {
 	private static int UPDATE_NUM = 20;
 	private static int LOADMORE_NUM = 10;
 	
-	private int loadmore_state = 1;
+	private int loadmore_state = LOADMORE_FROM_INTERNET;
 	
-	private static int LOADMORE_FROM_LOCAL  = 0;
-	private static int LOADMORE_FROM_INTERNET = 1;
+	
 	
 	private static String user_mac = "";
 
@@ -131,11 +134,6 @@ public class MessageFragment extends Fragment implements IXListViewListener {
 		proDialog.setMessage("请耐心等待...");
 
 		mMessageLoader = new ShixiMessageLoader();
-
-		// new Thread(new LoadData()).start();
-		// proDialog.show();
-		loadDataInSql();
-
 		
 		mListView.setDividerHeight(0);
 		mListView.setOnItemClickListener(new OnItemClickListener() {
@@ -154,34 +152,38 @@ public class MessageFragment extends Fragment implements IXListViewListener {
 
 			}
 		});
-
+		
 		// 若为第一次使用，则自动执行一次刷新操作
 		settings = mContext.getSharedPreferences("setting",
 				Activity.MODE_PRIVATE);
 		editor = settings.edit();
 		Boolean isFisrtUpdate = settings.getBoolean("isFisrtUpdate", true);
 		if (isFisrtUpdate) {
-			
+
 			System.out.println("首次使用");
 			editor.putBoolean("isFisrtUpdate", false);
 			editor.commit();
 			new Thread(new LoadUpdateData()).start();
 			onLoad();
 			proDialog.show();
-			
+
 			guide_frame.setVisibility(View.VISIBLE);
-			
+
 		} else {
 			System.out.println("不是首次使用");
-			
+
 		}
+		
+		//进入这一页面时，从本地准备数据
+		loadDataInSql();
+		
 
 		return rootView;
 	}
 
 	private void loadDataInSql() {
 		// TODO Auto-generated method stub
-		loadmore_state = LOADMORE_FROM_LOCAL;
+		//loadmore_state = LOADMORE_FROM_LOCAL;
 		
 		Date d = new Date();
 		current_time = d.getTime() / 1000;
@@ -258,7 +260,7 @@ public class MessageFragment extends Fragment implements IXListViewListener {
 							Toast.LENGTH_LONG).show();
 					if (insert_count == UPDATE_NUM) {
 						
-						loadmore_state = LOADMORE_FROM_INTERNET;
+						//loadmore_state = LOADMORE_FROM_INTERNET;
 						showList= updateList;
 						mAdapter = new MessageAdapter(mContext, showList);
 						mListView.setAdapter(mAdapter);	
@@ -266,7 +268,7 @@ public class MessageFragment extends Fragment implements IXListViewListener {
 					}
 					else{
 						
-						loadmore_state = LOADMORE_FROM_LOCAL;
+						//loadmore_state = LOADMORE_FROM_LOCAL;
 						showList = MyUtils.ItemListInSql2MessageList(dbManager
 								.queryMultipleItemsByTime(current_time + "",
 										UPDATE_NUM));
@@ -291,8 +293,6 @@ public class MessageFragment extends Fragment implements IXListViewListener {
 	};
 
 	class LoadUpdateData implements Runnable {
-		
-		int response = 0;
 		
 		@Override
 		public void run() {
@@ -328,52 +328,67 @@ public class MessageFragment extends Fragment implements IXListViewListener {
 	private Handler loadmoreHandler = new Handler() {
 		@Override
 		public void handleMessage(Message message) {
-			try {
-				// 正常情况下，都是去读取旧的
-				if (loadmore_state == LOADMORE_FROM_LOCAL) {
-
-					showList.addAll(loadmoreList);
-					
-					mAdapter.notifyDataSetChanged();
-					//如果本地查找的数据 不足20条，则说明 本地没有了，需要从网络上请求
-					if(loadmoreList.size() < UPDATE_NUM){
-						loadmore_state = LOADMORE_FROM_INTERNET;
-						loadmore_end_time = Long.parseLong(showList.get(
-								showList.size() - 1).getTime()) - 1;
-						Log.d(TAG, "loadmore_end_time = " + loadmore_end_time);
-						return;
-					}
-
+			switch(message.what){
+			case LOAD_FROM_LOACL_OK:
+				
+				showList.addAll(loadmoreList);				
+				mAdapter.notifyDataSetChanged();
+				//如果本地查找的数据 不足20条，则说明 本地没有了，需要从网络上请求
+				if(loadmoreList.size() < LOADMORE_NUM){
+					loadmore_state = LOADMORE_FROM_INTERNET;
 				}
-				if (loadmore_state == LOADMORE_FROM_INTERNET) {
-					// 不管啥情况，都要写进本地数据库
-					insert_count = dbManager.addMultipleItemsOnline(MyUtils
-							.MessageList2ItemInSqlList(loadmoreList));
-					Log.d(TAG, "insert_count = " + insert_count);
-					
-					// 小于，说明余下的是在本地，接上了，所以要从本地显示出来
-					if (insert_count < LOADMORE_NUM) {
-						loadmore_state = LOADMORE_FROM_LOCAL;
-						showList.addAll(MyUtils
-								.ItemListInSql2MessageList(dbManager
-										.queryMultipleItemsByTime(
-												loadmore_end_time + "",
-												LOADMORE_NUM)));
-						mAdapter.notifyDataSetChanged();
-					}
-					// 本地的比较旧，仍有一些没有读出来
-					else {
-						showList.addAll(loadmoreList);
-						mAdapter.notifyDataSetChanged();
-					}
+				loadmore_end_time = Long.parseLong(showList.get(
+						showList.size() - 1).getTime()) - 1;
+				Log.d(TAG, "loadmore_end_time = " + loadmore_end_time);
+				break;
+				
+			case DOWNLOAD_WRONG:
+				Log.d(TAG, "download wrong, do nothing");
+				Toast.makeText(mContext, "请求错误，显示本地数据", 
+						Toast.LENGTH_SHORT).show();
+				loadmoreList = MyUtils.ItemListInSql2MessageList(dbManager
+						.queryMultipleItemsByTime(loadmore_end_time + "",
+								LOADMORE_NUM));
+				showList.addAll(loadmoreList);				
+				mAdapter.notifyDataSetChanged();
+				//如果本地查找的数据 不足20条，则说明 本地没有了，需要从网络上请求
+				if(loadmoreList.size() < UPDATE_NUM){
+					loadmore_state = LOADMORE_FROM_INTERNET;
+					loadmore_end_time = Long.parseLong(showList.get(
+							showList.size() - 1).getTime()) - 1;
+					Log.d(TAG, "loadmore_end_time = " + loadmore_end_time);
+					return;
+				}
+				break;
+			case DOWNLOAD_OK:
+				// 不管啥情况，都要写进本地数据库
+				insert_count = dbManager.addMultipleItemsOnline(MyUtils
+						.MessageList2ItemInSqlList(loadmoreList));
+				Log.d(TAG, "insert_count = " + insert_count);
+				Toast.makeText(mContext, "加载了" + insert_count + "条新的实习信息",
+						Toast.LENGTH_SHORT).show();
+				// 小于，说明余下的是在本地，接上了，所以要从本地显示出来
+				if (insert_count < LOADMORE_NUM) {
+					loadmore_state = LOADMORE_FROM_LOCAL;
+					showList.addAll(MyUtils
+							.ItemListInSql2MessageList(dbManager
+									.queryMultipleItemsByTime(
+											loadmore_end_time + "",
+											LOADMORE_NUM)));
+					mAdapter.notifyDataSetChanged();				
+				}
+				// 本地的比较旧，仍有一些没有读出来
+				else {
+					showList.addAll(loadmoreList);
+					mAdapter.notifyDataSetChanged();
 				}
 				//无论任何情况，loadmore的结束时间 都应该是当前显示列表的 最后一项的时间-1
 				loadmore_end_time = Long.parseLong(showList.get(
 						showList.size() - 1).getTime()) - 1;
 				Log.d(TAG, "loadmore_end_time = " + loadmore_end_time);
-
-			} catch (Exception e) {
-				// TODO: handle exception
+				break;
+				
+				
 			}
 		}
 
@@ -383,7 +398,6 @@ public class MessageFragment extends Fragment implements IXListViewListener {
 
 		@Override
 		public void run() {
-			int choice = 0;
 			Log.d(TAG, "LoadMoreData()");
 			if (loadmore_state == LOADMORE_FROM_LOCAL) {
 				Log.d(TAG, "LOADMORE_FROM_LOCAL");
@@ -392,7 +406,7 @@ public class MessageFragment extends Fragment implements IXListViewListener {
 								LOADMORE_NUM));
 				Log.d(TAG, "loadmoreList'size = "+loadmoreList.size());
 				
-				loadmoreHandler.sendEmptyMessage(choice);
+				loadmoreHandler.sendEmptyMessage(LOAD_FROM_LOACL_OK);
 			}
 			else{
 				Log.d(TAG, "LOADMORE_FROM_INTERNET");
@@ -403,9 +417,10 @@ public class MessageFragment extends Fragment implements IXListViewListener {
 							+ loadmore_end_time
 							+ "&count=" + LOADMORE_NUM + "&mac=" + user_mac;
 					loadmoreList = mMessageLoader.parserMovieJson(url);
-					loadmoreHandler.sendEmptyMessage(choice);
+					loadmoreHandler.sendEmptyMessage(DOWNLOAD_OK);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
+					loadmoreHandler.sendEmptyMessage(DOWNLOAD_WRONG);
 					e.printStackTrace();
 				}
 			}	

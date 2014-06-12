@@ -5,6 +5,8 @@ import java.util.Date;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
@@ -184,7 +186,13 @@ public class FeedbackFragment extends Fragment{
 			body += "-------------------------";
 			body += TimeUtils.longToMinute(time_now) + "\n\n";
 			body += "-------------------------该用户mac地址为  " + mac + "\n";
-			body += "-------------------------当前邮件来自哇实习客户端";
+			try {
+				body += "-------------------------当前邮件来自哇实习客户端 "+getVersionName();
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				body += "-------------------------当前邮件来自哇实习客户端";
+				e1.printStackTrace();
+			}
 
 			m.setBody(body);
 
@@ -243,5 +251,17 @@ public class FeedbackFragment extends Fragment{
 			
 			super.onPostExecute(r);    
 		}   
+		
+		/*
+		 * 获取当前程序的版本号
+		 */
+		private String getVersionName() throws Exception {
+			// 获取packagemanager的实例
+			PackageManager packageManager = mContext.getPackageManager();
+			// getPackageName()是你当前类的包名，0代表是获取版本信息
+			PackageInfo packInfo = packageManager.getPackageInfo(mContext.getPackageName(),
+					0);
+			return packInfo.versionName;
+		}
 	}    
 }

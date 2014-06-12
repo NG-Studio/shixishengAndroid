@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -255,31 +256,37 @@ public class MessageFragment extends Fragment implements IXListViewListener {
 					//将下拉刷新得到的list存入数据库
 					insert_count = dbManager.addMultipleItemsOnline(MyUtils
 							.MessageList2ItemInSqlList(updateList));
-					
-					Toast.makeText(mContext, "更新了" + insert_count + "条实习信息",
-							Toast.LENGTH_LONG).show();
+					if (insert_count == 0) {
+						Toast toast = Toast.makeText(mContext, "您的数据已经是最新的^_^",
+								Toast.LENGTH_LONG);
+						toast.setGravity(Gravity.TOP, 0, 100);
+						toast.show();
+					} else {
+						Toast toast = Toast.makeText(mContext, "更新了" + insert_count + "条实习信息",
+								Toast.LENGTH_LONG);
+						toast.setGravity(Gravity.TOP, 0, 100);
+						toast.show();
+					}					
 					if (insert_count == UPDATE_NUM) {
-						
-						//loadmore_state = LOADMORE_FROM_INTERNET;
-						showList= updateList;
+
+						// loadmore_state = LOADMORE_FROM_INTERNET;
+						showList = updateList;
 						mAdapter = new MessageAdapter(mContext, showList);
-						mListView.setAdapter(mAdapter);	
-						
-					}
-					else{
-						
-						//loadmore_state = LOADMORE_FROM_LOCAL;
+						mListView.setAdapter(mAdapter);
+
+					} else {
+
+						// loadmore_state = LOADMORE_FROM_LOCAL;
 						showList = MyUtils.ItemListInSql2MessageList(dbManager
 								.queryMultipleItemsByTime(current_time + "",
 										UPDATE_NUM));
 						mAdapter = new MessageAdapter(mContext, showList);
-						mListView.setAdapter(mAdapter);	
-						
+						mListView.setAdapter(mAdapter);
+
 					}
-					
+
 					loadmore_end_time = Long.parseLong(showList.get(
 							showList.size() - 1).getTime()) - 1;
-					
 
 				} catch (Exception e) {
 					// TODO: handle exception
@@ -365,8 +372,12 @@ public class MessageFragment extends Fragment implements IXListViewListener {
 				insert_count = dbManager.addMultipleItemsOnline(MyUtils
 						.MessageList2ItemInSqlList(loadmoreList));
 				Log.d(TAG, "insert_count = " + insert_count);
-				Toast.makeText(mContext, "加载了" + insert_count + "条新的实习信息",
-						Toast.LENGTH_SHORT).show();
+				if (insert_count == 0) {
+					
+				} else {
+					Toast.makeText(mContext, "加载了" + insert_count + "条新的实习信息",
+							Toast.LENGTH_SHORT).show();
+				}				
 				// 小于，说明余下的是在本地，接上了，所以要从本地显示出来
 				if (insert_count < LOADMORE_NUM) {
 					loadmore_state = LOADMORE_FROM_LOCAL;

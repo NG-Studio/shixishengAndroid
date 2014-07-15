@@ -5,7 +5,7 @@
     android:versionName="1.0.3" >
 
     <uses-sdk
-        android:minSdkVersion="15"
+        android:minSdkVersion="7"
         android:targetSdkVersion="16" />
 	
     <!-- 注册权限 -->
@@ -35,7 +35,7 @@
             android:name="com.NG.activity.SplashActivity"
             android:label="哇！实习"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Holo.NoActionBar"
+            android:theme="@android:style/Theme.NoTitleBar"
             >     
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

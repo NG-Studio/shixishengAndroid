@@ -45,6 +45,7 @@ import cn.sharesdk.framework.ShareSDK;
 
 import com.NG.adapter.DrawerAdapter;
 import com.ngstudio.zhaoshixi.R;
+import com.umeng.analytics.AnalyticsConfig;
 
 /**
  * This example illustrates a common usage of the DrawerLayout widget
@@ -74,6 +75,7 @@ import com.ngstudio.zhaoshixi.R;
  * for example enabling or disabling a data overlay on top of the current content.</p>
  */
 public class Main extends BaseActivity {
+
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -118,6 +120,8 @@ public class Main extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
+        AnalyticsConfig.setAppkey("539d97ba56240ba62711a6a4");
         
         mActionBar = getSupportActionBar();
         

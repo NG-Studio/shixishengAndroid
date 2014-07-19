@@ -83,7 +83,10 @@
             </intent-filter>
         </activity>
         
-</application>
+        <meta-data android:value="539d97ba56240ba62711a6a4" android:name="UMENG_APPKEY"></meta-data>
+		<meta-data android:value="Washixi" android:name="UMENG_CHANNEL"/>
+        
+	</application>
     
 
 </manifest>

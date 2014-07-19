@@ -73,7 +73,7 @@ import com.ngstudio.zhaoshixi.R;
  * An action should be an operation performed on the current contents of the window,
  * for example enabling or disabling a data overlay on top of the current content.</p>
  */
-public class Main extends ActionBarActivity {
+public class Main extends BaseActivity {
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;

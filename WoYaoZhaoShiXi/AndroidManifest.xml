@@ -5,7 +5,7 @@
     android:versionName="1.1.0" >
 
     <uses-sdk
-        android:minSdkVersion="15"
+        android:minSdkVersion="7"
         android:targetSdkVersion="16" />
 	
     <!-- 注册权限 -->
@@ -23,7 +23,7 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/CustomActionBarTheme"
+        android:theme="@style/Theme.AppCompat.Light"
         >
         <activity
             android:name="com.NG.db.MessageOfSql"
@@ -35,7 +35,7 @@
             android:name="com.NG.activity.SplashActivity"
             android:label="哇！实习"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Holo.NoActionBar"
+            android:theme="@android:style/Theme.NoTitleBar"
             >     
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -83,7 +83,10 @@
             </intent-filter>
         </activity>
         
-</application>
+        <meta-data android:value="539d97ba56240ba62711a6a4" android:name="UMENG_APPKEY"></meta-data>
+		<meta-data android:value="Washixi" android:name="UMENG_CHANNEL"/>
+        
+	</application>
     
 
 </manifest>

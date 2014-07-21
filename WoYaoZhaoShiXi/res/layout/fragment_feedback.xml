@@ -33,7 +33,7 @@
                 android:gravity="top"
                 android:hint="请留下您宝贵的建议或意见，我们会更加努力的！"
                 android:textSize="18sp"
-                android:textColor="#bb609e"
+                android:textColor="#555555"
                 android:textColorHint="#bb609e" />
         </LinearLayout>
 
@@ -57,7 +57,7 @@
                 android:layout_height="fill_parent"
                 android:background="#caf3ec"
                 android:hint="手机或者邮箱（选填）"
-                android:textColor="#bb609e"
+                android:textColor="#555555"
                 android:textColorHint="#bb609e"
                 android:textSize="18sp" />
         </LinearLayout>

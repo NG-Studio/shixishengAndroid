@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#caf3ec"
+    android:background="#faf1f1"
     android:orientation="vertical" >
 
     <ScrollView
@@ -44,7 +44,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:padding="3dp"
-                        android:textColor="#00beaa"
+                        android:textColor="#ff9090"
                         android:textSize="12sp" />
 
                     <TextView
@@ -52,9 +52,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:background="#ffdbec"
+                        android:background="#5cd5c9"
                         android:padding="3dp"
-                        android:textColor="#971f68"
+                        android:textColor="#ffffff"
                         android:textSize="12sp"
                         android:textStyle="bold" />
                 </RelativeLayout>
@@ -63,7 +63,7 @@
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="2dp"
-                android:background="#caf3ec"
+                android:background="#faf1f1"
                 android:orientation="vertical" >
             </LinearLayout>
 
@@ -86,7 +86,7 @@
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="2dp"
-                android:background="#caf3ec"
+                android:background="#faf1f1"
                 android:orientation="vertical" >
             </LinearLayout>
 
@@ -108,7 +108,7 @@
                     android:layout_marginBottom="10dp"
                     android:padding="5dp"
                     android:text="已自动优化阅读，点击查看原文"
-                    android:textColor="#00cec8" />
+                    android:textColor="#ff9090" />
                 
                  <LinearLayout
                     android:layout_width="fill_parent"

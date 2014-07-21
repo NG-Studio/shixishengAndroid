@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="#caf3ec"
+    android:background="#faf1f1"
     android:orientation="vertical" 
     android:paddingLeft="5dp"
     android:paddingRight="5dp"
@@ -43,7 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="2014-04-18"
-                android:textColor="#333333"
+                android:textColor="#555555"
                 android:textSize="13sp" />
 
             <TextView
@@ -52,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:text="北邮人论坛"
-                android:textColor="#333333"
+                android:textColor="#555555"
                 android:textSize="13sp" />
         </RelativeLayout>
     </LinearLayout>

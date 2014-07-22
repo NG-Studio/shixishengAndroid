@@ -1,15 +1,13 @@
 package com.NG.activity;
 
 
-import com.ngstudio.zhaoshixi.R;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
-import android.view.Window;
-import android.view.WindowManager;
+
+import com.ngstudio.zhaoshixi.R;
 
 public class SplashActivity extends Activity{
 	private final int SPLASH_DISPLAY_LENGHT = 2000; // Splash display time in ms

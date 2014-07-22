@@ -6,8 +6,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -16,10 +14,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.xml.sax.SAXException;
 
-import com.NG.db.ShixiItem;
-import com.NG.util.TimeUtils;
-
 import android.util.Log;
+
+import com.NG.db.ShixiItem;
 
 public class ShixiItemLoader {
 	private static final String TAG = "DetailInfoLoader";

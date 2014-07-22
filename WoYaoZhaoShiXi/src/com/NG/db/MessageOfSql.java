@@ -1,31 +1,24 @@
 package com.NG.db;
 
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import me.maxwin.view.XListView;
-
-import com.NG.activity.DetailActivity;
-import com.NG.activity.SearchActivity;
-import com.NG.adapter.MessageAdapter;
-import com.NG.loader.ShixiMessageLoader;
-import com.ngstudio.zhaoshixi.R;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ListView;
 import android.widget.Toast;
+
+import com.NG.adapter.MessageAdapter;
+import com.NG.loader.ShixiMessageLoader;
+import com.ngstudio.zhaoshixi.R;
 
 public class MessageOfSql extends Activity {
 

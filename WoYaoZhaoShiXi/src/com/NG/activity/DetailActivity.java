@@ -1,6 +1,5 @@
 package com.NG.activity;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -9,6 +8,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.app.ActionBar;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;
@@ -35,7 +35,7 @@ import com.NG.util.TimeUtils;
 import com.ngstudio.zhaoshixi.R;
 
 
-public class DetailActivity extends Activity{
+public class DetailActivity extends BaseActivity{
 
 	final static String TAG = "DetailActivity";
 	final static int LOADDETAIL_WRONG = 0;
@@ -91,7 +91,7 @@ public class DetailActivity extends Activity{
 		mItemLoader = new ShixiItemLoader();
 		Log.d(TAG, "getIs_collected = "+item_insql.getIs_collected());
 		
-		this.getWindow().invalidatePanelMenu(Window.FEATURE_OPTIONS_PANEL);
+		//this.getWindow().invalidatePanelMenu(Window.FEATURE_OPTIONS_PANEL);
 		
 		if(item_insql.getIs_collected()==1){
 			
@@ -146,7 +146,7 @@ public class DetailActivity extends Activity{
 	public void initView(){
 		
 		/* 显示App icon左侧的back键 */
-		ActionBar actionBar = getActionBar();
+		ActionBar actionBar = getSupportActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		
 		titleView = (TextView) findViewById(R.id.item_title);

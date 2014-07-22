@@ -87,6 +87,7 @@
 		<meta-data android:value="Washixi" android:name="UMENG_CHANNEL"/>
         
 	</application>
+
     
 
 </manifest>

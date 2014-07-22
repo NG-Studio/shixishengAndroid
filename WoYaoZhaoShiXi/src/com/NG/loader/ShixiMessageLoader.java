@@ -17,7 +17,6 @@ import org.xml.sax.SAXException;
 import android.util.Log;
 
 import com.NG.db.ShixiMessage;
-import com.NG.util.TimeUtils;
 
 public class ShixiMessageLoader {
 	private static final String TAG = "MessageInfoLoader";

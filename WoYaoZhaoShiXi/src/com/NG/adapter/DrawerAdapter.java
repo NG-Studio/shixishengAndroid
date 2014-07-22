@@ -1,9 +1,5 @@
 package com.NG.adapter;
 
-import java.util.List;
-
-import com.ngstudio.zhaoshixi.R;
-
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.ngstudio.zhaoshixi.R;
 
 public class DrawerAdapter extends BaseAdapter{
 

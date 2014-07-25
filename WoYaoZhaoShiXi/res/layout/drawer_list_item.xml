@@ -21,7 +21,9 @@
     android:background="@drawable/drawer_list_item"
     android:gravity="center_vertical"  
     android:paddingLeft="16dp"
-    android:paddingRight="16dp" >
+    android:paddingRight="16dp" 
+    android:minHeight="48dp"
+    >
 
     <ImageView
         android:id="@+id/drawer_image"
@@ -34,8 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:textSize="20dp"
-        android:text="全部实习"
+        android:textSize="20sp"
         android:textColor="#ffffff" />
 
 </LinearLayout>

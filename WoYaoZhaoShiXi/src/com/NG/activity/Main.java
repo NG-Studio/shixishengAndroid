@@ -244,6 +244,7 @@ public class Main extends BaseActivity {
         Fragment feedbackFg = new FeedbackFragment();
         Fragment aboutusFg = new AboutusFragment();
         //Fragment settingFg = new SettingFragment();
+        Fragment faqFg = new FaqFragment();
         
 //        Bundle args = new Bundle();
 //        args.putInt(MessageFragment.ARG_PLANET_NUMBER, position);
@@ -280,7 +281,10 @@ public class Main extends BaseActivity {
 			ft.commit();
 			break;
 			*/
-			
+		case 4:
+			ft.replace(R.id.content_frame, faqFg);
+			ft.commit();
+			break;
 	        
 		}
         

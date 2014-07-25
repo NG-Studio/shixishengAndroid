@@ -23,6 +23,7 @@
         <item>我的收藏</item>
         <item>吐槽一下</item>
         <item>关于我们</item>
+        <item>FAQ</item>
     </string-array>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
@@ -106,5 +107,25 @@
 	<string name="pull_to_refresh">下拉刷新</string>
 	<string name="release_to_refresh">松开刷新</string>
 	<string name="refreshing">刷新中…</string>
+	
+	
+	<string name="FAQ_title">根据之前版本大家关心的问题，我们团队也给出了一些解答，不知您是否满意</string>
+	<string name="FAQ_text">
+	    1.哇实习的实习信息都是真实的吗？\n\n
+	    A：哇实习的实习信息全部来自北邮人论坛、水木论坛的兼职实习板块，信息质量完全真实可靠，用户可以在详情页点击原文链接查看原网页的内容。
+	    \n\n\n
+	    2.哇实习只有信息展示的功能吗？\n\n
+	    A：当前我们的应用主要是为用户展示实习信息，并提供关键词搜索，分享，收藏等多种交互方式，给用户查看信息提供最大的便利！
+		\n\n\n
+		3.如何更好的利用哇实习找到实习？\n\n
+		A：根据我们团队成员自身的经验，大家在使用哇实习的过程中，除了可以将好的实习信息收藏下来或者分享给自己，然后到电脑上去投递简历这一方式之外，还可以增加好友之间的分享哦~ 比如做后台的同学看到一条非常好的前端JS的实习，就可以通过微信、QQ发给基友、女神，人多力量大嘛。
+		\n\n\n
+		4.哇实习做的不错，但是找到实习之后就没用了吗？\n\n
+		A：当然不是，之后我们会哇实习的兄弟篇《哇！校招》，希望大家继续支持~ 大家有什么好的建议或者需求，也都可以通过反馈模块或者发邮件告诉我们哦^_^，我们的邮箱是ngstudiochina@gmail.com。
+		\n\n\n
+		5.哪里可以下载到哇实习？\n\n
+		A：目前哇实习已经在各大主流Android应用商店上线，大家可以在那里搜索下载，如果您觉得好，请给个好评哦，亲:-)
+		\n\n
+	</string>
     
 </resources>

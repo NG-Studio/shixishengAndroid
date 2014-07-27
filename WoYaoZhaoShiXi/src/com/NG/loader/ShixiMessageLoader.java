@@ -62,6 +62,7 @@ public class ShixiMessageLoader {
 		}
 		for(int i=0;i<messageList.size();i++){
 			Log.d(TAG, messageList.get(i).getTitle());
+			Log.d(TAG, messageList.get(i).getTime());
 		}
 		return messageList;
 

@@ -78,6 +78,9 @@ public class DrawerAdapter extends BaseAdapter{
 		case 3:
 			viewHolder.mImageView.setImageResource(R.drawable.drawer_icon_aboutus);
 			break;
+		case 4:
+			viewHolder.mImageView.setImageResource(R.drawable.drawer_icon_faq);
+			break;
 		}
 		
 

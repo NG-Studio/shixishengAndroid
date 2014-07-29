@@ -3,12 +3,12 @@
           android:icon="@drawable/icon_collect"
           android:padding="10dp"
           android:title="收藏"
-          android:showAsAction="ifRoom|withText" />
+          android:showAsAction="ifRoom" />
     
     <item android:id="@+id/action_share_btn"
           android:icon="@drawable/button_share"
           android:padding="10dp"
           android:title="分享"
-          android:showAsAction="ifRoom|withText" />
+          android:showAsAction="ifRoom" />
     
 </menu>

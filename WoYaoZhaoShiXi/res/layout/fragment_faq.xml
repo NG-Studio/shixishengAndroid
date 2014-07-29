@@ -7,11 +7,11 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:padding="15dp"
         >
         <TextView 
         	android:layout_width="fill_parent"
         	android:layout_height="wrap_content"
-        	android:layout_margin="15dp"
         	android:text="@string/FAQ_title"
         	android:textSize="20sp"
         	android:textColor="#333333"
@@ -19,11 +19,10 @@
         />
     
    		<TextView 
+   		    android:id="@+id/tv_faq"
         	android:layout_width="fill_parent"
         	android:layout_height="wrap_content"
-        	android:layout_margin="15dp"
-        	android:text="@string/FAQ_text"
-        	android:textSize="18sp"
+        	android:textSize="15sp"
         	android:textColor="#555555"
         />
     </LinearLayout>
